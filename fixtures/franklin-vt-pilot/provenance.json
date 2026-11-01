@@ -1,0 +1,59 @@
+{
+ "location": "Franklin County, Vermont, USA (exact location withheld; no landowner relationship or site access)",
+ "field_area_ha": 9.8725,
+ "relief_m": 15.0,
+ "data": {
+  "terrain": "USGS 3DEP bare-earth DEM dynamic service",
+  "land_cover": "NLCD 2021 Cultivated Crops (class 82), MRLC WMS, 5 m resample of 30 m data",
+  "soils": "USDA NRCS SSURGO via Soil Data Access; dominant major component per map unit"
+ },
+ "soils": [
+  {
+   "map_unit": "Rumney variant silt loam",
+   "component": "Rumney",
+   "share_of_samples": 0.63,
+   "soc0_30_tC_ha": 72.3,
+   "aws0_100_mm": 184.6
+  },
+  {
+   "map_unit": "Peru fine sandy loam, 3 to 15 percent slopes, very stony",
+   "component": "Peru",
+   "share_of_samples": 0.26,
+   "soc0_30_tC_ha": 151.3,
+   "aws0_100_mm": 114.2
+  },
+  {
+   "map_unit": "Eldridge loamy fine sand, 8 to 15 percent slopes",
+   "component": "Eldridge",
+   "share_of_samples": 0.05,
+   "soc0_30_tC_ha": 61.8,
+   "aws0_100_mm": 130.9
+  },
+  {
+   "map_unit": "Munson silt loam, 8 to 15 percent slopes",
+   "component": "Munson",
+   "share_of_samples": 0.04,
+   "soc0_30_tC_ha": 111.7,
+   "aws0_100_mm": 181.6
+  },
+  {
+   "map_unit": "Limerick silt loam",
+   "component": "Limerick",
+   "share_of_samples": 0.02,
+   "soc0_30_tC_ha": 60.3,
+   "aws0_100_mm": 224.0
+  }
+ ],
+ "soc_method": "SSURGO dominant major component per map unit; SOC = OM*0.58*BD*thickness (van Bemmelen factor); AWS = AWC*thickness; point-sample area weights (60 points)",
+ "soc_adjustment": "Peru map unit O horizon (80% OM, 0-3 cm) excluded for cultivated land: 114.9 tC/ha used instead of 151.3",
+ "soc0_30_tC_ha_used": 84.1,
+ "aws0_100_mm_used": 163.8,
+ "not_observed": [
+  "climate (assumed 1000 mm precipitation, 650 mm PET)",
+  "wind distribution",
+  "crop productivity, prices, costs",
+  "machinery width",
+  "tree growth and all process rates"
+ ],
+ "retrieved": "2026-11-01"
+}

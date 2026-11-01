@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contour-alley-designer"
+version = "0.5.0.dev0"
+description = "Field-scale contour alley-cropping design: water, carbon, leakage and durability on real terrain"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10"
+authors = [{name = "Viridis LLC (Viridis Conservation)"}]
+
+[tool.setuptools]
+packages = ["contour"]

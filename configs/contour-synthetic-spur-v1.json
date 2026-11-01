@@ -1,0 +1,56 @@
+{
+  "field": {
+    "synthetic": {
+      "rows": 32,
+      "cols": 40,
+      "cell_m": 5.0,
+      "grade": 0.08,
+      "undulation_m": 9.0
+    }
+  },
+  "species_file": "fixtures/species-northeast-v1.json",
+  "management": {
+    "tree_crops": [
+      "hazel_am",
+      "chestnut_hyb"
+    ],
+    "fixer_trees": [
+      "alder_speckled"
+    ],
+    "cover_legumes": [
+      "clover_white",
+      "vetch_hairy"
+    ]
+  },
+  "species_overrides": {},
+  "layout": {
+    "alley_m": 25.0,
+    "row_m": 5.0,
+    "machinery_m": 5.0,
+    "tree_fraction": 0.1667,
+    "straight_bearings": [
+      0,
+      90
+    ],
+    "prevailing": "W"
+  },
+  "parameters": {},
+  "assumed_effects": {
+    "et_beta": 0.25,
+    "yield_gamma": 0.12,
+    "competition_c0": 0.3,
+    "competition_len_H": 1.0,
+    "porosity": 0.45
+  },
+  "horizons": [
+    10,
+    25,
+    40
+  ],
+  "ablation": true,
+  "porosity_sweep": [
+    0.2,
+    0.45,
+    0.7
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "ViridisSpecies-1",
+  "region": "Northeastern United States (draft; Vermont focus)",
+  "status": "unverified draft from general knowledge; check every invasive_status against current state lists before field use",
+  "species": [
+    {"id": "hazel_am", "taxon": "Corylus americana", "common": "American hazelnut", "roles": ["tree_crop"], "fixation": "none", "native_region": "native", "invasive_status": "not_listed", "notes": "Shrub nut crop suited to hedgerow rows.", "source": "REVIEW REQUIRED"},
+    {"id": "chestnut_hyb", "taxon": "Castanea mollissima x dentata hybrids", "common": "Hybrid chestnut", "roles": ["tree_crop", "timber"], "fixation": "none", "native_region": "introduced hybrid", "invasive_status": "not_listed", "notes": "Smith-style tree crop; blight resistance varies by selection.", "source": "REVIEW REQUIRED"},
+    {"id": "walnut_bl", "taxon": "Juglans nigra", "common": "Black walnut", "roles": ["tree_crop", "timber"], "fixation": "none", "native_region": "native south of VT; planted north", "invasive_status": "not_listed", "notes": "Juglone is allelopathic to many alley crops; check crop compatibility before use.", "source": "REVIEW REQUIRED"},
+    {"id": "honeylocust", "taxon": "Gleditsia triacanthos", "common": "Honey locust", "roles": ["tree_crop", "timber"], "fixation": "none", "native_region": "native to central/eastern US", "invasive_status": "unknown", "notes": "Smith's pod tree; generally reported as non-nodulating, so the gate rejects it as a fixer.", "source": "REVIEW REQUIRED"},
+    {"id": "alder_speckled", "taxon": "Alnus incana ssp. rugosa", "common": "Speckled alder", "roles": ["fixer_tree"], "fixation": "actinorhizal", "native_region": "native", "invasive_status": "not_listed", "notes": "Actinorhizal fixer; prefers moist sites, coppices well.", "source": "REVIEW REQUIRED"},
+    {"id": "locust_black", "taxon": "Robinia pseudoacacia", "common": "Black locust", "roles": ["fixer_tree", "timber"], "fixation": "rhizobial", "native_region": "native to Appalachia; introduced in New England", "invasive_status": "listed_some_jurisdictions", "notes": "Strong fixer and fuel/post wood; invasive listing in some northeastern jurisdictions.", "source": "REVIEW REQUIRED"},
+    {"id": "nj_tea", "taxon": "Ceanothus americanus", "common": "New Jersey tea", "roles": ["fixer_tree"], "fixation": "actinorhizal", "native_region": "native", "invasive_status": "not_listed", "notes": "Small native actinorhizal shrub for row understory.", "source": "REVIEW REQUIRED"},
+    {"id": "autumn_olive", "taxon": "Elaeagnus umbellata", "common": "Autumn olive", "roles": ["fixer_tree"], "fixation": "actinorhizal", "native_region": "introduced", "invasive_status": "listed", "notes": "Invasive; kept only so the gate rejection is tested.", "source": "REVIEW REQUIRED"},
+    {"id": "vetch_hairy", "taxon": "Vicia villosa", "common": "Hairy vetch", "roles": ["cover_legume"], "fixation": "rhizobial", "native_region": "introduced", "invasive_status": "unknown", "notes": "Winter annual; hard seed can contaminate later small grains; can climb seedlings.", "source": "REVIEW REQUIRED"},
+    {"id": "clover_white", "taxon": "Trifolium repens", "common": "White clover", "roles": ["cover_legume"], "fixation": "rhizobial", "native_region": "introduced, naturalized", "invasive_status": "not_listed", "notes": "Persistent living mulch; needs correct rhizobia inoculant.", "source": "REVIEW REQUIRED"},
+    {"id": "clover_red", "taxon": "Trifolium pratense", "common": "Red clover", "roles": ["cover_legume"], "fixation": "rhizobial", "native_region": "introduced, naturalized", "invasive_status": "not_listed", "notes": "Short-lived perennial cover.", "source": "REVIEW REQUIRED"}
+  ]
+}

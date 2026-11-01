@@ -1,0 +1,454 @@
+"""Monthly cell kernel for contour alley systems.
+
+Per active cell: water W (mm), SOC S, above/below woody A/B, surface residue R, living cover
+Cv, on-site biochar Z and imported biochar Zi (all tC/ha), mineral N M, organic N O, woody
+plant N PN, residue N RN, cover N CvN and biochar N ZN (all kgN/ha).
+
+Invariants implemented here (spec references in brackets):
+- Surface water routed downslope as run-on; rows infiltrate up to capacity [CA2]. Field
+  water balance closes: rain = d(storage) + ET + drainage + field outflow.
+- Shelter and competition effects default to zero [CA3, CA4].
+- Only the atmospheric share (Ndfa) of legume N is a new input [CC1]; mowed residue N goes
+  to organic N and is released only via decomposition [CC2, NF2].
+- Fixation is bounded, suppressed by mineral N and costs fixer carbon [NF1, NF3].
+- Fertilizer is demand-driven on cropped cells, costed and emitting [NF5].
+- SOC mineralization releases N stoichiometrically (C:N) [keeps soil C and N coupled].
+- Biochar is a separate pool; pyrolysis C loss is a ledger flux, not an extra emission, so
+  stock-change accounting does not double count it [BC1-BC3]. Imported biochar is tracked
+  separately and excluded from removal [BC4].
+"""
+import math
+import random
+
+DT = 1.0 / 12
+
+
+def weather(P, years=40):
+    c = P['climate']
+    rng = random.Random(c['seed'])
+    rain, pet = [], []
+    pw = [max(0.0, math.cos(2 * math.pi * (m - 7) / 12)) + 0.05 for m in range(1, 13)]
+    s = sum(pw)
+    pw = [w / s for w in pw]
+    for k in range(years * 12):
+        m = k % 12
+        base = c['precip_mm_yr'] / 12 * (1 + 0.15 * math.sin(2 * math.pi * (m - 3) / 12))
+        cv = c['rain_cv']
+        rain.append(max(0.0, base * rng.uniform(1 - math.sqrt(3) * cv, 1 + math.sqrt(3) * cv)))
+        pet.append(c['pet_mm_yr'] * pw[m])
+    return {'rain_mm': rain, 'pet_mm': pet}
+
+
+def shelter_reduction(s, porosity, max_reduction):
+    """Illustrative wind-speed reduction at s = x/H leeward. Dense barriers shelter strongly but
+    briefly; porous ones further downwind. Integrated shelter peaks near porosity ~0.4."""
+    if s <= 0 or s > 40:
+        return 0.0
+    amp = min(0.9, max_reduction * (1 - porosity) / 0.55)
+    sm = 1.5 + 8.0 * porosity
+    return amp * (s / sm) * math.exp(1 - s / sm)
+
+
+def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_monthly=False):
+    from .terrain import receivers, routing_order
+    from .layout import nearest_row_distance, upwind_row_distance
+    n, ha = field.n, field.cell_ha
+    years = max(horizons)
+    if len(wx['rain_mm']) < years * 12:
+        raise ValueError('weather series too short')
+    row = design.row
+    act = [field.z[i] is not None for i in range(n)]
+    cells = [i for i in range(n) if act[i]]
+    has_rows = any(row)
+    aux = aux or {}
+    rec = aux.get('rec') or receivers(field)
+    order = aux.get('order') or routing_order(field)
+    dnear = aux.get('dnear') or (nearest_row_distance(field, row) if has_rows else [math.inf] * n)
+    dup = aux.get('dup') or (upwind_row_distance(field, row) if has_rows else {})
+    c, so, cr, tr, cv, fx, cp, rs, bc, em, ec, ef = (P[k] for k in (
+        'climate', 'soil', 'crop', 'tree', 'cover', 'fixer', 'coppice', 'residue', 'biochar', 'emissions',
+        'economics', 'effects'))
+    season = set(c['season_months'])
+    nseason = len(season)
+    sectors = c['wind_sectors']
+    cap = so['capacity_mm']
+    k_z = -math.log(bc['f_perm_100yr']) / 100.0
+
+    S = [so['soc_tC_ha'] if act[i] else 0.0 for i in range(n)]
+    A = [0.0] * n; Bb = [0.0] * n; R = [0.0] * n; Cv = [0.0] * n; Z = [0.0] * n; Zi = [0.0] * n
+    W = [cap * so['initial_water_frac'] if act[i] else 0.0 for i in range(n)]
+    M = [so['initial_mineral_kgN_ha'] if act[i] else 0.0 for i in range(n)]
+    O = [S[i] * 1000 / so['soil_cn'] for i in range(n)]
+    PN = [0.0] * n; RN = [0.0] * n; CvN = [0.0] * n; ZN = [0.0] * n
+    if bc['imported_tC_ha'] > 0:
+        for i in cells:
+            Zi[i] = bc['imported_tC_ha']
+    # lateral residue transfer targets: alley cells adjacent to each row cell (chop-and-drop,
+    # mow-and-blow, leaf fall). Internal to the field, so field ledgers are unaffected.
+    alley_nb = {i: [j for j, _ in field.neighbors(i) if not row[j]] for i in cells if row[i]}
+    lt = P['lateral']
+    tree_ha = sum(1 for i in cells if row[i]) * ha
+    crop_ha = sum(1 for i in cells if not row[i]) * ha
+
+    def totC(i):
+        return S[i] + A[i] + Bb[i] + R[i] + Cv[i] + Z[i] + Zi[i]
+
+    def totN(i):
+        return M[i] + O[i] + PN[i] + RN[i] + CvN[i] + ZN[i]
+
+    C0 = {k: sum(v[i] for i in cells) * ha for k, v in (('soc', S), ('woody', None), ('residue', R), ('cover', Cv),
+                                                        ('biochar', Z), ('biochar_imported', Zi)) if v is not None}
+    C0['woody'] = 0.0
+    W0 = sum(W[i] for i in cells)
+    N0 = sum(totN(i) for i in cells) * ha
+    L = {k: 0.0 for k in (
+        'rain_mm_cells', 'infil_mm_cells', 'et_mm_cells', 'drain_mm_cells', 'outflow_mm_cells',
+        'runon_captured_mm_rows', 'crop_product_t', 'tree_product_t', 'fert_kgN', 'fix_tree_kgN', 'fix_cover_kgN',
+        'cover_uptake_kgN', 'deposition_kgN', 'leach_kgN', 'gas_kgN', 'export_kgN', 'pyro_N_loss_kgN',
+        'residueN_to_soil_kgN', 'crop_npp_tC', 'tree_npp_tC', 'cover_npp_tC', 'export_tC', 'resp_tC',
+        'pyro_loss_tC', 'biochar_feed_tC', 'mow_passes_ha', 'cash_usd_pv', 'em_ops', 'em_mow', 'em_fert_mfg',
+        'em_n2o_direct', 'em_n2o_indirect', 'em_biochar_process', 'em_establish',
+        'lateral_residue_tC', 'lateral_residue_kgN', 'interflow_mm_cells', 'sub_outflow_mm_cells')}
+    ws_sum = {'crop': 0.0, 'tree': 0.0}
+    ws_n = {'crop': 0, 'tree': 0}
+    max_res = {'water_mm': 0.0, 'carbon_tC_ha': 0.0, 'nitrogen_kgN_ha': 0.0}
+    max_mineral = 0.0
+    monthly = {m: [0.0, 0] for m in range(1, 13)}
+    out = {}
+    # establishment at t0 (constant 2026 USD, undiscounted at time zero)
+    L['cash_usd_pv'] -= tree_ha * (tr['establish_usd_ha'] + (cv['seed_usd_ha'] if cv['enabled'] else 0.0))
+    L['em_establish'] += tree_ha * tr['establish_tco2e_ha']
+
+    for mth in range(years * 12):
+        year, mon = mth // 12, mth % 12 + 1
+        in_season = mon in season
+        rain, pet = wx['rain_mm'][mth], wx['pet_mm'][mth]
+        # shelter factors from current mean row height
+        if has_rows:
+            wood_rows = [A[i] + Bb[i] for i in cells if row[i]]
+            mw = sum(wood_rows) / len(wood_rows)
+            H = max(0.5, tr['h_max_m'] * mw / (mw + tr['h_half_tC_ha']))
+        else:
+            H = 0.0
+        # ---- surface routing (CA2) ----
+        runon = [0.0] * n
+        infil = [0.0] * n
+        for i in order:
+            sf = c['storm_fraction'] * rain
+            ccap = (so['infil_cap_row_mm'] if row[i] else so['infil_cap_crop_mm'])
+            cres = 1 - math.exp(-rs['cover_k_per_tC_ha'] * R[i])
+            ccap *= (1 + so['infil_soc_coef'] * S[i]) * (1 + so['infil_residue_boost'] * cres)
+            surf = sf + runon[i]
+            inf_s = min(surf, ccap)
+            if row[i]:
+                L['runon_captured_mm_rows'] += max(0.0, inf_s - min(sf, ccap))
+            ro = surf - inf_s
+            infil[i] = rain - sf + inf_s
+            if rec[i] is None:
+                L['outflow_mm_cells'] += ro
+            else:
+                runon[rec[i]] += ro
+        L['rain_mm_cells'] += rain * len(cells)
+        cash = 0.0
+        transfers = []
+        interflow = []
+        for i in cells:
+            c_before, n_before, w_before = totC(i), totN(i), W[i]
+            pyro_c = pyro_n = 0.0
+            lat_c = lat_n = 0.0
+            # ---- water ----
+            w = W[i] + infil[i]
+            L['infil_mm_cells'] += infil[i]
+            drain = 0.0
+            if w > cap:
+                drain += w - cap
+                w = cap
+            wood = A[i] + Bb[i]
+            canopy = min(1.0, wood / tr['canopy_tC_ha']) if row[i] else 0.0
+            cres = 1 - math.exp(-rs['cover_k_per_tC_ha'] * R[i])
+            if has_rows and not row[i]:
+                rmean = 0.0
+                for sec, f in sectors.items():
+                    x = dup[sec][i]
+                    red = shelter_reduction(x / H, ef['porosity'], ef['shelter_max_reduction']) if x else 0.0
+                    rmean += f * (1 - red)
+                shelter = 1 - rmean
+                comp = ef['competition_c0'] * math.exp(-dnear[i] / (ef['competition_len_H'] * H))
+            else:
+                shelter, comp = 0.0, 0.0
+            etf = 1 - ef['et_beta'] * shelter
+            yf = 1 + ef['yield_gamma'] * shelter
+            esd = so['soil_evap_frac'] * pet * (1 - cres) * (1 - 0.8 * canopy) * (0.5 if (in_season and not row[i]) else 1.0)
+            t_tree = tr['kc'] * pet * canopy if (row[i] and in_season) else 0.0
+            t_cov = cv['kc'] * pet * (1 - canopy) if (row[i] and in_season and cv['enabled']) else 0.0
+            t_crop = cr['kc'] * pet if (not row[i] and in_season) else 0.0
+            esd, t_tree, t_cov, t_crop = (v * etf for v in (esd, t_tree, t_cov, t_crop))
+            if row[i] and year < cv['circle_years']:
+                a_tree = min(t_tree, w)
+                rest = w - a_tree
+                other = esd + t_cov
+                fr = min(1.0, rest / other) if other > 0 else 1.0
+                a_es, a_cov, a_crop = esd * fr, t_cov * fr, 0.0
+            else:
+                dem = esd + t_tree + t_cov + t_crop
+                fr = min(1.0, w / dem) if dem > 0 else 1.0
+                a_es, a_tree, a_cov, a_crop = esd * fr, t_tree * fr, t_cov * fr, t_crop * fr
+            et = a_es + a_tree + a_cov + a_crop
+            w -= et
+            d2 = so['drain_frac_month'] * w
+            w -= d2
+            drain += d2
+            W[i] = w
+            L['et_mm_cells'] += et
+            q = so['interflow_frac'] * drain          # downslope subsurface flow (CA2 extension)
+            if q > 0:
+                interflow.append((i, q))
+            L['drain_mm_cells'] += drain - q
+            ws_tree = a_tree / t_tree if t_tree > 0 else 1.0
+            ws_cov = a_cov / t_cov if t_cov > 0 else 1.0
+            ws_crop = a_crop / t_crop if t_crop > 0 else 1.0
+            moist = 0.5 + 0.5 * min(1.0, w / cap)
+            # ---- soil and residue decomposition (stoichiometric N release) ----
+            resp_s = S[i] * so['soc_decay_yr'] * moist * DT
+            nmin = min(O[i], resp_s * 1000 / so['soil_cn'])
+            S[i] -= resp_s; O[i] -= nmin; M[i] += nmin
+            dec = R[i] * (1 - math.exp(-rs['decay_yr'] * moist * DT))
+            decn = RN[i] * dec / R[i] if R[i] > 0 else 0.0
+            S[i] += rs['stabilized_frac'] * dec
+            resp_r = (1 - rs['stabilized_frac']) * dec
+            R[i] -= dec; RN[i] -= decn; O[i] += decn
+            zd = Z[i] * (1 - math.exp(-k_z * DT)); zid = Zi[i] * (1 - math.exp(-k_z * DT))
+            zdn = ZN[i] * zd / Z[i] if Z[i] > 0 else 0.0
+            Z[i] -= zd; Zi[i] -= zid; ZN[i] -= zdn; O[i] += zdn
+            L['resp_tC'] += (resp_s + resp_r + zd + zid) * ha
+            dep = c['deposition_kgN_ha_yr'] * DT
+            M[i] += dep
+            L['deposition_kgN'] += dep * ha
+            fert = 0.0
+            if not row[i] and in_season:
+                # split, demand-driven dose: this month's expected crop N demand minus mineral N on hand
+                expected = cr['npp_tC_ha_yr'] / nseason * field.productivity[i] * cr['n_kg_per_tC']
+                fert = max(0.0, expected - M[i])
+                M[i] += fert
+                L['fert_kgN'] += fert * ha
+            fixed_tree = fixed_cov = 0.0
+            npp_c = g_net = npp_cov = 0.0
+            exp_c = exp_n = 0.0
+            residue_n_to_soil = 0.0
+            # ---- crop ----
+            if not row[i] and in_season:
+                npp1 = cr['npp_tC_ha_yr'] / nseason * field.productivity[i] * yf * max(0.0, 1 - comp) * ws_crop
+                nd = npp1 * cr['n_kg_per_tC']
+                take = min(M[i], nd)
+                npp_c = npp1 * (take / nd) if nd > 0 else 0.0
+                M[i] -= take
+                L['crop_product_t'] += npp_c * cr['product_t_per_tC'] * ha
+                retained = min(1.0, cr['residue_frac'] + cr['root_frac'])   # straw + roots stay in the field
+                rc = npp_c * retained
+                rn = take * retained
+                R[i] += rc; RN[i] += rn
+                residue_n_to_soil += rn
+                exp_c += npp_c - rc
+                exp_n += take - rn
+                ws_sum['crop'] += ws_crop; ws_n['crop'] += 1
+            # ---- trees and fixation ----
+            if row[i]:
+                ramp = min(1.0, (year + 1) / tr['ramp_years'])
+                gpot = tr['growth_tC_ha_yr'] * ramp * max(0.0, 1 - wood / tr['capacity_tC_ha']) * DT * ws_tree if in_season else 0.0
+                gpot *= 12.0 / nseason
+                nc = (1 - fx['share']) * tr['n_kg_per_tC'] + fx['share'] * fx['n_kg_per_tC']
+                kc_ = fx['c_cost_kgC_per_kgN'] / 1000.0
+                gfix = 1.0 / (1.0 + M[i] / fx['m_half_kgN_ha'])
+                ffix_pot = fx['fix_max_kgN_ha_yr'] * fx['share'] * DT * ws_tree * gfix * (12.0 / nseason) if in_season else 0.0
+                ffix = min(ffix_pot, gpot * nc / (1 + kc_ * nc)) if gpot > 0 else 0.0
+                gn = gpot - kc_ * ffix
+                need = gn * nc - ffix
+                soil_n = min(M[i], max(0.0, need))
+                if need > soil_n:
+                    gn = (ffix + soil_n) / nc
+                M[i] -= soil_n
+                PN[i] += ffix + soil_n
+                A[i] += gn * (1 - tr['root_frac']); Bb[i] += gn * tr['root_frac']
+                g_net = gn
+                fixed_tree = ffix
+                L['fix_tree_kgN'] += ffix * ha
+                if in_season:
+                    ws_sum['tree'] += ws_tree; ws_n['tree'] += 1
+                da, db = A[i] * tr['mortality_yr'] * DT, Bb[i] * tr['mortality_yr'] * DT
+                wood = A[i] + Bb[i]
+                dn = PN[i] * (da + db) / wood if wood > 0 else 0.0
+                A[i] -= da; Bb[i] -= db; PN[i] -= dn
+                R[i] += da + db; RN[i] += dn
+                if alley_nb[i] and lt['litter_to_alley_frac'] > 0 and da + db > 0:
+                    mc = da * lt['litter_to_alley_frac']
+                    mn = dn * da / (da + db) * lt['litter_to_alley_frac']
+                    R[i] -= mc; RN[i] -= mn; lat_c += mc; lat_n += mn
+                    transfers.append((i, mc, mn))
+                if mon == tr['harvest_month']:
+                    ty = tr['product_t_ha_yr'] * (1 - fx['share']) * min(1.0, wood / tr['mature_tC_ha']) * ws_tree
+                    pc = min(A[i], ty * tr['product_c_frac'])
+                    pn = min(PN[i], ty * tr['product_n_kg_t'])
+                    ty = pc / tr['product_c_frac'] if tr['product_c_frac'] > 0 else 0.0
+                    A[i] -= pc; PN[i] -= pn
+                    exp_c += pc; exp_n += pn
+                    L['tree_product_t'] += ty * ha
+                    cash += ty * ha * tr['product_price_usd_t']
+                # coppice fixers -> mulch and/or biochar
+                if (fx['share'] > 0 and year >= cp['start_yr'] and (year - cp['start_yr']) % cp['interval_yr'] == 0
+                        and mon == cp['month']):
+                    wood = A[i] + Bb[i]
+                    cut = cp['cut_frac'] * fx['share'] * A[i]
+                    cutn = PN[i] * cut / wood if wood > 0 else 0.0
+                    A[i] -= cut; PN[i] -= cutn
+                    feed = cut * cp['biochar_frac']
+                    R[i] += cut - feed
+                    RN[i] += cutn * (1 - cp['biochar_frac'])
+                    residue_n_to_soil += cutn * (1 - cp['biochar_frac'])
+                    if alley_nb[i] and lt['mulch_to_alley_frac'] > 0:
+                        mc = (cut - feed) * lt['mulch_to_alley_frac']
+                        mn = cutn * (1 - cp['biochar_frac']) * lt['mulch_to_alley_frac']
+                        R[i] -= mc; RN[i] -= mn; lat_c += mc; lat_n += mn
+                        transfers.append((i, mc, mn))
+                    Z[i] += bc['carbon_yield'] * feed
+                    pyro_c = (1 - bc['carbon_yield']) * feed
+                    L['pyro_loss_tC'] += pyro_c * ha
+                    feedn = cutn * cp['biochar_frac']
+                    ZN[i] += feedn * bc['n_retained_frac']
+                    pyro_n = feedn * (1 - bc['n_retained_frac'])
+                    L['pyro_N_loss_kgN'] += pyro_n * ha
+                    L['biochar_feed_tC'] += feed * ha
+                    L['em_biochar_process'] += feed * ha * bc['process_tco2e_per_tC_feed']
+                    cash -= feed * ha * bc['process_usd_per_tC_feed']
+                # ---- cover crop in rows (CC1, CC2) ----
+                if cv['enabled'] and in_season:
+                    pot = cv['npp_tC_ha_yr'] / nseason * (1 - canopy) * ws_cov
+                    nd = pot * cv['n_kg_per_tC']
+                    ndfa = cv['ndfa_max'] / (1.0 + M[i] / fx['m_half_kgN_ha'])
+                    soil_cap = M[i] / (1 - ndfa) if ndfa < 1 else math.inf
+                    u = min(nd, soil_cap)
+                    fixed_cov = ndfa * u
+                    soil_u = u - fixed_cov
+                    M[i] -= soil_u
+                    npp_cov = u / cv['n_kg_per_tC'] if cv['n_kg_per_tC'] > 0 else 0.0
+                    Cv[i] += npp_cov; CvN[i] += u
+                    L['fix_cover_kgN'] += fixed_cov * ha
+                    L['cover_uptake_kgN'] += u * ha
+                if cv['enabled'] and (mon in cv['mow_months'] or mon == cv['senesce_month']) and Cv[i] > 0:
+                    f = 1.0 if mon == cv['senesce_month'] else cv['cut_frac']
+                    cc, cn_ = Cv[i] * f, CvN[i] * f
+                    Cv[i] -= cc; CvN[i] -= cn_
+                    R[i] += cc; RN[i] += cn_
+                    residue_n_to_soil += cn_
+                    if mon in cv['mow_months'] and alley_nb[i] and lt['mow_to_alley_frac'] > 0:
+                        mc, mn = cc * lt['mow_to_alley_frac'], cn_ * lt['mow_to_alley_frac']
+                        R[i] -= mc; RN[i] -= mn; lat_c += mc; lat_n += mn
+                        transfers.append((i, mc, mn))
+                    if mon in cv['mow_months']:
+                        L['mow_passes_ha'] += ha
+                        cash -= ha * cv['mow_usd_ha_pass']
+                        L['em_mow'] += ha * cv['mow_tco2e_ha_pass']
+            # ---- mineral N losses ----
+            leach = so['leach_mobility'] * M[i] * drain / (drain + w) if (drain + w) > 0 else 0.0
+            M[i] -= leach
+            gas = M[i] * (1 - math.exp(-so['gas_loss_yr'] * moist * DT))
+            M[i] -= gas
+            max_mineral = max(max_mineral, M[i])
+            L['leach_kgN'] += leach * ha; L['gas_kgN'] += gas * ha
+            L['export_kgN'] += exp_n * ha; L['export_tC'] += exp_c * ha
+            L['residueN_to_soil_kgN'] += residue_n_to_soil * ha
+            L['crop_npp_tC'] += npp_c * ha; L['tree_npp_tC'] += g_net * ha; L['cover_npp_tC'] += npp_cov * ha
+            # N2O, Tier 1 factors applied to modeled flows (kg N2O-N/ha)
+            direct = em['ef1'] * (fert + residue_n_to_soil)
+            indirect = em['ef5'] * leach + em['ef4'] * em['frac_gasf'] * fert
+            conv = 44.0 / 28.0 * em['gwp_n2o'] / 1000.0 * ha
+            L['em_n2o_direct'] += direct * conv
+            L['em_n2o_indirect'] += indirect * conv
+            L['em_fert_mfg'] += fert * ha * em['fert_mfg_kgco2e_kgN'] / 1000.0
+            cash -= fert * ha * ec['fert_usd_kgN']
+            if not row[i]:
+                cash += npp_c * cr['product_t_per_tC'] * ha * cr['price_usd_t'] - cr['op_cost_usd_ha_yr'] * ha * DT
+                L['em_ops'] += cr['ops_tco2e_ha_yr'] * ha * DT
+            else:
+                cash -= tr['maint_usd_ha_yr'] * ha * DT
+            # ---- per-cell closure ----
+            c_in = npp_c + g_net + npp_cov
+            c_out = exp_c + resp_s + resp_r + zd + zid + pyro_c + lat_c
+            c_res = (totC(i) - c_before) - (c_in - c_out)
+            n_in = dep + fert + fixed_tree + fixed_cov
+            n_out = exp_n + leach + gas + pyro_n + lat_n
+            n_res = (totN(i) - n_before) - (n_in - n_out)
+            w_res = (W[i] - w_before) - (infil[i] - et - drain)
+            max_res['carbon_tC_ha'] = max(max_res['carbon_tC_ha'], abs(c_res))
+            max_res['nitrogen_kgN_ha'] = max(max_res['nitrogen_kgN_ha'], abs(n_res))
+            max_res['water_mm'] = max(max_res['water_mm'], abs(w_res))
+            if min(S[i], A[i], Bb[i], R[i], Cv[i], Z[i], Zi[i], W[i], O[i], PN[i], RN[i], CvN[i], ZN[i]) < -1e-9 or M[i] < -1e-9:
+                raise ArithmeticError(f'negative pool in cell {i} month {mth}')
+            if record_monthly and not row[i] and year >= years - 10:
+                monthly[mon][0] += W[i]; monthly[mon][1] += 1
+        for i, q in interflow:                  # deliver interflow to the D8 receiver's soil store
+            j = rec[i]
+            L['interflow_mm_cells'] += q
+            if j is None:
+                L['sub_outflow_mm_cells'] += q
+            else:
+                W[j] += q
+                if W[j] > cap:
+                    L['drain_mm_cells'] += W[j] - cap
+                    W[j] = cap
+        for i, mc, mn in transfers:            # deliver lateral residue to adjacent alley cells
+            nb = alley_nb[i]
+            for j in nb:
+                R[j] += mc / len(nb); RN[j] += mn / len(nb)
+            L['lateral_residue_tC'] += mc * ha; L['lateral_residue_kgN'] += mn * ha
+        L['cash_usd_pv'] += cash / (1 + ec['discount']) ** ((mth + 1) / 12)
+        if (mth + 1) % 12 == 0 and (mth + 1) // 12 in horizons:
+            T = (mth + 1) // 12
+            pools = {'soc': sum(S[i] for i in cells) * ha, 'woody': sum(A[i] + Bb[i] for i in cells) * ha,
+                     'residue': sum(R[i] for i in cells) * ha, 'cover': sum(Cv[i] for i in cells) * ha,
+                     'biochar': sum(Z[i] for i in cells) * ha, 'biochar_imported': sum(Zi[i] for i in cells) * ha}
+            water_now = sum(W[i] for i in cells)
+            em_total = sum(L[k] for k in L if k.startswith('em_'))
+            counted = [k for k in pools if k != 'biochar_imported']
+            change = sum(pools[k] - C0[k] for k in counted)
+            rec_out = {
+                'year': T, 'pools_tC': dict(pools),
+                'pool_change_tC': {k: pools[k] - C0[k] for k in pools},
+                'stock_change_tCO2': change * 44 / 12,
+                'emissions_tCO2e': {k[3:]: L[k] for k in L if k.startswith('em_')},
+                'emissions_total_tCO2e': em_total,
+                'modeled_net_removal_tCO2e': change * 44 / 12 - em_total,
+                'crop_product_t': L['crop_product_t'], 'tree_product_t': L['tree_product_t'],
+                'npv_usd2026': L['cash_usd_pv'],
+                'fertilizer_kgN': L['fert_kgN'], 'fixation_tree_kgN': L['fix_tree_kgN'],
+                'fixation_cover_kgN': L['fix_cover_kgN'], 'cover_uptake_kgN': L['cover_uptake_kgN'],
+                'leached_kgN': L['leach_kgN'], 'gaseous_loss_kgN': L['gas_kgN'],
+                'biochar_feedstock_tC': L['biochar_feed_tC'], 'pyrolysis_loss_tC': L['pyro_loss_tC'],
+                'row_residue_to_alleys_tC': L['lateral_residue_tC'], 'row_residue_to_alleys_kgN': L['lateral_residue_kgN'],
+                'mean_crop_water_satisfaction': ws_sum['crop'] / ws_n['crop'] if ws_n['crop'] else None,
+                'mean_tree_water_satisfaction': ws_sum['tree'] / ws_n['tree'] if ws_n['tree'] else None,
+                'field_outflow_mm': L['outflow_mm_cells'] / len(cells),
+                'runon_captured_by_rows_mm': L['runon_captured_mm_rows'] / len(cells),
+                'drainage_mm': L['drain_mm_cells'] / len(cells), 'et_mm': L['et_mm_cells'] / len(cells),
+                'tree_height_m': H, 'max_mineral_N_kgN_ha': max_mineral,
+                'mineral_n_ceiling_ok': max_mineral <= so['mineral_n_ceiling_kgN_ha'],
+                'water_balance_residual_mm': (L['rain_mm_cells'] - (water_now - W0) - L['et_mm_cells']
+                                              - L['drain_mm_cells'] - L['outflow_mm_cells']
+                                              - L['sub_outflow_mm_cells']) / len(cells),
+                'interflow_mm': L['interflow_mm_cells'] / len(cells),
+                'subsurface_outflow_mm': L['sub_outflow_mm_cells'] / len(cells),
+                'carbon_balance_residual_tC': None,
+                'nitrogen_balance_residual_kgN': (sum(totN(i) for i in cells) * ha - N0) - (
+                    L['deposition_kgN'] + L['fert_kgN'] + L['fix_tree_kgN'] + L['fix_cover_kgN']
+                    - L['export_kgN'] - L['leach_kgN'] - L['gas_kgN'] - L['pyro_N_loss_kgN']),
+                'max_cell_residuals': dict(max_res),
+                'tree_area_ha': tree_ha, 'crop_area_ha': crop_ha,
+            }
+            c_now = sum(totC(i) for i in cells) * ha
+            c_start = sum(C0.values())
+            rec_out['carbon_balance_residual_tC'] = (c_now - c_start) - (
+                L['crop_npp_tC'] + L['tree_npp_tC'] + L['cover_npp_tC'] - L['export_tC'] - L['resp_tC'] - L['pyro_loss_tC'])
+            out[T] = rec_out
+    if record_monthly:
+        out['monthly_alley_soil_water_mm'] = {m: (v[0] / v[1] if v[1] else None) for m, v in monthly.items()}
+    return out
+
