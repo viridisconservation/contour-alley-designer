@@ -1,0 +1,115 @@
+{
+  "cover_legume": {
+    "eligible": [
+      [
+        "clover_white",
+        "marginal aridity: run-on/snow-trap rows only"
+      ],
+      [
+        "vetch_hairy",
+        "invasive status unknown for northern_rockies_valleys: verify"
+      ],
+      [
+        "prairie_clover",
+        "suitable"
+      ]
+    ],
+    "rejected": []
+  },
+  "fixer_tree": {
+    "eligible": [
+      [
+        "buffaloberry",
+        "suitable"
+      ],
+      [
+        "ceanothus_nj",
+        "invasive status unknown for northern_rockies_valleys: verify"
+      ],
+      [
+        "ceanothus_snowbrush",
+        "suitable"
+      ],
+      [
+        "leadplant",
+        "invasive status unknown for northern_rockies_valleys: verify"
+      ]
+    ],
+    "rejected": [
+      [
+        "alder_speckled",
+        "aridity 0.45 below species floor 0.8"
+      ],
+      [
+        "false_indigo",
+        "listed invasive elsewhere and unassessed in northern_rockies_valleys: precautionary exclusion"
+      ],
+      [
+        "caragana",
+        "invasive-listed in northern_rockies_valleys (listed_some_jurisdictions); needs written override"
+      ],
+      [
+        "locust_black",
+        "invasive-listed in northern_rockies_valleys (listed_some_jurisdictions); needs written override"
+      ]
+    ]
+  },
+  "tree_crop": {
+    "eligible": [
+      [
+        "hazel_hyb",
+        "marginal aridity: run-on/snow-trap rows only"
+      ],
+      [
+        "walnut_black",
+        "marginal aridity: run-on/snow-trap rows only; invasive status unknown for northern_rockies_valleys: verify"
+      ],
+      [
+        "pecan_northern",
+        "marginal aridity: run-on/snow-trap rows only; invasive status unknown for northern_rockies_valleys: verify; at hardiness limit"
+      ],
+      [
+        "oak_bur",
+        "suitable"
+      ],
+      [
+        "honeylocust_thornless",
+        "invasive status unknown for northern_rockies_valleys: verify"
+      ],
+      [
+        "mulberry_red",
+        "invasive status unknown for northern_rockies_valleys: verify; at hardiness limit"
+      ],
+      [
+        "persimmon_am",
+        "marginal aridity: run-on/snow-trap rows only; invasive status unknown for northern_rockies_valleys: verify; at hardiness limit"
+      ],
+      [
+        "apple_hardy",
+        "marginal aridity: run-on/snow-trap rows only"
+      ],
+      [
+        "saskatoon",
+        "suitable"
+      ],
+      [
+        "chokecherry",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "chestnut_hyb",
+        "aridity 0.45 below species floor 0.6"
+      ],
+      [
+        "mulberry_white",
+        "listed invasive elsewhere and unassessed in northern_rockies_valleys: precautionary exclusion"
+      ],
+      [
+        "elderberry",
+        "aridity 0.45 below species floor 0.6"
+      ]
+    ]
+  }
+}

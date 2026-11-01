@@ -1,0 +1,14 @@
+{
+ "name": "Franklin County VT cropland (hill)",
+ "field": "fixtures/franklin-vt-pilot/field.json",
+ "land_cover": "cropland",
+ "region": "northeast",
+ "climate_normals": "fixtures/landscapes/climate/normals_USW00014742.json",
+ "wind": "fixtures/landscapes/climate/wind_USW00014742.json",
+ "soil": {
+  "soc_tC_ha": 84.1,
+  "capacity_mm": 163.8
+ },
+ "machinery_m": 5.0,
+ "species_file": "fixtures/landscapes/species-v2.json"
+}

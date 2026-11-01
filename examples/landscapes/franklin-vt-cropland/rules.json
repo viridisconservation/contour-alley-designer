@@ -1,0 +1,33 @@
+{
+  "contour_vertical_interval_m": [
+    1.0,
+    2.0,
+    3.0
+  ],
+  "cover_sowing": true,
+  "ecological_review_required": false,
+  "fertilizer": "demand",
+  "min_alley_machinery_passes": 2,
+  "modes": [
+    "parallel_contour",
+    "windbreak",
+    "windbreak_winter"
+  ],
+  "native_species_only": false,
+  "notes": [],
+  "snow_trap": true,
+  "strip_fraction": 0.08,
+  "strips": true,
+  "tillage_establishment": true,
+  "tree_fraction": [
+    0.06,
+    0.1,
+    0.15
+  ],
+  "tree_fraction_cap": 0.25,
+  "windbreak_H_multiples": [
+    6,
+    10,
+    15
+  ]
+}

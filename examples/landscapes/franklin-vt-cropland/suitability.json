@@ -1,0 +1,115 @@
+{
+  "cover_legume": {
+    "eligible": [
+      [
+        "clover_white",
+        "suitable"
+      ],
+      [
+        "vetch_hairy",
+        "suitable"
+      ],
+      [
+        "prairie_clover",
+        "invasive status unknown for northeast: verify"
+      ]
+    ],
+    "rejected": []
+  },
+  "fixer_tree": {
+    "eligible": [
+      [
+        "alder_speckled",
+        "suitable"
+      ],
+      [
+        "buffaloberry",
+        "invasive status unknown for northeast: verify"
+      ],
+      [
+        "ceanothus_nj",
+        "suitable"
+      ],
+      [
+        "ceanothus_snowbrush",
+        "invasive status unknown for northeast: verify"
+      ],
+      [
+        "leadplant",
+        "invasive status unknown for northeast: verify"
+      ]
+    ],
+    "rejected": [
+      [
+        "false_indigo",
+        "invasive-listed in northeast (listed_some_jurisdictions); needs written override"
+      ],
+      [
+        "caragana",
+        "listed invasive elsewhere and unassessed in northeast: precautionary exclusion"
+      ],
+      [
+        "locust_black",
+        "invasive-listed in northeast (listed_some_jurisdictions); needs written override"
+      ]
+    ]
+  },
+  "tree_crop": {
+    "eligible": [
+      [
+        "chestnut_hyb",
+        "at hardiness limit"
+      ],
+      [
+        "hazel_hyb",
+        "suitable"
+      ],
+      [
+        "walnut_black",
+        "suitable"
+      ],
+      [
+        "pecan_northern",
+        "invasive status unknown for northeast: verify; at hardiness limit"
+      ],
+      [
+        "oak_bur",
+        "suitable"
+      ],
+      [
+        "honeylocust_thornless",
+        "invasive status unknown for northeast: verify"
+      ],
+      [
+        "mulberry_red",
+        "at hardiness limit"
+      ],
+      [
+        "persimmon_am",
+        "invasive status unknown for northeast: verify; at hardiness limit"
+      ],
+      [
+        "apple_hardy",
+        "suitable"
+      ],
+      [
+        "saskatoon",
+        "invasive status unknown for northeast: verify"
+      ],
+      [
+        "elderberry",
+        "suitable"
+      ],
+      [
+        "chokecherry",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "mulberry_white",
+        "invasive-listed in northeast (listed_some_jurisdictions); needs written override"
+      ]
+    ]
+  }
+}

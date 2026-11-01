@@ -19,6 +19,7 @@ class Design:
     row: tuple          # bool per cell: tree row (or sparing block) cell
     tangent: tuple      # unit row direction per cell (tx, ty); (0,0) where undefined
     metrics: dict
+    strip: tuple = None   # bool per cell: prairie-strip cell (v0.6, LG5); None = no strips
 
 
 def _unit(v):
@@ -170,3 +171,22 @@ def upwind_row_distance(field, row, max_m=300.0):
                     break
         out[name] = dist
     return out
+
+
+def prairie_strips(field, row, fraction, dnear=None):
+    """Prairie-strip cells (LG5): the alley cells farthest from tree rows, i.e. mid-alley bands
+    that follow the row geometry (on contour where rows are on contour). Without rows, strips
+    follow true-contour bands at the slope foot and mid-slope."""
+    cells = field.active_cells()
+    k = int(round(fraction * len(cells)))
+    if k <= 0:
+        return tuple(False for _ in range(field.n))
+    if any(row):
+        d = dnear or nearest_row_distance(field, row)
+        pick = sorted((i for i in cells if not row[i]), key=lambda i: (-round(d[i], 6), i))[:k]
+    else:
+        zs = sorted(field.z[i] for i in cells)
+        targets = [zs[int(q * (len(zs) - 1))] for q in (0.05, 0.5)]
+        pick = sorted(cells, key=lambda i: (min(abs(field.z[i] - t) for t in targets), i))[:k]
+    chosen = set(pick)
+    return tuple(i in chosen for i in range(field.n))

@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "S1_carbon_positive_all_draws": false,
+    "S2_breakeven_central": true,
+    "S3_establishment_survival": true,
+    "S4_water_not_worse": true,
+    "S5_integrity": true,
+    "S6_balances_close": true
+  },
+  "definitions": {
+    "S1_carbon_positive_all_draws": "reversal-adjusted, leakage-net removal > 0 at the final horizon in every draw",
+    "S2_breakeven_central": "cumulative discounted cash vs A turns positive by year 25 (central draw, zero effects)",
+    "S3_establishment_survival": "mean establishment survival >= 0.80 in every year and draw (before replanting)",
+    "S4_water_not_worse": "surface outflow as a share of water reaching the field not above A in any draw",
+    "S5_integrity": "no landscape rule violations; species pass the regional gate",
+    "S6_balances_close": "water, carbon and nitrogen balances close in every run"
+  },
+  "detail": {
+    "best_net_tCO2e": 15.709101763305142,
+    "breakeven_year_central": 9,
+    "max_outflow_share_change": -0.002289915913362254,
+    "min_establishment_survival": 1.0,
+    "upfront_support_for_year25_breakeven_usd": 0.0,
+    "upfront_support_per_row_ha_usd": 0.0,
+    "worst_net_tCO2e": -46.19592337515806
+  },
+  "failing": [
+    "S1_carbon_positive_all_draws"
+  ],
+  "verdict": "conditional"
+}

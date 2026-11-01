@@ -3,4 +3,4 @@
 Standard-library Python. All defaults are labeled assumptions; no output is a
 field-validated forecast.
 """
-__version__ = '0.5.0-dev'
+__version__ = '0.6.0-dev'

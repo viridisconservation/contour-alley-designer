@@ -39,4 +39,9 @@ def compare(rec, base, P):
         'npv_vs_A_usd2026': rec['npv_usd2026'] - base['npv_usd2026'],
         'fertilizer_avoided_kgN': base['fertilizer_kgN'] - rec['fertilizer_kgN'],
         'field_outflow_change_mm': rec['field_outflow_mm'] - base['field_outflow_mm'],
+        # v0.6 (LG7): tree food/feed may displace commodity demand; reported separately, never headline
+        'tree_grain_equivalent_t': rec.get('tree_grain_equivalent_t', 0.0),
+        'substitution_credit_tCO2e': min(leakage, P['leakage']['grain_eq_tco2e_per_t'] * rec.get('tree_grain_equivalent_t', 0.0)),
+        'net_additional_with_substitution_tCO2e': net + min(leakage, P['leakage']['grain_eq_tco2e_per_t']
+                                                             * rec.get('tree_grain_equivalent_t', 0.0)),
     }

@@ -1,0 +1,50 @@
+{
+ "status": "observational terrain and soils; land cover from NLCD 2021; climate from NOAA 1991-2020 normals; everything else assumed",
+ "county": "Hall County, Nebraska",
+ "field_area_ha": 12.79,
+ "relief_m": 2.8,
+ "land_cover": "NLCD 2021 Cultivated Crops (class 82)",
+ "soils": {
+  "units": {
+   "1700150": {
+    "name": "Hord silt loam, sandy substratum, 0 to 1 percent slopes",
+    "component": "Hord",
+    "soc0_30_tC_ha": 48.0,
+    "aws0_100_mm": 196.7,
+    "samples": 16
+   },
+   "1700119": {
+    "name": "Fillmore silty clay loam, occasionally ponded",
+    "component": "Fillmore",
+    "soc0_30_tC_ha": 56.9,
+    "aws0_100_mm": 157.5,
+    "samples": 13
+   },
+   "1700133": {
+    "name": "Hall silt loam, sandy substratum, 0 to 1 percent slopes",
+    "component": "Hall",
+    "soc0_30_tC_ha": 70.5,
+    "aws0_100_mm": 203.5,
+    "samples": 7
+   },
+   "1700117": {
+    "name": "Detroit silt loam, 0 to 1 percent slopes",
+    "component": "Detroit",
+    "soc0_30_tC_ha": 58.1,
+    "aws0_100_mm": 192.4,
+    "samples": 1
+   },
+   "1700131": {
+    "name": "Hall silt loam, 1 to 3 percent slopes, eroded",
+    "component": "Hall",
+    "soc0_30_tC_ha": 64.8,
+    "aws0_100_mm": 199.4,
+    "samples": 3
+   }
+  },
+  "weighted_soc0_30_tC_ha": 56.3,
+  "weighted_aws0_100_mm": 185.2,
+  "method": "SSURGO dominant major component per map unit; SOC = OM*0.58*BD*thickness 0-30 cm, O horizons excluded; AWS = AWC*thickness 0-100 cm; point-sample weights"
+ },
+ "anonymization": "origin moved to (0,0) and elevation made relative; exact location kept in the private record only"
+}

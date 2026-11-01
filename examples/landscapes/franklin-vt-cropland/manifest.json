@@ -1,0 +1,31 @@
+{
+  "claim_class": "simulated",
+  "data_kind": "observational",
+  "limitations": [
+    "monthly bucket hydrology; no irrigation, groundwater or event hydraulics",
+    "illustrative shelter, competition and snow-trap effects (zero-effect runs are the control)",
+    "species yields, prices, bearing ages, hardiness and invasive statuses are REVIEW REQUIRED",
+    "hardiness from a monthly-normal proxy, not the USDA map",
+    "wind rose from modal hourly directions, a coarse proxy",
+    "no calibration against field measurements"
+  ],
+  "model": "contour.designer",
+  "python": "3.13.18",
+  "source_sha256": {
+    "__init__.py": "bb6eee5dda0e415497509ae58838d90291b0b19c9c8058a29c9c135ac4de1505",
+    "accounting.py": "1ee66e797caf9084b24fa023a647f1e52757dc57134608ccaf829bd5034a47cf",
+    "designer.py": "c5ecaeee4ff95538856bbc8da17fc0186f38f753ef4126dd721313525c1203c9",
+    "experiment.py": "132416d4dab020db75f38742c8055b571ac025af964b7df7399704db929fee25",
+    "kernel.py": "d85845a05559d2f1770c8838dfc3774e331fc8ceb9c48d073f14ee13a101815a",
+    "landscape.py": "8871a3946466820eab6b22166d5390ffe92c72da6fbc6f3b45afe65d493a12a6",
+    "layout.py": "335f340d456c83d74552b103902e4e12e4c3ce0909755d0343b7b5ec40185f7b",
+    "monitor_check.py": "f02ba12ec7679037402fc481988a905e59924dd2902ada42ef609824fa106083",
+    "monitoring.py": "62d9586ab5f03158a8ddeb2ea01863f6e51b4d3b94c374b8be5cda77033d12f5",
+    "optimize.py": "d9a5677b12feed62fd06dbf61c8761b623068f098d9a67729cd249f50731fe42",
+    "params.py": "38c46479de88e52c4f16c12e12beed61ca7880a9264d821742834fa76665c0aa",
+    "report.py": "5260c9e5c0d65dd179942e6af27bd7900cc6a23bf2e0cd1a716da027d0e0efbc",
+    "species.py": "7335ac0be5721c085cc5b7e03ea91db45b7431c0f06f8967dfa39b577294a825",
+    "terrain.py": "2b0b9f67bbbb0c4a835f4704967f9ed98c8248b96647156003f591b56b5031b0"
+  },
+  "version": "0.6.0-dev"
+}

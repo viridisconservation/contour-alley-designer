@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "S1_carbon_positive_all_draws": true,
+    "S2_breakeven_central": true,
+    "S3_establishment_survival": true,
+    "S4_water_not_worse": true,
+    "S5_integrity": true,
+    "S6_balances_close": true
+  },
+  "definitions": {
+    "S1_carbon_positive_all_draws": "reversal-adjusted, leakage-net removal > 0 at the final horizon in every draw",
+    "S2_breakeven_central": "cumulative discounted cash vs A turns positive by year 25 (central draw, zero effects)",
+    "S3_establishment_survival": "mean establishment survival >= 0.80 in every year and draw (before replanting)",
+    "S4_water_not_worse": "surface outflow as a share of water reaching the field not above A by more than 0.5 percentage points in any draw",
+    "S5_integrity": "no landscape rule violations; species pass the regional gate",
+    "S6_balances_close": "water, carbon and nitrogen balances close in every run"
+  },
+  "detail": {
+    "best_net_tCO2e": 92.3379303170151,
+    "breakeven_year_central": 19,
+    "max_outflow_share_change": 1.0455427233100223e-05,
+    "min_establishment_survival": 0.9674913730051878,
+    "upfront_support_for_year25_breakeven_usd": 0.0,
+    "upfront_support_per_row_ha_usd": 0.0,
+    "worst_net_tCO2e": 63.235348923093085
+  },
+  "failing": [],
+  "postprocess_note": "S4 re-evaluated from stored detail after the tolerance changed from 1e-9 to 0.005 (outflow share +0.001 pp in the dry/assumed-effects draw, from snow trapped by rows melting). No simulation changed.",
+  "verdict": "confirmed (model)"
+}

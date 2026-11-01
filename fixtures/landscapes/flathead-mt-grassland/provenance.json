@@ -1,0 +1,22 @@
+{
+ "status": "observational terrain and soils; land cover from NLCD 2021; climate from NOAA 1991-2020 normals; everything else assumed",
+ "county": "Flathead County, Montana",
+ "field_area_ha": 12.318,
+ "relief_m": 24.92,
+ "land_cover": "NLCD 2021 Grassland/Herbaceous (class 71); native status NOT verified",
+ "soils": {
+  "units": {
+   "144937": {
+    "name": "Waits and Krause stony loams, 12 to 40 percent slopes",
+    "component": "Waits",
+    "soc0_30_tC_ha": 32.6,
+    "aws0_100_mm": 149.0,
+    "samples": 40
+   }
+  },
+  "weighted_soc0_30_tC_ha": 32.6,
+  "weighted_aws0_100_mm": 149.0,
+  "method": "SSURGO dominant major component per map unit; SOC = OM*0.58*BD*thickness 0-30 cm, O horizons excluded; AWS = AWC*thickness 0-100 cm; point-sample weights"
+ },
+ "anonymization": "origin moved to (0,0) and elevation made relative; exact location kept in the private record only"
+}

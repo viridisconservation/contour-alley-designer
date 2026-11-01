@@ -1,0 +1,47 @@
+{
+  "calendar": [
+    "Year 0, late summer: sow legume cover in the row strips (no tillage of the alleys).",
+    "Year 0, fall: mark rows on the design lines; rip or strip-till row centres only.",
+    "Year 1, spring: plant trees and shrubs into the cover/sod; protect from browse.",
+    "Years 1-3: supplemental water to new plantings in dry months (water is the binding limit here).",
+    "Each season: mow row cover in months [6, 8], blowing clippings to the alleys.",
+    "From year 4: coppice fixers every 4 years; 50% of prunings to on-farm biochar."
+  ],
+  "nursery_stock": [
+    {
+      "common": "Saskatoon serviceberry",
+      "first_harvest_year": 3,
+      "full_bearing_year": 7,
+      "plants": 291,
+      "share_of_row": 0.233,
+      "species": "saskatoon"
+    },
+    {
+      "common": "American persimmon",
+      "first_harvest_year": 5,
+      "full_bearing_year": 10,
+      "plants": 291,
+      "share_of_row": 0.233,
+      "species": "persimmon_am"
+    },
+    {
+      "common": "Northern pecan",
+      "first_harvest_year": 10,
+      "full_bearing_year": 20,
+      "plants": 291,
+      "share_of_row": 0.233,
+      "species": "pecan_northern"
+    },
+    {
+      "common": "Silver buffaloberry",
+      "first_harvest_year": null,
+      "full_bearing_year": null,
+      "plants": 374,
+      "share_of_row": 0.3,
+      "species": "buffaloberry"
+    }
+  ],
+  "plants_total": 1248,
+  "replanting_allowance_plants": 9,
+  "row_area_ha": 1.56
+}

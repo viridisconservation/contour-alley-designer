@@ -1,10 +1,18 @@
 # Contour Alley Designer
 
-An open, reproducible field-scale model for designing **contour alley-cropping agroforestry**: tree rows on contour that act as rain fences and windbreaks, with a legume cover, nitrogen-fixing trees and on-farm biochar. It compares row layouts on the same field and reports water retention, carbon, leakage, durability risk and farm returns against conventional cropping.
+An open, reproducible field-scale model for designing **agroforestry on every working landscape**:
+- **Hills:** contour alley cropping, where tree rows act as rain fences.
+- **Plains:** shelterbelt alley cropping, with rows across the dominant wind that double as snow fences.
+- **Hay and pasture:** silvopasture.
+- **Native grassland:** sparse savanna restoration under strict integrity rules.
+
+Every design can add a legume cover, nitrogen-fixing shrubs, on-farm biochar and prairie strips. The tree crops follow J. R. Smith's *Tree Crops* (1929): nuts and fruit for people, and feed crops for livestock.
+
+For each field the designer classifies the landscape, searches the admissible designs and confirms the finalists under dry, central and wet climate, with windbreak effects both assumed and switched off. It then reports whether the design meets long-term success criteria and writes a monitoring plan that tests that claim in the field.
 
 From [Viridis Conservation](https://viridisconservation.com). Apache-2.0.
 
-> **Status: research software (v0.5.0-dev).** Terrain, soils and land cover can be real; process rates, prices and shelter effects are labeled assumptions. Nothing here is a calibrated forecast for a real farm or a verified carbon removal.
+> **Status: research software (v0.6.0-dev).** Terrain, soils and land cover can be real; process rates, prices and shelter effects are labeled assumptions. Nothing here is a calibrated forecast for a real farm or a verified carbon removal.
 
 ## Why
 
@@ -49,6 +57,28 @@ Configs included:
 - `configs/contour-synthetic-spur-v1.json`: spur-and-hollow synthetic hillslope.
 - `configs/contour-franklin-vt-pilot-v1.json`: a real 9.9 ha cultivated field in Franklin County, Vermont. It uses USGS 3DEP lidar terrain, NLCD 2021 land cover and USDA SSURGO soils, with coordinates anonymized. It runs in about 10 minutes. A rendered report is in `examples/franklin-vt-pilot/`.
 
+## Design any landscape (v0.6)
+
+```sh
+python3 -m contour.designer --site configs/site-hall-ne-cropland.json --output runs/hall
+python3 -m contour.monitor_check --run runs/hall --observations my_observations.csv
+```
+
+The pipeline runs field → classify → screen → robust confirmation → success test → implementation plan and monitoring. It writes a report, nursery stock counts and a planting calendar, stratified sampling points, and yearly prediction envelopes (`predictions.csv`). Field observations are checked against those envelopes as on_track, watch or off_track. The specification and invariants are in [docs/LANDSCAPE_SPEC.md](docs/LANDSCAPE_SPEC.md).
+
+Four real fields are included, each about 10–13 ha. They use USGS 3DEP lidar, NLCD 2021, USDA SSURGO, NOAA 1991–2020 normals and NOAA hourly wind, with locations anonymized to county. Rendered reports are in `examples/landscapes/`.
+
+| Field | Class | Chosen design | Worst-case net carbon, 40 yr* | Verdict |
+|---|---|---|---|---|
+| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the NW winter wind, 84 m alleys, 6% trees | +8 tCO₂e | confirmed (model) |
+| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +63 tCO₂e | confirmed (model) |
+| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +30 tCO₂e | confirmed (model) |
+| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees | −46 tCO₂e | conditional: carbon fails in wet draws |
+
+\*Reversal-adjusted and leakage-net vs conventional, over the worst of 3 climate draws × 2 effect modes. "Confirmed (model)" means every success criterion held in every simulated draw. It is not a field guarantee.
+
+The Vermont result is the instructive one. On productive humid cropland, displaced crop output (leakage) takes most of the gross carbon gain. The money-weighted optimum then fails the carbon test, so the designer reports it as conditional instead of hiding it. On marginal, dry or grazed land the climate case holds in every draw.
+
 ## Use your own field
 
 1. Export a DEM for the field boundary, for example with `earth_engine/export_field_dem.js`. This script is untested; verify the dataset IDs.
@@ -67,11 +97,11 @@ See [docs/MODEL.md](docs/MODEL.md) for the model, invariants, deviations and lim
 
 ## Limits
 
-- monthly bucket hydrology; no event hydraulics, groundwater or snowmelt
+- monthly bucket hydrology with a degree-day snowpack; no event hydraulics, groundwater or irrigation
 - illustrative shelter and competition curves
 - one mean row height
 - Tier 1 N₂O factors applied to modeled flows
-- the species table is an unverified draft
+- the species tables (including yields, prices, bearing ages and invasive statuses) are unverified drafts
 - no calibration against field measurements yet
 
 Contributions of field data, calibration datasets and windbreak measurements are especially welcome.

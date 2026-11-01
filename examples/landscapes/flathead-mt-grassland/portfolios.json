@@ -1,0 +1,32 @@
+{
+  "food_value": [
+    {
+      "bearing_start_yr": 3,
+      "c_frac": 0.45,
+      "drought_exp": 0.4,
+      "full_bearing_yr": 7,
+      "grain_eq": 0.25,
+      "harvest_usd_t": 1200,
+      "id": "saskatoon",
+      "n_kg_t": 5,
+      "price_usd_t": 4000,
+      "share": 0.35,
+      "use": "food",
+      "yield_t_ha_yr": 3.0
+    },
+    {
+      "bearing_start_yr": 3,
+      "c_frac": 0.45,
+      "drought_exp": 0.4,
+      "full_bearing_yr": 6,
+      "grain_eq": 0.2,
+      "harvest_usd_t": 1000,
+      "id": "chokecherry",
+      "n_kg_t": 6,
+      "price_usd_t": 2500,
+      "share": 0.35,
+      "use": "food",
+      "yield_t_ha_yr": 2.0
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "contour_vertical_interval_m": [
+    1.0,
+    2.0,
+    3.0
+  ],
+  "cover_sowing": false,
+  "ecological_review_required": true,
+  "fertilizer": "none",
+  "min_alley_machinery_passes": 2,
+  "modes": [
+    "parallel_contour",
+    "true_contour"
+  ],
+  "native_species_only": true,
+  "notes": [
+    "Native grassland: trees only as scattered savanna clumps or contour hedges at low cover; remnant prairie and grassland-bird habitat must be surveyed before any planting.",
+    "Semi-arid: water is the binding limit; rows must sit where run-on or snow concentrates water, and establishment needs supplemental water or drought-hardy stock."
+  ],
+  "snow_trap": true,
+  "strip_fraction": 0.08,
+  "strips": false,
+  "tillage_establishment": false,
+  "tree_fraction": [
+    0.02,
+    0.04
+  ],
+  "tree_fraction_cap": 0.05,
+  "windbreak_H_multiples": [
+    6,
+    10,
+    15
+  ]
+}

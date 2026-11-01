@@ -1,0 +1,267 @@
+{
+  "sampling_points": [
+    {
+      "cell": 3039,
+      "stratum": "0-1H/lower",
+      "x_m": 397.5,
+      "y_m": 132.5
+    },
+    {
+      "cell": 3351,
+      "stratum": "0-1H/lower",
+      "x_m": 357.5,
+      "y_m": 112.5
+    },
+    {
+      "cell": 5009,
+      "stratum": "0-1H/mid",
+      "x_m": 247.5,
+      "y_m": 7.5
+    },
+    {
+      "cell": 3725,
+      "stratum": "0-1H/mid",
+      "x_m": 227.5,
+      "y_m": 87.5
+    },
+    {
+      "cell": 1482,
+      "stratum": "0-1H/upper",
+      "x_m": 212.5,
+      "y_m": 227.5
+    },
+    {
+      "cell": 1882,
+      "stratum": "0-1H/upper",
+      "x_m": 212.5,
+      "y_m": 202.5
+    },
+    {
+      "cell": 2336,
+      "stratum": "1-3H/lower",
+      "x_m": 82.5,
+      "y_m": 172.5
+    },
+    {
+      "cell": 2310,
+      "stratum": "1-3H/lower",
+      "x_m": 352.5,
+      "y_m": 177.5
+    },
+    {
+      "cell": 4337,
+      "stratum": "1-3H/lower",
+      "x_m": 87.5,
+      "y_m": 47.5
+    },
+    {
+      "cell": 3757,
+      "stratum": "1-3H/lower",
+      "x_m": 387.5,
+      "y_m": 87.5
+    },
+    {
+      "cell": 2314,
+      "stratum": "1-3H/lower",
+      "x_m": 372.5,
+      "y_m": 177.5
+    },
+    {
+      "cell": 1554,
+      "stratum": "1-3H/lower",
+      "x_m": 172.5,
+      "y_m": 222.5
+    },
+    {
+      "cell": 4533,
+      "stratum": "1-3H/mid",
+      "x_m": 267.5,
+      "y_m": 37.5
+    },
+    {
+      "cell": 3808,
+      "stratum": "1-3H/mid",
+      "x_m": 242.5,
+      "y_m": 82.5
+    },
+    {
+      "cell": 1927,
+      "stratum": "1-3H/mid",
+      "x_m": 37.5,
+      "y_m": 197.5
+    },
+    {
+      "cell": 1231,
+      "stratum": "1-3H/mid",
+      "x_m": 157.5,
+      "y_m": 242.5
+    },
+    {
+      "cell": 626,
+      "stratum": "1-3H/mid",
+      "x_m": 332.5,
+      "y_m": 282.5
+    },
+    {
+      "cell": 4269,
+      "stratum": "1-3H/mid",
+      "x_m": 147.5,
+      "y_m": 52.5
+    },
+    {
+      "cell": 4758,
+      "stratum": "1-3H/upper",
+      "x_m": 192.5,
+      "y_m": 22.5
+    },
+    {
+      "cell": 901,
+      "stratum": "1-3H/upper",
+      "x_m": 107.5,
+      "y_m": 262.5
+    },
+    {
+      "cell": 81,
+      "stratum": "1-3H/upper",
+      "x_m": 7.5,
+      "y_m": 312.5
+    },
+    {
+      "cell": 343,
+      "stratum": "1-3H/upper",
+      "x_m": 117.5,
+      "y_m": 297.5
+    },
+    {
+      "cell": 295,
+      "stratum": "1-3H/upper",
+      "x_m": 277.5,
+      "y_m": 302.5
+    },
+    {
+      "cell": 188,
+      "stratum": "1-3H/upper",
+      "x_m": 142.5,
+      "y_m": 307.5
+    },
+    {
+      "cell": 1918,
+      "stratum": "3-6H/lower",
+      "x_m": 392.5,
+      "y_m": 202.5
+    },
+    {
+      "cell": 2155,
+      "stratum": "3-6H/lower",
+      "x_m": 377.5,
+      "y_m": 187.5
+    },
+    {
+      "cell": 866,
+      "stratum": "3-6H/mid",
+      "x_m": 332.5,
+      "y_m": 267.5
+    },
+    {
+      "cell": 4816,
+      "stratum": "3-6H/mid",
+      "x_m": 82.5,
+      "y_m": 17.5
+    },
+    {
+      "cell": 1734,
+      "stratum": "3-6H/upper",
+      "x_m": 272.5,
+      "y_m": 212.5
+    },
+    {
+      "cell": 2130,
+      "stratum": "3-6H/upper",
+      "x_m": 252.5,
+      "y_m": 187.5
+    },
+    {
+      "cell": 3697,
+      "stratum": "row/lower",
+      "x_m": 87.5,
+      "y_m": 87.5
+    },
+    {
+      "cell": 2670,
+      "stratum": "row/lower",
+      "x_m": 152.5,
+      "y_m": 152.5
+    },
+    {
+      "cell": 3906,
+      "stratum": "row/mid",
+      "x_m": 332.5,
+      "y_m": 77.5
+    },
+    {
+      "cell": 2222,
+      "stratum": "row/mid",
+      "x_m": 312.5,
+      "y_m": 182.5
+    },
+    {
+      "cell": 4380,
+      "stratum": "row/upper",
+      "x_m": 302.5,
+      "y_m": 47.5
+    },
+    {
+      "cell": 882,
+      "stratum": "row/upper",
+      "x_m": 12.5,
+      "y_m": 262.5
+    }
+  ],
+  "schedule": [
+    {
+      "indicator": "baseline soil sampling (SOC 0-30 cm, bulk density, texture)",
+      "strata": "all",
+      "when": "year 0 before planting"
+    },
+    {
+      "indicator": "establishment_survival",
+      "strata": "row",
+      "when": "every fall, years 1-3; then years 5, 10"
+    },
+    {
+      "indicator": "tree_height_m",
+      "strata": "row",
+      "when": "every fall, years 1-5; then every 5 years"
+    },
+    {
+      "indicator": "soil moisture (0-30 cm sensors)",
+      "strata": "row, 0-1H, 3-6H, >6H x upper/lower",
+      "when": "monthly in the growing season, from year 1"
+    },
+    {
+      "indicator": "alley_crop_yield_t_ha",
+      "strata": "all alley strata",
+      "when": "every harvest (yield monitor or hand plots by distance from row)"
+    },
+    {
+      "indicator": "tree_crop_yield_t_per_row_ha",
+      "strata": "row",
+      "when": "every harvest from first bearing"
+    },
+    {
+      "indicator": "soc_tC_ha",
+      "strata": "all",
+      "when": "years 5, 10, 20, 40 (same points as baseline)"
+    },
+    {
+      "indicator": "field_outflow_mm_yr",
+      "strata": "outlet",
+      "when": "event runoff at the outlet if a flume is installed; otherwise skip"
+    },
+    {
+      "indicator": "snow depth and density transects",
+      "strata": "transects across rows: 0-1H, 1-3H, 3-6H, >6H",
+      "when": "late February each year"
+    }
+  ]
+}

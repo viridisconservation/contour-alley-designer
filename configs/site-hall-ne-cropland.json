@@ -1,0 +1,14 @@
+{
+ "name": "Hall County NE cropland (plain)",
+ "field": "fixtures/landscapes/hall-ne-cropland/field.json",
+ "land_cover": "cropland",
+ "region": "central_plains",
+ "climate_normals": "fixtures/landscapes/climate/normals_USW00014935.json",
+ "wind": "fixtures/landscapes/climate/wind_USW00014935.json",
+ "soil": {
+  "soc_tC_ha": 56.3,
+  "capacity_mm": 185.2
+ },
+ "machinery_m": 12.0,
+ "species_file": "fixtures/landscapes/species-v2.json"
+}
