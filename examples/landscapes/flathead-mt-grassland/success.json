@@ -16,13 +16,13 @@
     "S6_balances_close": "water, carbon and nitrogen balances close in every run"
   },
   "detail": {
-    "best_net_tCO2e": 37.325212059482546,
+    "best_net_tCO2e": 19.115526564523435,
     "breakeven_year_central": 11,
-    "max_outflow_share_change": 0.0,
-    "min_establishment_survival": 0.9667713766264389,
+    "max_outflow_share_change": -0.0008047742594710465,
+    "min_establishment_survival": 1.0,
     "upfront_support_for_year25_breakeven_usd": 0.0,
     "upfront_support_per_row_ha_usd": 0.0,
-    "worst_net_tCO2e": 31.48340025584656
+    "worst_net_tCO2e": 14.59016796402154
   },
   "failing": [],
   "verdict": "confirmed (model)"

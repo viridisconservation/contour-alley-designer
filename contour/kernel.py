@@ -190,7 +190,11 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
         if has_rows:
             wood_rows = [A[i] + Bb[i] for i in cells if row[i]]
             mw = sum(wood_rows) / len(wood_rows)
-            H = max(0.5, tr['h_max_m'] * mw / (mw + tr['h_half_tC_ha']))
+            if tr['height_model'] == 'age':
+                # height follows tree age, not standing wood, so harvests and coppice do not shrink the windbreak (LG15)
+                H = max(0.5, tr['h_max_m'] * (1 - math.exp(-((mth + 1) / 12) / tr['h_tau_yr'])))
+            else:
+                H = max(0.5, tr['h_max_m'] * mw / (mw + tr['h_half_tC_ha']))
         else:
             H = 0.0
         # ---- shelter and competition from current height (CA3, CA4) ----
@@ -221,7 +225,10 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
                 sfall = fs * rain
                 SN[i] += sfall
                 trap = shel[i] if not row[i] else min(1.0, (A[i] + Bb[i]) / tr['canopy_tC_ha'])
-                loss = SN[i] * sn['loss_frac_month'] * max(0.0, 1 - sn['trap_gamma'] * trap)
+                # loss basis: 'snowfall' applies the fraction to this month's snowfall (15-40% per season, Pomeroy);
+                # 'pack' (v0.6.0 behaviour) compounds on the stored pack
+                lb = sfall if sn['loss_basis'] == 'snowfall' else SN[i]
+                loss = min(SN[i], lb * sn['loss_frac_month'] * max(0.0, 1 - sn['trap_gamma'] * trap))
                 SN[i] -= loss
                 mlt = min(SN[i], sn['ddf_mm_per_c_day'] * max(0.0, tm) * 30.4)
                 SN[i] -= mlt
@@ -424,10 +431,13 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
                         ramp_b = min(1.0, (age - sp['bearing_start_yr'] + 1) / (sp['full_bearing_yr'] - sp['bearing_start_yr'] + 1))
                         tys[sp['id']] = sp['share'] * sp['yield_t_ha_yr'] * ramp_b * vig * ws_tree ** sp['drought_exp']
                         if pol_gain and sp.get('pollinator_dep', 0.0) > 0:     # assumed pollination effect (LG14)
-                            tys[sp['id']] *= 1 + pol_gain[i] * sp['pollinator_dep']
+                            # habitat matures: no gain in years 1-2, half in year 3, full from year 4 (Blaauw & Isaacs 2014)
+                            tys[sp['id']] *= 1 + pol_gain[i] * sp['pollinator_dep'] * min(1.0, max(0.0, (year - 1) / 2))
                     want_c = sum(tys[k] * sp_by[k]['c_frac'] for k in tys)
                     want_n = sum(tys[k] * sp_by[k]['n_kg_t'] for k in tys)
-                    sc = min(1.0, A[i] / want_c if want_c > 0 else 1.0, PN[i] / want_n if want_n > 0 else 1.0)
+                    # fruit/nut carbon is reproductive NPP on top of the woody increment (it is not cut from standing
+                    # wood); fruit N comes from plant N, which can limit the crop (LG17)
+                    sc = min(1.0, PN[i] / want_n if want_n > 0 else 1.0)
                     pc = pn = 0.0
                     for k in tys:
                         t_ = tys[k] * sc
@@ -438,8 +448,9 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
                         L['tree_food_t' if s_['use'] == 'food' else 'tree_feed_t'] += t_ * ha
                         L['tree_grain_eq_t'] += t_ * s_['grain_eq'] * ha
                         cash += t_ * ha * (s_['price_usd_t'] - s_['harvest_usd_t'])
-                    pc = min(pc, A[i]); pn = min(pn, PN[i])
-                    A[i] -= pc; PN[i] -= pn
+                    pn = min(pn, PN[i])
+                    PN[i] -= pn
+                    g_net += pc
                     exp_c += pc; exp_n += pn
                 elif mon == tr['harvest_month']:
                     ty = tr['product_t_ha_yr'] * (1 - fx['share']) * min(1.0, wood / tr['mature_tC_ha']) * ws_tree
@@ -542,7 +553,10 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
             L['residueN_to_soil_kgN'] += residue_n_to_soil * ha
             L['crop_npp_tC'] += npp_c * ha; L['tree_npp_tC'] += g_net * ha; L['cover_npp_tC'] += npp_cov * ha
             # N2O, Tier 1 factors applied to modeled flows (kg N2O-N/ha)
-            direct = em['ef1'] * (fert + residue_n_to_soil)
+            if em['ef1_organic'] == em['ef1']:
+                direct = em['ef1'] * (fert + residue_n_to_soil)
+            else:      # IPCC 2019 disaggregated: synthetic vs organic N inputs
+                direct = em['ef1'] * fert + em['ef1_organic'] * residue_n_to_soil
             indirect = em['ef5'] * leach + em['ef4'] * em['frac_gasf'] * fert
             conv = 44.0 / 28.0 * em['gwp_n2o'] / 1000.0 * ha
             L['em_n2o_direct'] += direct * conv

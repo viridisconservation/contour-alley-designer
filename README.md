@@ -70,16 +70,16 @@ Four real fields are included, each about 10–13 ha. They use USGS 3DEP lidar, 
 
 | Field | Class | Chosen design | Worst-case net carbon, 40 yr* | Verdict |
 |---|---|---|---|---|
-| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the summer wind, 84 m alleys, 6% trees (chestnut, saskatoon, persimmon), native pollinator understory | +10 tCO₂e | confirmed (model) |
-| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +62 tCO₂e | confirmed (model) |
-| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +32 tCO₂e | confirmed (model) |
-| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees (chestnut, saskatoon, persimmon) | −34 tCO₂e | conditional: carbon fails in wet draws |
+| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the NW winter wind, 84 m alleys, 6% trees (chestnut, chokecherry, saskatoon) | −5 tCO₂e | conditional: carbon ≈ leakage charge |
+| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +24 tCO₂e | conditional: payback year 27 |
+| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +15 tCO₂e | confirmed (model) |
+| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees (chestnut, chokecherry, saskatoon), native pollinator understory | +9 tCO₂e | confirmed (model) |
 
 \*Reversal-adjusted and leakage-net vs conventional, over the worst of 3 climate draws × 2 effect modes. "Confirmed (model)" means every success criterion held in every simulated draw. It is not a field guarantee.
 
-The Vermont result is the instructive one. On productive humid cropland, displaced crop output (leakage) takes most of the gross carbon gain. The money-weighted optimum then fails the carbon test, so the designer reports it as conditional instead of hiding it. On marginal, dry or grazed land the climate case holds in every draw.
+Parameters are grounded in a literature review ([docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md](docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md)). Woody carbon lands at about 0.7 (Nebraska) to 1.0 (Vermont) tC per ha of tree row per year, matching USDA COMET-Planner windbreak rates. On cropland, the charge for displaced crop (leakage) cancels most of the gross gain. Nebraska's result swings from +71 to −121 tCO₂e across the defensible leakage range (0.2–2.4 tCO₂e per t grain), so leakage, not tree growth, decides the climate case there.
 
-At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free: on the Nebraska field it cost $137 over 40 years in the worst case. Separate strips cost crop area.
+At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free: on the Nebraska field it cost about $460 over 40 years in the worst case. Separate strips cost crop area.
 
 ## Use your own field
 

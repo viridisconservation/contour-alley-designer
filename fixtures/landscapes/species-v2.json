@@ -45,8 +45,8 @@
     "harvest_usd_t": 1102,
     "grain_eq": 0.65,
     "drought_exp": 0.6,
-    "c_frac": 0.45,
-    "n_kg_t": 10,
+    "c_frac": 0.225,
+    "n_kg_t": 6.0,
     "pollinator_dep": 0.25
    },
    "verified_2026_11_01": [
@@ -55,7 +55,8 @@
     "harvest_usd_t",
     "price_usd_t",
     "yield_t_ha_yr"
-   ]
+   ],
+   "plants_per_ha_row": 330
   },
   {
    "id": "hazel_hyb",
@@ -88,8 +89,8 @@
     "harvest_usd_t": 700,
     "grain_eq": 0.9,
     "drought_exp": 0.7,
-    "c_frac": 0.5,
-    "n_kg_t": 25,
+    "c_frac": 0.414,
+    "n_kg_t": 15.0,
     "pollinator_dep": 0.0
    },
    "verified_2026_11_01": [
@@ -97,7 +98,8 @@
     "full_bearing_yr",
     "price_usd_t",
     "yield_t_ha_yr"
-   ]
+   ],
+   "plants_per_ha_row": 1640
   },
   {
    "id": "walnut_black",
@@ -131,14 +133,15 @@
     "harvest_usd_t": 100,
     "grain_eq": 0.5,
     "drought_exp": 0.5,
-    "c_frac": 0.5,
-    "n_kg_t": 15,
+    "c_frac": 0.414,
+    "n_kg_t": 12.0,
     "pollinator_dep": 0.0
    },
    "verified_2026_11_01": [
     "harvest_usd_t",
     "price_usd_t"
-   ]
+   ],
+   "plants_per_ha_row": 220
   },
   {
    "id": "pecan_northern",
@@ -161,20 +164,21 @@
    "aridity_min": 0.55,
    "height_m": 25,
    "notes": "Long juvenility; northern selections needed; river-bottom soils.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "Missouri Extension G738 (2025): ~1.8 t/ha yr 14, ~2.6 t/ha yr 28; USDA NASS 2024 in-shell $2,646-3,792/t; Savanna Institute: first bearing 5-7 yr, full 20-25 yr. (grounding report 2026-11-01, reports/Agroforestry parameter grounding.md) Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
-    "bearing_start_yr": 10,
-    "full_bearing_yr": 20,
-    "yield_t_ha_yr": 1.0,
-    "price_usd_t": 5000,
+    "bearing_start_yr": 7,
+    "full_bearing_yr": 22,
+    "yield_t_ha_yr": 2.3,
+    "price_usd_t": 3400,
     "harvest_usd_t": 1000,
     "grain_eq": 1.2,
     "drought_exp": 0.5,
-    "c_frac": 0.5,
-    "n_kg_t": 15,
+    "c_frac": 0.427,
+    "n_kg_t": 12.0,
     "pollinator_dep": 0.0
-   }
+   },
+   "plants_per_ha_row": 220
   },
   {
    "id": "oak_bur",
@@ -197,7 +201,7 @@
    "hardiness_zone_min": 3,
    "aridity_min": 0.3,
    "height_m": 18,
-   "notes": "Smith feed crop: acorns for hogs/poultry, harvested by stock. Masting years vary. Native range reaches eastern MT, not the Flathead: treat as non-native there but not invasive.",
+   "notes": "Smith feed crop: acorns for hogs/poultry, harvested by stock. Masting years vary. Native range reaches eastern MT, not the Flathead: treat as non-native there but not invasive. Masting: 1-2 good crops in 5 years (USFS RP-SRS-20, Appalachian oaks); flat yield is a long-run mean; price imputed.",
    "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
    "crop": {
     "use": "feed",
@@ -208,10 +212,11 @@
     "harvest_usd_t": 50,
     "grain_eq": 0.6,
     "drought_exp": 0.3,
-    "c_frac": 0.45,
-    "n_kg_t": 10,
+    "c_frac": 0.248,
+    "n_kg_t": 7.0,
     "pollinator_dep": 0.0
-   }
+   },
+   "plants_per_ha_row": 220
   },
   {
    "id": "honeylocust_thornless",
@@ -232,7 +237,7 @@
    "hardiness_zone_min": 4,
    "aridity_min": 0.35,
    "height_m": 15,
-   "notes": "Smith feed crop: sugary pods for livestock. DOES NOT fix nitrogen (no nodulation). Select thornless, high-pod-sugar cultivars. Can sucker/spread in pastures; monitor.",
+   "notes": "Smith feed crop: sugary pods for livestock. DOES NOT fix nitrogen (no nodulation). Select thornless, high-pod-sugar cultivars. Can sucker/spread in pastures; monitor. Pod yield ~4 t/ha as-fed at 36 trees/acre (On Pasture 2021) is per field ha at wide spacing; price is an imputed feed value.",
    "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
    "crop": {
     "use": "feed",
@@ -243,10 +248,11 @@
     "harvest_usd_t": 40,
     "grain_eq": 0.7,
     "drought_exp": 0.4,
-    "c_frac": 0.45,
-    "n_kg_t": 12,
+    "c_frac": 0.383,
+    "n_kg_t": 15.0,
     "pollinator_dep": 0.3
-   }
+   },
+   "plants_per_ha_row": 220
   },
   {
    "id": "mulberry_red",
@@ -279,10 +285,11 @@
     "harvest_usd_t": 30,
     "grain_eq": 0.2,
     "drought_exp": 0.5,
-    "c_frac": 0.45,
-    "n_kg_t": 8,
+    "c_frac": 0.081,
+    "n_kg_t": 2.0,
     "pollinator_dep": 0.0
-   }
+   },
+   "plants_per_ha_row": 670
   },
   {
    "id": "mulberry_white",
@@ -312,10 +319,11 @@
     "harvest_usd_t": 30,
     "grain_eq": 0.2,
     "drought_exp": 0.4,
-    "c_frac": 0.45,
-    "n_kg_t": 8,
+    "c_frac": 0.081,
+    "n_kg_t": 2.0,
     "pollinator_dep": 0.0
-   }
+   },
+   "plants_per_ha_row": 670
   },
   {
    "id": "persimmon_am",
@@ -337,7 +345,7 @@
    "aridity_min": 0.5,
    "height_m": 10,
    "notes": "Smith tree crop; also feed. Native range reaches SE Nebraska edge only; northern selections needed.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "University of Kentucky CCD 2026: ~4.5 t/ha saleable from yr 4 at ~$6,000/t; grafted trees bear ~3 yr, full ~10 yr. Model keeps 3 t/ha at $3,000/t as conservative. D. virginiana is dioecious and insect-pollinated (dependence 0.65). (grounding report 2026-11-01, reports/Agroforestry parameter grounding.md) Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
     "bearing_start_yr": 5,
@@ -347,10 +355,11 @@
     "harvest_usd_t": 1000,
     "grain_eq": 0.4,
     "drought_exp": 0.5,
-    "c_frac": 0.45,
-    "n_kg_t": 8,
-    "pollinator_dep": 0.4
-   }
+    "c_frac": 0.135,
+    "n_kg_t": 1.5,
+    "pollinator_dep": 0.65
+   },
+   "plants_per_ha_row": 330
   },
   {
    "id": "apple_hardy",
@@ -370,20 +379,21 @@
    "aridity_min": 0.5,
    "height_m": 6,
    "notes": "Low-input cider/juice grade price assumed; fresh-market would need spraying and different economics.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "Becot et al. 2018 (UVM, Vermont cider-apple market): 15.3-29.2 t/ha; cidery $290 (drops) to $440/t (orchard run); production cost $391-473/t. Savanna Institute 2022: cider cultivars $630-945/t, bearing 4-6 yr. Conservative 15 t/ha at $400/t used. (grounding report 2026-11-01, reports/Agroforestry parameter grounding.md) Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
     "bearing_start_yr": 4,
-    "full_bearing_yr": 10,
-    "yield_t_ha_yr": 10.0,
-    "price_usd_t": 250,
+    "full_bearing_yr": 8,
+    "yield_t_ha_yr": 15.0,
+    "price_usd_t": 400,
     "harvest_usd_t": 80,
     "grain_eq": 0.15,
     "drought_exp": 0.6,
-    "c_frac": 0.45,
-    "n_kg_t": 3,
+    "c_frac": 0.068,
+    "n_kg_t": 0.5,
     "pollinator_dep": 0.65
-   }
+   },
+   "plants_per_ha_row": 1200
   },
   {
    "id": "saskatoon",
@@ -416,8 +426,8 @@
     "harvest_usd_t": 900,
     "grain_eq": 0.25,
     "drought_exp": 0.4,
-    "c_frac": 0.45,
-    "n_kg_t": 5,
+    "c_frac": 0.09,
+    "n_kg_t": 2.0,
     "pollinator_dep": 0.65
    },
    "verified_2026_11_01": [
@@ -425,7 +435,8 @@
     "full_bearing_yr",
     "harvest_usd_t",
     "yield_t_ha_yr"
-   ]
+   ],
+   "plants_per_ha_row": 1640
   },
   {
    "id": "elderberry",
@@ -458,8 +469,8 @@
     "harvest_usd_t": 441,
     "grain_eq": 0.2,
     "drought_exp": 0.8,
-    "c_frac": 0.45,
-    "n_kg_t": 6,
+    "c_frac": 0.09,
+    "n_kg_t": 2.0,
     "pollinator_dep": 0.25
    },
    "verified_2026_11_01": [
@@ -468,7 +479,8 @@
     "harvest_usd_t",
     "price_usd_t",
     "yield_t_ha_yr"
-   ]
+   ],
+   "plants_per_ha_row": 1640
   },
   {
    "id": "chokecherry",
@@ -492,20 +504,21 @@
    "aridity_min": 0.35,
    "height_m": 5,
    "notes": "Native shrub widely used in plains shelterbelts; fruit for processing. Leaves toxic to livestock when wilted: fence from stock.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "Manitoba Agriculture chokecherry production: 10,000-15,000+ lb/ac mature (~11-17 t/ha), first crop yr 3-4. 8 t/ha used for low-input rows; price unsourced. (grounding report 2026-11-01, reports/Agroforestry parameter grounding.md) Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
     "bearing_start_yr": 3,
-    "full_bearing_yr": 6,
-    "yield_t_ha_yr": 2.0,
+    "full_bearing_yr": 7,
+    "yield_t_ha_yr": 8.0,
     "price_usd_t": 2500,
     "harvest_usd_t": 1000,
     "grain_eq": 0.2,
     "drought_exp": 0.4,
-    "c_frac": 0.45,
-    "n_kg_t": 6,
+    "c_frac": 0.09,
+    "n_kg_t": 2.0,
     "pollinator_dep": 0.65
-   }
+   },
+   "plants_per_ha_row": 1640
   },
   {
    "id": "alder_speckled",
@@ -527,7 +540,8 @@
    "aridity_min": 0.8,
    "height_m": 6,
    "notes": "Wet sites; coppices well.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 1100
   },
   {
    "id": "buffaloberry",
@@ -550,7 +564,8 @@
    "aridity_min": 0.3,
    "height_m": 4,
    "notes": "Native plains shrub; edible fruit (minor); suckering hedge.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 1640
   },
   {
    "id": "ceanothus_nj",
@@ -573,7 +588,8 @@
    "aridity_min": 0.4,
    "height_m": 1,
    "notes": "Low shrub; prairie and savanna native; slow to establish.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 1640
   },
   {
    "id": "ceanothus_snowbrush",
@@ -595,7 +611,8 @@
    "aridity_min": 0.35,
    "height_m": 2,
    "notes": "Native to the northern Rockies; fire-adapted; seed needs heat scarification.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 1640
   },
   {
    "id": "leadplant",
@@ -617,7 +634,8 @@
    "aridity_min": 0.3,
    "height_m": 1,
    "notes": "Native prairie shrub; suited to native grassland and prairie strips.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 1640
   },
   {
    "id": "false_indigo",
@@ -639,7 +657,8 @@
    "aridity_min": 0.4,
    "height_m": 3,
    "notes": "Native to the plains; listed invasive in parts of the Northeast. Override required there.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 1640
   },
   {
    "id": "caragana",
@@ -659,7 +678,8 @@
    "aridity_min": 0.3,
    "height_m": 4,
    "notes": "Classic plains shelterbelt fixer but naturalizes; requires written override.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 1640
   },
   {
    "id": "locust_black",
@@ -680,7 +700,8 @@
    "aridity_min": 0.35,
    "height_m": 20,
    "notes": "Native only to Appalachian/Ozark areas; aggressive root suckering; requires written override.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 330
   },
   {
    "id": "clover_white",
@@ -700,7 +721,8 @@
    "aridity_min": 0.5,
    "height_m": 0.5,
    "notes": "Naturalized agronomic legume; not for native grassland.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 0
   },
   {
    "id": "vetch_hairy",
@@ -720,7 +742,8 @@
    "aridity_min": 0.4,
    "height_m": 0.5,
    "notes": "Winter-annual cover; can become weedy in small grains.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 0
   },
   {
    "id": "prairie_clover",
@@ -743,7 +766,8 @@
    "aridity_min": 0.3,
    "height_m": 0.5,
    "notes": "Native prairie legume for strips and native contexts.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "plants_per_ha_row": 0
   },
   {
    "id": "willow_heartleaf",
@@ -784,7 +808,8 @@
     "harvest_usd_t",
     "start_yr",
     "interval_yr"
-   ]
+   ],
+   "plants_per_ha_row": 1640
   },
   {
    "id": "willow_sandbar",
@@ -819,7 +844,8 @@
     "n_kg_t": 5.0,
     "use": "fodder",
     "grain_eq": 0.35
-   }
+   },
+   "plants_per_ha_row": 1640
   },
   {
    "id": "dogwood_redosier",
@@ -855,7 +881,8 @@
     "n_kg_t": 5.0,
     "use": "biomass",
     "grain_eq": 0.0
-   }
+   },
+   "plants_per_ha_row": 1640
   },
   {
    "id": "hazel_coppice",
@@ -890,7 +917,8 @@
     "n_kg_t": 5.0,
     "use": "biomass",
     "grain_eq": 0.0
-   }
+   },
+   "plants_per_ha_row": 1640
   }
  ],
  "regulatory_check": {
@@ -900,5 +928,7 @@
    "https://flatheadcounty.gov/department-directory/weeds/state-list",
    "https://nda.nebraska.gov/sites/default/files/plant/noxious_weeds/County%20Designated%20Noxious%20Weeds.pdf"
   ]
- }
+ },
+ "planting_density_note": "plants_per_ha_row = plants per hectare of a 5 m-wide row at species in-row spacing: shrubs ~1.2 m (1,640), apple 1.5-1.8 m (~1,200), mulberry 3 m (670), persimmon/chestnut 6 m (330), large nut and pod trees 9 m (220). Calculated from Savanna Institute, Manitoba, UK CCD and On Pasture spacings.",
+ "fruit_composition_note": "crop.c_frac and crop.n_kg_t are per tonne of FRESH product: c_frac = dry-matter fraction x 0.45 (fleshy fruit 15-30% DM, chestnut/acorn ~50-55%, nuts in shell and dry pods 85-95%). Approximate composition values; REVIEW."
 }

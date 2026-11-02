@@ -1,6 +1,6 @@
 {
   "criteria": {
-    "S1_carbon_positive_all_draws": false,
+    "S1_carbon_positive_all_draws": true,
     "S2_breakeven_central": true,
     "S3_establishment_survival": true,
     "S4_water_not_worse": true,
@@ -16,16 +16,14 @@
     "S6_balances_close": "water, carbon and nitrogen balances close in every run"
   },
   "detail": {
-    "best_net_tCO2e": 23.039040160224033,
-    "breakeven_year_central": 11,
-    "max_outflow_share_change": -0.0022759923348998025,
+    "best_net_tCO2e": 59.69675613671603,
+    "breakeven_year_central": 10,
+    "max_outflow_share_change": -0.01143531777393241,
     "min_establishment_survival": 1.0,
     "upfront_support_for_year25_breakeven_usd": 0.0,
     "upfront_support_per_row_ha_usd": 0.0,
-    "worst_net_tCO2e": -33.782110191574446
+    "worst_net_tCO2e": 8.931558301123943
   },
-  "failing": [
-    "S1_carbon_positive_all_draws"
-  ],
-  "verdict": "conditional"
+  "failing": [],
+  "verdict": "confirmed (model)"
 }

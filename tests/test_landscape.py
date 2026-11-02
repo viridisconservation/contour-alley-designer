@@ -1,6 +1,7 @@
 """v0.6 landscape-general invariants (LG1-LG12, NG1)."""
 import dataclasses
 import json
+import math
 import sys
 import tempfile
 import unittest
@@ -188,6 +189,17 @@ class Portfolio(unittest.TestCase):
         self.assertAlmostEqual(sum(x['tree_product_by_species_t'].values()), x['tree_product_t'])
         self.assertAlmostEqual(x['tree_food_t'] + x['tree_feed_t'], x['tree_product_t'])
 
+    def test_fruit_does_not_consume_wood(self):
+        """LG17: fruit carbon is reproductive NPP, so harvesting it leaves standing wood unchanged."""
+        f = small(); d = contour(f)
+        P0 = validate(merge({'portfolio': {'species': [pf_entry(yield_t_ha_yr=0.0)]}}))
+        P1 = validate(merge({'portfolio': {'species': [pf_entry(yield_t_ha_yr=5.0, c_frac=0.1, n_kg_t=1.0)]}}))
+        r0 = simulate(f, d, P0, weather(P0, 8), (8,))
+        r1 = simulate(f, d, P1, weather(P1, 8), (8,))
+        closes(r1)
+        self.assertGreater(r1[8]['tree_product_t'], 0)
+        self.assertAlmostEqual(r1[8]['pools_tC']['woody'], r0[8]['pools_tC']['woody'], delta=0.02 * r0[8]['pools_tC']['woody'])
+
     def test_shares_bounded_by_fixer(self):
         with self.assertRaises(ValueError):
             validate(merge({'portfolio': {'species': [pf_entry(share=0.8)]}}))
@@ -230,6 +242,54 @@ class Coppice(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate(merge({'coppice_crops': {'species': [cop_entry(share=0.5)]},
                             'portfolio': {'species': [pf_entry(share=0.4)]}}))
+
+
+class Grounding(unittest.TestCase):
+    def test_snow_loss_on_snowfall_is_smaller(self):
+        """LG16: loss applied to monthly snowfall (~15-40%/season) stays below loss compounded on the pack."""
+        f = small(); d = contour(f)
+        out = {}
+        for b in ('pack', 'snowfall'):
+            P = validate(merge({'climate': KAL, 'snow': {'enabled': True, 'loss_basis': b}}))
+            r = simulate(f, d, P, weather(P, 6), (6,))
+            closes(r)
+            out[b] = r[6]['snow_loss_mm'] / r[6]['snowfall_mm']
+        self.assertLess(out['snowfall'], out['pack'])
+        self.assertLessEqual(out['snowfall'], 0.2 + 1e-9)
+
+    def test_disaggregated_n2o_closes(self):
+        f = small(); d = contour(f)
+        P = validate(merge({'emissions': {'ef1': 0.016, 'ef1_organic': 0.006}}))
+        r = simulate(f, d, P, weather(P, 4), (4,))
+        closes(r)
+        r0 = simulate(f, d, validate(merge({})), weather(P, 4), (4,))
+        self.assertNotEqual(r[4]['emissions_tCO2e']['n2o_direct'], r0[4]['emissions_tCO2e']['n2o_direct'])
+
+    def test_pollination_phases_in(self):
+        """Pollination gain is zero in years 1-2 (habitat establishing)."""
+        f = small(); d = contour(f)
+        dd = dataclasses.replace(d, strip=prairie_strips(f, d.row, 0.1))
+        mix = [pf_entry(id='berry', share=0.35, bearing_start_yr=1, full_bearing_yr=1, pollinator_dep=0.65)]
+        r = {g: simulate(f, dd, validate(merge({'portfolio': {'species': mix}, 'strip': {'pollinator': True},
+                                                  'pollination': {'yield_gain_max': g}})),
+                         weather(validate(merge({})), 4), (2, 4)) for g in (0.0, 0.3)}
+        self.assertEqual(r[0.3][2]['tree_product_t'], r[0.0][2]['tree_product_t'])
+        self.assertGreater(r[0.3][4]['tree_product_t'], r[0.0][4]['tree_product_t'])
+
+
+class Height(unittest.TestCase):
+    def test_age_height_ignores_harvest(self):
+        """LG15: age-based height is independent of wood removed by harvest and coppice."""
+        f = small(); d = contour(f)
+        base = {'tree': {'height_model': 'age', 'h_tau_yr': 10.0, 'h_max_m': 14.0}}
+        P1 = validate(merge(base))
+        P2 = validate(merge(dict(base, coppice_crops={'species': [cop_entry(share=0.6, interval_yr=1, start_yr=1)]})))
+        h1 = simulate(f, d, P1, weather(P1, 6), (6,))[6]['tree_height_m']
+        h2 = simulate(f, d, P2, weather(P2, 6), (6,))[6]['tree_height_m']
+        self.assertAlmostEqual(h1, 14.0 * (1 - math.exp(-0.6)))
+        self.assertEqual(h1, h2)
+        with self.assertRaises(ValueError):
+            validate(merge({'tree': {'height_model': 'stock'}}))
 
 
 class Pollinators(unittest.TestCase):

@@ -1,10 +1,10 @@
 {
   "alley_m": 20.0,
-  "field_share_within_forage_range": 0.0,
+  "field_share_within_forage_range": 1.0,
   "fixers": [
     "alder_speckled"
   ],
-  "habitat": "none",
+  "habitat": "pollinator_understory",
   "metrics": {
     "alley_area_ha": 7.8975,
     "alley_cells": 3159,
@@ -23,18 +23,18 @@
     "tree_cells": 790
   },
   "mode": "parallel_contour",
-  "name": "X00",
-  "pollinator_habitat_ha": 0.0,
+  "name": "X24",
+  "pollinator_habitat_ha": 1.975,
   "portfolio": [
     {
       "bearing_start_yr": 5,
-      "c_frac": 0.45,
+      "c_frac": 0.225,
       "drought_exp": 0.6,
       "full_bearing_yr": 17,
       "grain_eq": 0.65,
       "harvest_usd_t": 1102,
       "id": "chestnut_hyb",
-      "n_kg_t": 10,
+      "n_kg_t": 6.0,
       "pollinator_dep": 0.25,
       "price_usd_t": 7716,
       "share": 0.2333333333333333,
@@ -42,34 +42,34 @@
       "yield_t_ha_yr": 3.36
     },
     {
+      "bearing_start_yr": 3,
+      "c_frac": 0.09,
+      "drought_exp": 0.4,
+      "full_bearing_yr": 7,
+      "grain_eq": 0.2,
+      "harvest_usd_t": 1000,
+      "id": "chokecherry",
+      "n_kg_t": 2.0,
+      "pollinator_dep": 0.65,
+      "price_usd_t": 2500,
+      "share": 0.2333333333333333,
+      "use": "food",
+      "yield_t_ha_yr": 8.0
+    },
+    {
       "bearing_start_yr": 4,
-      "c_frac": 0.45,
+      "c_frac": 0.09,
       "drought_exp": 0.4,
       "full_bearing_yr": 8,
       "grain_eq": 0.25,
       "harvest_usd_t": 900,
       "id": "saskatoon",
-      "n_kg_t": 5,
+      "n_kg_t": 2.0,
       "pollinator_dep": 0.65,
       "price_usd_t": 4000,
       "share": 0.2333333333333333,
       "use": "food",
       "yield_t_ha_yr": 2.35
-    },
-    {
-      "bearing_start_yr": 5,
-      "c_frac": 0.45,
-      "drought_exp": 0.5,
-      "full_bearing_yr": 10,
-      "grain_eq": 0.4,
-      "harvest_usd_t": 1000,
-      "id": "persimmon_am",
-      "n_kg_t": 8,
-      "pollinator_dep": 0.4,
-      "price_usd_t": 3000,
-      "share": 0.2333333333333333,
-      "use": "food",
-      "yield_t_ha_yr": 3.0
     }
   ],
   "strip_cells": [],
