@@ -8,31 +8,31 @@
   ],
   "nursery_stock": [
     {
-      "common": "Saskatoon serviceberry",
-      "coppice_interval_yr": null,
-      "first_harvest_year": 3,
-      "full_bearing_year": 7,
-      "plants": 369,
-      "share_of_row": 0.233,
-      "species": "saskatoon"
-    },
-    {
       "common": "Hybrid chestnut",
       "coppice_interval_yr": null,
       "first_harvest_year": 5,
-      "full_bearing_year": 12,
+      "full_bearing_year": 17,
       "plants": 369,
       "share_of_row": 0.233,
       "species": "chestnut_hyb"
     },
     {
-      "common": "American elderberry",
+      "common": "Saskatoon serviceberry",
       "coppice_interval_yr": null,
-      "first_harvest_year": 2,
-      "full_bearing_year": 4,
+      "first_harvest_year": 4,
+      "full_bearing_year": 8,
       "plants": 369,
       "share_of_row": 0.233,
-      "species": "elderberry"
+      "species": "saskatoon"
+    },
+    {
+      "common": "American persimmon",
+      "coppice_interval_yr": null,
+      "first_harvest_year": 5,
+      "full_bearing_year": 10,
+      "plants": 369,
+      "share_of_row": 0.233,
+      "species": "persimmon_am"
     },
     {
       "common": "Speckled alder",

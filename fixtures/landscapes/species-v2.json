@@ -9,7 +9,12 @@
  "note": "Illustrative draft. Every yield, price, bearing age, hardiness and invasive status must be verified before field use. Tree-crop palette follows J. R. Smith (1929) Tree Crops: nuts and livestock feed crops as permanent agriculture.",
  "excluded": {
   "Elaeagnus angustifolia (Russian olive)": "invasive across the West and Plains; not offered",
-  "Elaeagnus umbellata (autumn olive)": "invasive in the East; not offered"
+  "Elaeagnus umbellata (autumn olive)": "invasive in the East; not offered",
+  "Rhamnus cathartica / Frangula alnus (buckthorns)": "regulated noxious (VT Class B; MT 2A common buckthorn)",
+  "Acer ginnala (Amur maple)": "VT Class B noxious",
+  "Lonicera tatarica and other bush honeysuckles": "VT Class B noxious",
+  "Tamarix spp. (saltcedar)": "MT 2B noxious",
+  "Ulmus pumila (Siberian elm)": "ecologically invasive on the plains; not offered"
  },
  "species": [
   {
@@ -30,20 +35,27 @@
    "aridity_min": 0.6,
    "height_m": 14,
    "notes": "Acid, well-drained soils; not on calcareous or heavy wet soils. Zone 4 for some selections.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "University of Missouri Extension G739, chestnut cost of production (rev. Apr 2026, June 2025 prices): 3,000 lb/ac at full production, harvest starts ~yr 5, $3.50/lb wholesale ($6.50 retail), $0.50/lb harvest. Chinese-chestnut orchard basis. Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
     "bearing_start_yr": 5,
-    "full_bearing_yr": 12,
-    "yield_t_ha_yr": 2.5,
-    "price_usd_t": 5000,
-    "harvest_usd_t": 1500,
+    "full_bearing_yr": 17,
+    "yield_t_ha_yr": 3.36,
+    "price_usd_t": 7716,
+    "harvest_usd_t": 1102,
     "grain_eq": 0.65,
     "drought_exp": 0.6,
     "c_frac": 0.45,
     "n_kg_t": 10,
     "pollinator_dep": 0.25
-   }
+   },
+   "verified_2026_11_01": [
+    "bearing_start_yr",
+    "full_bearing_yr",
+    "harvest_usd_t",
+    "price_usd_t",
+    "yield_t_ha_yr"
+   ]
   },
   {
    "id": "hazel_hyb",
@@ -66,20 +78,26 @@
    "aridity_min": 0.5,
    "height_m": 4,
    "notes": "Shrub row; eastern filbert blight resistance needed for avellana parentage. C. americana native east and central plains.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "USDA National Agroforestry Center, Hybrid Hazelnuts (sfp4): 2,000-3,000 lb/ac husked nuts in Nebraska trials, yield from yr 4-5. Price proxy: Oregon in-shell ~$1.10/lb (2010), commodity basis. Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
-    "bearing_start_yr": 4,
-    "full_bearing_yr": 8,
-    "yield_t_ha_yr": 1.5,
-    "price_usd_t": 3000,
+    "bearing_start_yr": 5,
+    "full_bearing_yr": 9,
+    "yield_t_ha_yr": 2.8,
+    "price_usd_t": 2425,
     "harvest_usd_t": 700,
     "grain_eq": 0.9,
     "drought_exp": 0.7,
     "c_frac": 0.5,
     "n_kg_t": 25,
     "pollinator_dep": 0.0
-   }
+   },
+   "verified_2026_11_01": [
+    "bearing_start_yr",
+    "full_bearing_yr",
+    "price_usd_t",
+    "yield_t_ha_yr"
+   ]
   },
   {
    "id": "walnut_black",
@@ -103,20 +121,24 @@
    "aridity_min": 0.5,
    "height_m": 22,
    "notes": "JUGLONE: allelopathic to some crops (e.g. tomato, potato, some legumes); site away from sensitive alley crops. Long-rotation veneer timber value not modeled.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "Hammons Products hulling-station price $13 per 100 lb hulled (KY3, Oct 2025). Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
     "bearing_start_yr": 8,
     "full_bearing_yr": 20,
     "yield_t_ha_yr": 1.0,
-    "price_usd_t": 600,
-    "harvest_usd_t": 200,
+    "price_usd_t": 287,
+    "harvest_usd_t": 100,
     "grain_eq": 0.5,
     "drought_exp": 0.5,
     "c_frac": 0.5,
     "n_kg_t": 15,
     "pollinator_dep": 0.0
-   }
+   },
+   "verified_2026_11_01": [
+    "harvest_usd_t",
+    "price_usd_t"
+   ]
   },
   {
    "id": "pecan_northern",
@@ -384,20 +406,26 @@
    "aridity_min": 0.35,
    "height_m": 4,
    "notes": "Native shrub of the northern plains and Rockies; commercial orchards exist on the Canadian prairies.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "Manitoba Agriculture cost of production, saskatoon (June 2025): average 2,100 lb/ac yrs 4-20 (peak 2,800), first harvest yr 4, peak 6-8 yrs; CAD $6.50/lb direct-market price (not used: wholesale assumed lower). Alberta Agriculture ten-acre economics: harvest begins yr 4. Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
-    "bearing_start_yr": 3,
-    "full_bearing_yr": 7,
-    "yield_t_ha_yr": 3.0,
+    "bearing_start_yr": 4,
+    "full_bearing_yr": 8,
+    "yield_t_ha_yr": 2.35,
     "price_usd_t": 4000,
-    "harvest_usd_t": 1200,
+    "harvest_usd_t": 900,
     "grain_eq": 0.25,
     "drought_exp": 0.4,
     "c_frac": 0.45,
     "n_kg_t": 5,
     "pollinator_dep": 0.65
-   }
+   },
+   "verified_2026_11_01": [
+    "bearing_start_yr",
+    "full_bearing_yr",
+    "harvest_usd_t",
+    "yield_t_ha_yr"
+   ]
   },
   {
    "id": "elderberry",
@@ -420,20 +448,27 @@
    "aridity_min": 0.6,
    "height_m": 3,
    "notes": "Moist sites; short-lived shrub row, good early cash.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "University of Missouri Extension AF1016 (2022): mature 2-4 tons/ac, full crop yr 3, $0.50/lb with stems to winery (up to $5/lb de-stemmed), hand harvest ~$0.20/lb. Conservative bulk price used. Remaining values: analyst draft, REVIEW REQUIRED.",
    "crop": {
     "use": "food",
     "bearing_start_yr": 2,
-    "full_bearing_yr": 4,
-    "yield_t_ha_yr": 5.0,
-    "price_usd_t": 3000,
-    "harvest_usd_t": 1200,
+    "full_bearing_yr": 3,
+    "yield_t_ha_yr": 6.73,
+    "price_usd_t": 1102,
+    "harvest_usd_t": 441,
     "grain_eq": 0.2,
     "drought_exp": 0.8,
     "c_frac": 0.45,
     "n_kg_t": 6,
     "pollinator_dep": 0.25
-   }
+   },
+   "verified_2026_11_01": [
+    "bearing_start_yr",
+    "full_bearing_yr",
+    "harvest_usd_t",
+    "price_usd_t",
+    "yield_t_ha_yr"
+   ]
   },
   {
    "id": "chokecherry",
@@ -731,19 +766,25 @@
    "aridity_min": 0.8,
    "height_m": 5,
    "notes": "Native shrub willow; moist soils, run-on and riparian positions. Chips for heat, mulch or biochar; withies for basketry.",
-   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "source": "Penn State Extension shrub willow budget: 4 dry tons/ac/yr, harvest every 3 years after first-year coppice (first harvest yr 4), $45/dry ton farm-gate chips, $30/dry ton harvest. Stand growth comes from the model, not this yield. Remaining values: analyst draft, REVIEW REQUIRED.",
    "coppice": {
-    "start_yr": 3,
+    "start_yr": 4,
     "interval_yr": 3,
     "cut_frac": 0.9,
-    "price_usd_t": 60,
-    "harvest_usd_t": 25,
+    "price_usd_t": 50,
+    "harvest_usd_t": 33,
     "to_biochar_frac": 0.0,
     "c_frac": 0.48,
     "n_kg_t": 5.0,
     "use": "biomass",
     "grain_eq": 0.0
-   }
+   },
+   "verified_2026_11_01": [
+    "price_usd_t",
+    "harvest_usd_t",
+    "start_yr",
+    "interval_yr"
+   ]
   },
   {
    "id": "willow_sandbar",
@@ -851,5 +892,13 @@
     "grain_eq": 0.0
    }
   }
- ]
+ ],
+ "regulatory_check": {
+  "note": "Checked 2026-11-01. Vermont Quarantine #3 (Noxious Weeds) Class A/B lists no Morus alba, Robinia pseudoacacia, Amorpha fruticosa, Caragana arborescens, Elaeagnus spp. or Salix purpurea. Montana state noxious list (via Flathead County) lists Russian olive (Priority 3, regulated), saltcedar (2B) and common buckthorn (2A); not Caragana, black locust, white mulberry or Siberian elm. Nebraska county-designated list has no woody species; the state list was not retrieved. The listed_some_jurisdictions flags in this table therefore mark ECOLOGICAL invasiveness concerns (naturalizing, hybridizing with natives), not state regulation; Viridis excludes them as a precautionary policy unless a written override is given.",
+  "sources": [
+   "https://agriculture.vermont.gov/sites/agriculture/files/Plant%20Health/Noxious%20Weeds%20Quarantine%20Text.pdf",
+   "https://flatheadcounty.gov/department-directory/weeds/state-list",
+   "https://nda.nebraska.gov/sites/default/files/plant/noxious_weeds/County%20Designated%20Noxious%20Weeds.pdf"
+  ]
+ }
 }

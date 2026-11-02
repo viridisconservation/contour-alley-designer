@@ -1,226 +1,220 @@
 {
   "sampling_points": [
     {
-      "cell": 2964,
-      "stratum": "0-1H/lower",
-      "x_m": 22.5,
-      "y_m": 132.5
-    },
-    {
-      "cell": 4434,
+      "cell": 4274,
       "stratum": "0-1H/lower",
       "x_m": 172.5,
-      "y_m": 42.5
+      "y_m": 52.5
     },
     {
-      "cell": 4002,
+      "cell": 4588,
       "stratum": "0-1H/lower",
-      "x_m": 12.5,
-      "y_m": 67.5
-    },
-    {
-      "cell": 2963,
-      "stratum": "0-1H/lower",
-      "x_m": 17.5,
-      "y_m": 132.5
-    },
-    {
-      "cell": 4172,
-      "stratum": "0-1H/lower",
-      "x_m": 62.5,
-      "y_m": 57.5
-    },
-    {
-      "cell": 4573,
-      "stratum": "0-1H/lower",
-      "x_m": 67.5,
+      "x_m": 142.5,
       "y_m": 32.5
     },
     {
-      "cell": 1465,
+      "cell": 4330,
       "stratum": "0-1H/lower",
-      "x_m": 127.5,
-      "y_m": 227.5
-    },
-    {
-      "cell": 1406,
-      "stratum": "0-1H/lower",
-      "x_m": 232.5,
-      "y_m": 232.5
-    },
-    {
-      "cell": 4180,
-      "stratum": "0-1H/lower",
-      "x_m": 102.5,
-      "y_m": 57.5
-    },
-    {
-      "cell": 3476,
-      "stratum": "0-1H/mid",
-      "x_m": 182.5,
-      "y_m": 102.5
-    },
-    {
-      "cell": 4606,
-      "stratum": "0-1H/mid",
-      "x_m": 232.5,
-      "y_m": 32.5
-    },
-    {
-      "cell": 4367,
-      "stratum": "0-1H/mid",
-      "x_m": 237.5,
+      "x_m": 52.5,
       "y_m": 47.5
     },
     {
-      "cell": 982,
+      "cell": 4273,
+      "stratum": "0-1H/lower",
+      "x_m": 167.5,
+      "y_m": 52.5
+    },
+    {
+      "cell": 3139,
       "stratum": "0-1H/mid",
-      "x_m": 112.5,
-      "y_m": 257.5
-    },
-    {
-      "cell": 426,
-      "stratum": "0-1H/mid",
-      "x_m": 132.5,
-      "y_m": 292.5
-    },
-    {
-      "cell": 3385,
-      "stratum": "0-1H/mid",
-      "x_m": 127.5,
-      "y_m": 107.5
-    },
-    {
-      "cell": 2205,
-      "stratum": "0-1H/mid",
-      "x_m": 227.5,
-      "y_m": 182.5
-    },
-    {
-      "cell": 684,
-      "stratum": "0-1H/mid",
-      "x_m": 222.5,
-      "y_m": 277.5
-    },
-    {
-      "cell": 954,
-      "stratum": "0-1H/upper",
-      "x_m": 372.5,
-      "y_m": 262.5
-    },
-    {
-      "cell": 4220,
-      "stratum": "0-1H/upper",
-      "x_m": 302.5,
-      "y_m": 57.5
-    },
-    {
-      "cell": 4935,
-      "stratum": "0-1H/upper",
-      "x_m": 277.5,
-      "y_m": 12.5
-    },
-    {
-      "cell": 469,
-      "stratum": "0-1H/upper",
-      "x_m": 347.5,
-      "y_m": 292.5
-    },
-    {
-      "cell": 4620,
-      "stratum": "0-1H/upper",
-      "x_m": 302.5,
-      "y_m": 32.5
-    },
-    {
-      "cell": 3188,
-      "stratum": "0-1H/upper",
-      "x_m": 342.5,
+      "x_m": 97.5,
       "y_m": 122.5
     },
     {
-      "cell": 3580,
-      "stratum": "0-1H/upper",
-      "x_m": 302.5,
+      "cell": 3549,
+      "stratum": "0-1H/mid",
+      "x_m": 147.5,
       "y_m": 97.5
     },
     {
-      "cell": 5104,
-      "stratum": "0-1H/upper",
-      "x_m": 322.5,
-      "y_m": 2.5
-    },
-    {
-      "cell": 733,
-      "stratum": "1-3H/lower",
-      "x_m": 67.5,
+      "cell": 752,
+      "stratum": "0-1H/mid",
+      "x_m": 162.5,
       "y_m": 272.5
     },
     {
-      "cell": 178,
-      "stratum": "1-3H/lower",
-      "x_m": 92.5,
-      "y_m": 307.5
+      "cell": 741,
+      "stratum": "0-1H/mid",
+      "x_m": 107.5,
+      "y_m": 272.5
     },
     {
-      "cell": 3241,
-      "stratum": "1-3H/mid",
-      "x_m": 207.5,
-      "y_m": 117.5
+      "cell": 5008,
+      "stratum": "0-1H/mid",
+      "x_m": 242.5,
+      "y_m": 7.5
     },
     {
-      "cell": 36,
-      "stratum": "1-3H/mid",
-      "x_m": 182.5,
-      "y_m": 317.5
+      "cell": 4226,
+      "stratum": "0-1H/upper",
+      "x_m": 332.5,
+      "y_m": 57.5
     },
     {
-      "cell": 478,
-      "stratum": "1-3H/upper",
-      "x_m": 392.5,
-      "y_m": 292.5
+      "cell": 3982,
+      "stratum": "0-1H/upper",
+      "x_m": 312.5,
+      "y_m": 72.5
     },
     {
-      "cell": 318,
-      "stratum": "1-3H/upper",
-      "x_m": 392.5,
-      "y_m": 302.5
+      "cell": 5027,
+      "stratum": "0-1H/upper",
+      "x_m": 337.5,
+      "y_m": 7.5
     },
     {
-      "cell": 1364,
-      "stratum": "row/lower",
-      "x_m": 22.5,
-      "y_m": 232.5
-    },
-    {
-      "cell": 1876,
-      "stratum": "row/lower",
-      "x_m": 182.5,
+      "cell": 1898,
+      "stratum": "0-1H/upper",
+      "x_m": 292.5,
       "y_m": 202.5
     },
     {
-      "cell": 284,
-      "stratum": "row/mid",
-      "x_m": 222.5,
-      "y_m": 302.5
+      "cell": 766,
+      "stratum": "1-3H/lower",
+      "x_m": 232.5,
+      "y_m": 272.5
     },
     {
-      "cell": 3704,
-      "stratum": "row/mid",
-      "x_m": 122.5,
+      "cell": 2272,
+      "stratum": "1-3H/lower",
+      "x_m": 162.5,
+      "y_m": 177.5
+    },
+    {
+      "cell": 1703,
+      "stratum": "1-3H/lower",
+      "x_m": 117.5,
+      "y_m": 212.5
+    },
+    {
+      "cell": 924,
+      "stratum": "1-3H/lower",
+      "x_m": 222.5,
+      "y_m": 262.5
+    },
+    {
+      "cell": 736,
+      "stratum": "1-3H/lower",
+      "x_m": 82.5,
+      "y_m": 272.5
+    },
+    {
+      "cell": 4451,
+      "stratum": "1-3H/mid",
+      "x_m": 257.5,
+      "y_m": 42.5
+    },
+    {
+      "cell": 95,
+      "stratum": "1-3H/mid",
+      "x_m": 77.5,
+      "y_m": 312.5
+    },
+    {
+      "cell": 3324,
+      "stratum": "1-3H/mid",
+      "x_m": 222.5,
+      "y_m": 112.5
+    },
+    {
+      "cell": 3025,
+      "stratum": "1-3H/upper",
+      "x_m": 327.5,
+      "y_m": 132.5
+    },
+    {
+      "cell": 4070,
+      "stratum": "1-3H/upper",
+      "x_m": 352.5,
+      "y_m": 67.5
+    },
+    {
+      "cell": 4622,
+      "stratum": "1-3H/upper",
+      "x_m": 312.5,
+      "y_m": 32.5
+    },
+    {
+      "cell": 3893,
+      "stratum": "1-3H/upper",
+      "x_m": 267.5,
+      "y_m": 77.5
+    },
+    {
+      "cell": 4061,
+      "stratum": "1-3H/upper",
+      "x_m": 307.5,
+      "y_m": 67.5
+    },
+    {
+      "cell": 849,
+      "stratum": "3-6H/lower",
+      "x_m": 247.5,
+      "y_m": 267.5
+    },
+    {
+      "cell": 3081,
+      "stratum": "3-6H/mid",
+      "x_m": 207.5,
+      "y_m": 127.5
+    },
+    {
+      "cell": 3759,
+      "stratum": "3-6H/upper",
+      "x_m": 397.5,
       "y_m": 87.5
     },
     {
-      "cell": 2713,
-      "stratum": "row/upper",
-      "x_m": 367.5,
-      "y_m": 152.5
+      "cell": 479,
+      "stratum": "3-6H/upper",
+      "x_m": 397.5,
+      "y_m": 292.5
     },
     {
-      "cell": 3352,
+      "cell": 1145,
+      "stratum": "row/lower",
+      "x_m": 127.5,
+      "y_m": 247.5
+    },
+    {
+      "cell": 647,
+      "stratum": "row/lower",
+      "x_m": 37.5,
+      "y_m": 277.5
+    },
+    {
+      "cell": 1256,
+      "stratum": "row/mid",
+      "x_m": 282.5,
+      "y_m": 242.5
+    },
+    {
+      "cell": 1772,
+      "stratum": "row/mid",
+      "x_m": 62.5,
+      "y_m": 207.5
+    },
+    {
+      "cell": 4706,
+      "stratum": "row/upper",
+      "x_m": 332.5,
+      "y_m": 27.5
+    },
+    {
+      "cell": 312,
       "stratum": "row/upper",
       "x_m": 362.5,
-      "y_m": 112.5
+      "y_m": 302.5
     }
   ],
   "schedule": [

@@ -70,16 +70,16 @@ Four real fields are included, each about 10–13 ha. They use USGS 3DEP lidar, 
 
 | Field | Class | Chosen design | Worst-case net carbon, 40 yr* | Verdict |
 |---|---|---|---|---|
-| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the NW winter wind, 84 m alleys, 6% trees, native pollinator understory | +7 tCO₂e | confirmed (model) |
-| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +63 tCO₂e | confirmed (model) |
-| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +30 tCO₂e | confirmed (model) |
-| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees | −46 tCO₂e | conditional: carbon fails in wet draws |
+| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the summer wind, 84 m alleys, 6% trees (chestnut, saskatoon, persimmon), native pollinator understory | +10 tCO₂e | confirmed (model) |
+| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +62 tCO₂e | confirmed (model) |
+| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +32 tCO₂e | confirmed (model) |
+| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees (chestnut, saskatoon, persimmon) | −34 tCO₂e | conditional: carbon fails in wet draws |
 
 \*Reversal-adjusted and leakage-net vs conventional, over the worst of 3 climate draws × 2 effect modes. "Confirmed (model)" means every success criterion held in every simulated draw. It is not a field guarantee.
 
 The Vermont result is the instructive one. On productive humid cropland, displaced crop output (leakage) takes most of the gross carbon gain. The money-weighted optimum then fails the carbon test, so the designer reports it as conditional instead of hiding it. On marginal, dry or grazed land the climate case holds in every draw.
 
-At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free: on the Nebraska field it cost $121 over 40 years in the worst case. Separate strips cost crop area.
+At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free: on the Nebraska field it cost $137 over 40 years in the worst case. Separate strips cost crop area.
 
 ## Use your own field
 
@@ -103,7 +103,7 @@ See [docs/MODEL.md](docs/MODEL.md) for the model, invariants, deviations and lim
 - illustrative shelter and competition curves
 - one mean row height
 - Tier 1 N₂O factors applied to modeled flows
-- the species tables (including yields, prices, bearing ages and invasive statuses) are unverified drafts
+- species tables: yields and prices for chestnut, elderberry, saskatoon, hazelnut, black walnut and shrub willow are taken from extension budgets (sources in `fixtures/landscapes/species-v2.json`); other values and the invasive flags (ecological concern, not state regulation) remain drafts
 - no calibration against field measurements yet
 
 Contributions of field data, calibration datasets and windbreak measurements are especially welcome.
