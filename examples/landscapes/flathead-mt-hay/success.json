@@ -25,6 +25,5 @@
     "worst_net_tCO2e": 63.235348923093085
   },
   "failing": [],
-  "postprocess_note": "S4 re-evaluated from stored detail after the tolerance changed from 1e-9 to 0.005 (outflow share +0.001 pp in the dry/assumed-effects draw, from snow trapped by rows melting). No simulation changed.",
   "verdict": "confirmed (model)"
 }

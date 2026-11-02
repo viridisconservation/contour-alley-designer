@@ -17,9 +17,13 @@
   "notes": [
     "Semi-arid: water is the binding limit; rows must sit where run-on or snow concentrates water, and establishment needs supplemental water or drought-hardy stock."
   ],
+  "pollinator_understory": true,
   "snow_trap": true,
   "strip_fraction": 0.08,
-  "strips": false,
+  "strip_mixes": [
+    "pollinator_strips"
+  ],
+  "strips": true,
   "tillage_establishment": true,
   "tree_fraction": [
     0.06,

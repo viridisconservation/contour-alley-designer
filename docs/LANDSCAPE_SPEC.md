@@ -30,6 +30,8 @@ The tree crops follow J. R. Smith's *Tree Crops* (1929): nuts and fruit for peop
 | LG10 | Every candidate passes the integrity rules before it is simulated. Finalists are ranked by their worst case across 3 climate draws × 2 effect modes. Candidates share all inputs with conventional practice A except their own design choices. | `optimize.py`; designer verification |
 | LG11 | The success verdict is "confirmed (model)" only if S1–S6 all hold. Monitoring predictions are envelopes across every draw and effect mode, and the observation check is deterministic. | `success`; `test_observation_status` |
 | LG12 | Tree crops must pass a hardiness proxy, an aridity floor and the regional invasive gate. Listed species need a written override; a species listed in any region and unassessed in this one is excluded as a precaution. Non-fixers never fill the fixer role. Native grassland admits native species only. | `test_invasive_and_role_gate`, `test_native_grassland_integrity` |
+| LG13 | Coppice crops (native willows, red-osier dogwood, pole hazel) share the row with tree crops and fixers, and all shares sum to at most 1. They are cut only on rotation years in the dormant month. The cut is sold as biomass or fodder (product C leaves the field) or charred on the farm by the same pyrolysis ledger as the fixer prunings. Fodder can count toward the reported (non-headline) substitution credit. | `Coppice` tests |
+| LG14 | Native strips come as a grass or a forb-rich pollinator mix, on cropland and on hay/pasture but never on native grassland. A pollinator understory can replace the sown legume cover in the rows. Pollination raises yields of insect-pollinated crops only, in proportion to each species' dependence and decaying with distance to habitat. It is an assumed effect, zero by default and in every control run. Each design reports pollinator habitat area and the share of the field within foraging range (150 m). Co-benefit tie rule: among carbon-positive finalists within 2% of the best worst-case score, the one with the most pollinator habitat is chosen, and the report prices the habitat as the worst-case score given up. | `Pollinators` tests |
 | NG1 | On native grassland: tree cover is capped at 5%; there is no fertilizer, no sown cover and no tillage establishment; ecological review (remnant prairie, grassland birds) is required. A violating design is rejected, not penalized. | `check_design`; `test_native_grassland_integrity` |
 
 ## Long-term success criteria (model sense)
@@ -51,8 +53,8 @@ Each candidate combines four choices:
   - windbreak: 6, 10 and 15 × mature height
   - native grassland: from the 2% and 4% tree-cover targets
   - every width is rounded to whole machinery passes, with at least 2 passes
-- **Prairie strips:** none, or 8% of the field (cropland only).
-- **Tree-crop portfolio:** food_value, food_staged, nut_feed_permanent, feed_silvopasture or mixed_food_feed, built from the eligible species.
+- **Native habitat:** none, grass strips or pollinator strips (8% of the field), or a pollinator understory in the rows.
+- **Tree-crop portfolio:** food_value, food_staged, nut_feed_permanent, feed_silvopasture, mixed_food_feed, coppice_and_fruit or coppice_biochar, built from the eligible species.
 
 Tree fraction follows from geometry: row width / (alley + row).
 
@@ -61,7 +63,7 @@ The search runs in two stages:
 1. **Screen** (15 years, central climate, assumed effects), staged:
    - (a) every admissible geometry (layout mode × alley width) with the first portfolio;
    - (b) the best geometry of each layout mode, plus the next best overall, under every portfolio;
-   - (c) the two best of (b) with prairie strips added.
+   - (c) the two best of (b) with each admissible native habitat option added.
 2. **Confirm.** The top three candidates, with at most two per layout mode, plus A run 40 years in 3 climate draws × 2 effect modes. They are ranked by their worst-case score.
 
 Score = NPV vs A + carbon price × reversal-adjusted net removal. The default carbon price is $50/t, a weighting rather than a forecast.

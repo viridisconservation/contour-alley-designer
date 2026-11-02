@@ -1,4 +1,68 @@
 {
+  "coppice_and_fruit": [
+    {
+      "c_frac": 0.48,
+      "cut_frac": 0.9,
+      "grain_eq": 0.35,
+      "harvest_usd_t": 30,
+      "id": "willow_sandbar",
+      "interval_yr": 2,
+      "kind": "coppice",
+      "n_kg_t": 5.0,
+      "price_usd_t": 120,
+      "share": 0.35,
+      "start_yr": 2,
+      "to_biochar_frac": 0.0,
+      "use": "fodder"
+    },
+    {
+      "bearing_start_yr": 3,
+      "c_frac": 0.45,
+      "drought_exp": 0.4,
+      "full_bearing_yr": 7,
+      "grain_eq": 0.25,
+      "harvest_usd_t": 1200,
+      "id": "saskatoon",
+      "n_kg_t": 5,
+      "pollinator_dep": 0.65,
+      "price_usd_t": 4000,
+      "share": 0.35,
+      "use": "food",
+      "yield_t_ha_yr": 3.0
+    }
+  ],
+  "coppice_biochar": [
+    {
+      "c_frac": 0.48,
+      "cut_frac": 0.9,
+      "grain_eq": 0.35,
+      "harvest_usd_t": 30,
+      "id": "willow_sandbar",
+      "interval_yr": 2,
+      "kind": "coppice",
+      "n_kg_t": 5.0,
+      "price_usd_t": 120,
+      "share": 0.35,
+      "start_yr": 2,
+      "to_biochar_frac": 0.5,
+      "use": "fodder"
+    },
+    {
+      "bearing_start_yr": 3,
+      "c_frac": 0.45,
+      "drought_exp": 0.4,
+      "full_bearing_yr": 7,
+      "grain_eq": 0.25,
+      "harvest_usd_t": 1200,
+      "id": "saskatoon",
+      "n_kg_t": 5,
+      "pollinator_dep": 0.65,
+      "price_usd_t": 4000,
+      "share": 0.35,
+      "use": "food",
+      "yield_t_ha_yr": 3.0
+    }
+  ],
   "food_value": [
     {
       "bearing_start_yr": 3,
@@ -9,6 +73,7 @@
       "harvest_usd_t": 1200,
       "id": "saskatoon",
       "n_kg_t": 5,
+      "pollinator_dep": 0.65,
       "price_usd_t": 4000,
       "share": 0.35,
       "use": "food",
@@ -23,6 +88,7 @@
       "harvest_usd_t": 1000,
       "id": "chokecherry",
       "n_kg_t": 6,
+      "pollinator_dep": 0.65,
       "price_usd_t": 2500,
       "share": 0.35,
       "use": "food",

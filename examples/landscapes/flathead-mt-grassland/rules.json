@@ -17,8 +17,10 @@
     "Native grassland: trees only as scattered savanna clumps or contour hedges at low cover; remnant prairie and grassland-bird habitat must be surveyed before any planting.",
     "Semi-arid: water is the binding limit; rows must sit where run-on or snow concentrates water, and establishment needs supplemental water or drought-hardy stock."
   ],
+  "pollinator_understory": false,
   "snow_trap": true,
   "strip_fraction": 0.08,
+  "strip_mixes": [],
   "strips": false,
   "tillage_establishment": false,
   "tree_fraction": [

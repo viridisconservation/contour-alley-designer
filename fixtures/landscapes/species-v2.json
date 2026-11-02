@@ -41,7 +41,8 @@
     "grain_eq": 0.65,
     "drought_exp": 0.6,
     "c_frac": 0.45,
-    "n_kg_t": 10
+    "n_kg_t": 10,
+    "pollinator_dep": 0.25
    }
   },
   {
@@ -76,7 +77,8 @@
     "grain_eq": 0.9,
     "drought_exp": 0.7,
     "c_frac": 0.5,
-    "n_kg_t": 25
+    "n_kg_t": 25,
+    "pollinator_dep": 0.0
    }
   },
   {
@@ -112,7 +114,8 @@
     "grain_eq": 0.5,
     "drought_exp": 0.5,
     "c_frac": 0.5,
-    "n_kg_t": 15
+    "n_kg_t": 15,
+    "pollinator_dep": 0.0
    }
   },
   {
@@ -147,7 +150,8 @@
     "grain_eq": 1.2,
     "drought_exp": 0.5,
     "c_frac": 0.5,
-    "n_kg_t": 15
+    "n_kg_t": 15,
+    "pollinator_dep": 0.0
    }
   },
   {
@@ -183,7 +187,8 @@
     "grain_eq": 0.6,
     "drought_exp": 0.3,
     "c_frac": 0.45,
-    "n_kg_t": 10
+    "n_kg_t": 10,
+    "pollinator_dep": 0.0
    }
   },
   {
@@ -217,7 +222,8 @@
     "grain_eq": 0.7,
     "drought_exp": 0.4,
     "c_frac": 0.45,
-    "n_kg_t": 12
+    "n_kg_t": 12,
+    "pollinator_dep": 0.3
    }
   },
   {
@@ -252,7 +258,8 @@
     "grain_eq": 0.2,
     "drought_exp": 0.5,
     "c_frac": 0.45,
-    "n_kg_t": 8
+    "n_kg_t": 8,
+    "pollinator_dep": 0.0
    }
   },
   {
@@ -284,7 +291,8 @@
     "grain_eq": 0.2,
     "drought_exp": 0.4,
     "c_frac": 0.45,
-    "n_kg_t": 8
+    "n_kg_t": 8,
+    "pollinator_dep": 0.0
    }
   },
   {
@@ -318,7 +326,8 @@
     "grain_eq": 0.4,
     "drought_exp": 0.5,
     "c_frac": 0.45,
-    "n_kg_t": 8
+    "n_kg_t": 8,
+    "pollinator_dep": 0.4
    }
   },
   {
@@ -350,7 +359,8 @@
     "grain_eq": 0.15,
     "drought_exp": 0.6,
     "c_frac": 0.45,
-    "n_kg_t": 3
+    "n_kg_t": 3,
+    "pollinator_dep": 0.65
    }
   },
   {
@@ -385,7 +395,8 @@
     "grain_eq": 0.25,
     "drought_exp": 0.4,
     "c_frac": 0.45,
-    "n_kg_t": 5
+    "n_kg_t": 5,
+    "pollinator_dep": 0.65
    }
   },
   {
@@ -420,7 +431,8 @@
     "grain_eq": 0.2,
     "drought_exp": 0.8,
     "c_frac": 0.45,
-    "n_kg_t": 6
+    "n_kg_t": 6,
+    "pollinator_dep": 0.25
    }
   },
   {
@@ -456,7 +468,8 @@
     "grain_eq": 0.2,
     "drought_exp": 0.4,
     "c_frac": 0.45,
-    "n_kg_t": 6
+    "n_kg_t": 6,
+    "pollinator_dep": 0.65
    }
   },
   {
@@ -696,6 +709,147 @@
    "height_m": 0.5,
    "notes": "Native prairie legume for strips and native contexts.",
    "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "willow_heartleaf",
+   "taxon": "Salix eriocephala",
+   "common": "Heartleaf willow (coppice)",
+   "roles": [
+    "coppice_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.8,
+   "height_m": 5,
+   "notes": "Native shrub willow; moist soils, run-on and riparian positions. Chips for heat, mulch or biochar; withies for basketry.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "coppice": {
+    "start_yr": 3,
+    "interval_yr": 3,
+    "cut_frac": 0.9,
+    "price_usd_t": 60,
+    "harvest_usd_t": 25,
+    "to_biochar_frac": 0.0,
+    "c_frac": 0.48,
+    "n_kg_t": 5.0,
+    "use": "biomass",
+    "grain_eq": 0.0
+   }
+  },
+  {
+   "id": "willow_sandbar",
+   "taxon": "Salix interior (S. exigua group)",
+   "common": "Sandbar willow (coppice)",
+   "roles": [
+    "coppice_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "central_plains",
+    "northern_rockies_valleys"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.5,
+   "height_m": 4,
+   "notes": "Native suckering willow of plains and western streams; drought-season leaf fodder for livestock. Needs run-on, snow-trap or swale positions on dry sites.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "coppice": {
+    "start_yr": 2,
+    "interval_yr": 2,
+    "cut_frac": 0.9,
+    "price_usd_t": 120,
+    "harvest_usd_t": 30,
+    "to_biochar_frac": 0.0,
+    "c_frac": 0.48,
+    "n_kg_t": 5.0,
+    "use": "fodder",
+    "grain_eq": 0.35
+   }
+  },
+  {
+   "id": "dogwood_redosier",
+   "taxon": "Cornus sericea",
+   "common": "Red-osier dogwood (coppice)",
+   "roles": [
+    "coppice_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains",
+    "northern_rockies_valleys"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.6,
+   "height_m": 3,
+   "notes": "Native; stems for floral and basketry markets, chips otherwise. Early pollinator bloom, fruit for birds.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "coppice": {
+    "start_yr": 3,
+    "interval_yr": 3,
+    "cut_frac": 0.9,
+    "price_usd_t": 80,
+    "harvest_usd_t": 30,
+    "to_biochar_frac": 0.0,
+    "c_frac": 0.48,
+    "n_kg_t": 5.0,
+    "use": "biomass",
+    "grain_eq": 0.0
+   }
+  },
+  {
+   "id": "hazel_coppice",
+   "taxon": "Corylus americana",
+   "common": "American hazel (pole coppice)",
+   "roles": [
+    "coppice_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.5,
+   "height_m": 4,
+   "notes": "Coppiced for poles and wattle instead of nuts; forgoes the nut crop in the coppiced share.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "coppice": {
+    "start_yr": 5,
+    "interval_yr": 7,
+    "cut_frac": 0.9,
+    "price_usd_t": 100,
+    "harvest_usd_t": 35,
+    "to_biochar_frac": 0.0,
+    "c_frac": 0.48,
+    "n_kg_t": 5.0,
+    "use": "biomass",
+    "grain_eq": 0.0
+   }
   }
  ]
 }

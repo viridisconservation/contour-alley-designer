@@ -1,7 +1,25 @@
 [
   {
     "alley_m": 20.0,
+    "carbon": 57.946575157352726,
+    "habitat": "pollinator_understory",
+    "mean_along_row_grade": 0.031232702644285203,
+    "mode": "parallel_contour",
+    "name": "X21",
+    "npv_vs_A": 36639.86178986597,
+    "portfolio": "food_value",
+    "robust_carbon_tCO2e": -53.6112195640531,
+    "robust_score": 95570.00851728696,
+    "score": 39537.19054773361,
+    "strip_fraction": 0.0,
+    "tree_fraction": 0.200050645733097,
+    "tree_fraction_nominal": 0.2,
+    "violations": []
+  },
+  {
+    "alley_m": 20.0,
     "carbon": 67.3420221086588,
+    "habitat": "none",
     "mean_along_row_grade": 0.031232702644285203,
     "mode": "parallel_contour",
     "name": "X00",
@@ -16,24 +34,9 @@
     "violations": []
   },
   {
-    "alley_m": 20.0,
-    "carbon": 42.54136416473004,
-    "mean_along_row_grade": 0.031232702644285203,
-    "mode": "parallel_contour",
-    "name": "X13",
-    "npv_vs_A": 29174.058312049718,
-    "portfolio": "food_value",
-    "robust_carbon_tCO2e": -115.414051205627,
-    "robust_score": 88203.93258315031,
-    "score": 31301.12652028622,
-    "strip_fraction": 0.08,
-    "tree_fraction": 0.200050645733097,
-    "tree_fraction_nominal": 0.2,
-    "violations": []
-  },
-  {
     "alley_m": 85.0,
     "carbon": 26.453142713633333,
+    "habitat": "none",
     "mean_along_row_grade": 0.03061004566210039,
     "mode": "windbreak",
     "name": "X03",
@@ -50,6 +53,7 @@
   {
     "alley_m": 20.0,
     "carbon": 73.92162466581513,
+    "habitat": "none",
     "mean_along_row_grade": 0.031232702644285203,
     "mode": "parallel_contour",
     "name": "X08",

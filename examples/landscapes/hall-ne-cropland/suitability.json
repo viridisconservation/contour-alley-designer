@@ -1,4 +1,26 @@
 {
+  "coppice_crop": {
+    "eligible": [
+      [
+        "willow_sandbar",
+        "suitable"
+      ],
+      [
+        "dogwood_redosier",
+        "suitable"
+      ],
+      [
+        "hazel_coppice",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "willow_heartleaf",
+        "aridity 0.61 below species floor 0.8"
+      ]
+    ]
+  },
   "cover_legume": {
     "eligible": [
       [

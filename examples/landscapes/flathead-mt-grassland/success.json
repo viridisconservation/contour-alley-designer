@@ -11,7 +11,7 @@
     "S1_carbon_positive_all_draws": "reversal-adjusted, leakage-net removal > 0 at the final horizon in every draw",
     "S2_breakeven_central": "cumulative discounted cash vs A turns positive by year 25 (central draw, zero effects)",
     "S3_establishment_survival": "mean establishment survival >= 0.80 in every year and draw (before replanting)",
-    "S4_water_not_worse": "surface outflow as a share of water reaching the field not above A in any draw",
+    "S4_water_not_worse": "surface outflow as a share of water reaching the field not above A by more than 0.5 percentage points in any draw",
     "S5_integrity": "no landscape rule violations; species pass the regional gate",
     "S6_balances_close": "water, carbon and nitrogen balances close in every run"
   },

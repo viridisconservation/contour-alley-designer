@@ -8,6 +8,7 @@
   "nursery_stock": [
     {
       "common": "Saskatoon serviceberry",
+      "coppice_interval_yr": null,
       "first_harvest_year": 3,
       "full_bearing_year": 7,
       "plants": 138,
@@ -16,6 +17,7 @@
     },
     {
       "common": "Chokecherry",
+      "coppice_interval_yr": null,
       "first_harvest_year": 3,
       "full_bearing_year": 6,
       "plants": 138,

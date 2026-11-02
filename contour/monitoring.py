@@ -208,7 +208,9 @@ def implementation(cls, rule, design, P, pf, fixers, r_central, field, table):
     by = {s['id']: s for s in table['species']}
     stock = [{'species': sp['id'], 'common': by[sp['id']]['common'], 'share_of_row': round(sp['share'], 3),
               'plants': round(trees * sp['share']),
-              'first_harvest_year': sp['bearing_start_yr'], 'full_bearing_year': sp['full_bearing_yr']} for sp in pf]
+              'first_harvest_year': sp.get('bearing_start_yr', sp.get('start_yr')),
+              'full_bearing_year': sp.get('full_bearing_yr'),
+              'coppice_interval_yr': sp.get('interval_yr')} for sp in pf]
     for fid in fixers:
         stock.append({'species': fid, 'common': by[fid]['common'], 'share_of_row': round(fx['share'] / len(fixers), 3),
                       'plants': round(trees * fx['share'] / len(fixers)), 'first_harvest_year': None,
@@ -227,7 +229,15 @@ def implementation(cls, rule, design, P, pf, fixers, r_central, field, table):
         cal.append(f"Each season: mow row cover in months {P['cover']['mow_months']}, blowing clippings to the alleys.")
     cal.append(f"From year {P['coppice']['start_yr']}: coppice fixers every {P['coppice']['interval_yr']} years; "
                f"{int(P['coppice']['biochar_frac'] * 100)}% of prunings to on-farm biochar.")
+    for sp in pf:
+        if 'interval_yr' in sp:
+            cal.append(f"From year {sp['start_yr']}: cut {by[sp['id']]['common']} to the stool every {sp['interval_yr']} years "
+                       f"in the dormant season ({'half to biochar, half sold' if sp['to_biochar_frac'] else 'sold as ' + sp['use']}).")
     if design.strip:
-        cal.append('Year 1: seed prairie strips with a local native mix; mow once in year 1 to control weeds.')
+        mix = 'forb-rich native pollinator mix' if P['strip']['pollinator'] else 'native grass mix'
+        cal.append(f'Year 1: seed native strips with a local {mix}; mow once in year 1 to control weeds, '
+                   'then mow or burn in rotation outside the nesting season.')
+    if P['cover']['pollinator_understory']:
+        cal.append('Year 0: sow a native forb understory in the rows instead of clover/vetch; mow once in September after bloom.')
     return {'row_area_ha': row_ha, 'plants_total': round(trees), 'replanting_allowance_plants': round(replant_trees),
             'nursery_stock': stock, 'calendar': cal}

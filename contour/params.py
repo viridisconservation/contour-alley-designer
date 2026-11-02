@@ -31,7 +31,7 @@ DEFAULTS = {
              'maint_usd_ha_yr': 300.0, 'establish_usd_ha': 6000.0, 'establish_tco2e_ha': 1.0},
     'cover': {'enabled': True, 'npp_tC_ha_yr': 2.0, 'n_kg_per_tC': 30.0, 'ndfa_max': 0.8, 'kc': 0.8,
               'mow_months': [6, 8], 'cut_frac': 0.7, 'senesce_month': 11, 'seed_usd_ha': 150.0,
-              'mow_usd_ha_pass': 40.0, 'mow_tco2e_ha_pass': 0.01, 'circle_years': 3},
+              'mow_usd_ha_pass': 40.0, 'mow_tco2e_ha_pass': 0.01, 'circle_years': 3, 'pollinator_understory': False},
     'fixer': {'share': 0.3, 'n_kg_per_tC': 20.0, 'fix_max_kgN_ha_yr': 80.0, 'm_half_kgN_ha': 30.0, 'c_cost_kgC_per_kgN': 8.0},
     'coppice': {'interval_yr': 4, 'start_yr': 4, 'month': 3, 'cut_frac': 0.6, 'biochar_frac': 0.5},
     'residue': {'decay_yr': 0.5, 'stabilized_frac': 0.15, 'cover_k_per_tC_ha': 1.0},
@@ -50,7 +50,9 @@ DEFAULTS = {
     'matrix': {'type': 'annual_crop', 'fertilizer': 'demand', 'legume_ndfa': 0.0,
                'export_return_c_frac': 0.0, 'export_return_n_frac': 0.0},
     'strip': {'npp_tC_ha_yr': 3.0, 'n_kg_per_tC': 15.0, 'kc': 0.85, 'ndfa': 0.2, 'infil_cap_mm': 70.0,
-              'maint_usd_ha_yr': 30.0, 'establish_usd_ha': 1000.0},
+              'maint_usd_ha_yr': 30.0, 'establish_usd_ha': 1000.0, 'pollinator': False},
+    'coppice_crops': {'species': []},
+    'pollination': {'yield_gain_max': 0.0, 'range_m': 150.0},
     'establishment': {'years': 3, 'mortality_max_yr': 0.0, 'replant': True, 'replant_usd_ha': 3000.0,
                       'trees_per_ha_row': 800.0},
     'portfolio': {'species': []},
@@ -74,6 +76,10 @@ STATUS['portfolio.species'] = 'REVIEW REQUIRED: illustrative yields, prices and 
 MATRIX_TYPES = ('annual_crop', 'hay', 'pasture', 'rangeland')
 FERT_POLICIES = ('demand', 'none')
 SIGNED = {('climate', 'temp_shift_c'), ('snow', 'rain_snow_t_c')}
+COPPICE_KEYS = {'id', 'share', 'start_yr', 'interval_yr', 'cut_frac', 'price_usd_t', 'harvest_usd_t',
+                'to_biochar_frac', 'c_frac', 'n_kg_t', 'use', 'grain_eq'}
+STATUS['pollination.yield_gain_max'] = 'illustrative pollination effect; zero by default like other assumed effects (CA3)'
+STATUS['coppice_crops.species'] = 'REVIEW REQUIRED: illustrative coppice rotations and prices from the species table'
 SPECIES_KEYS = {'id', 'share', 'yield_t_ha_yr', 'bearing_start_yr', 'full_bearing_yr', 'price_usd_t',
                 'harvest_usd_t', 'c_frac', 'n_kg_t', 'drought_exp', 'use', 'grain_eq'}
 STATUS['soil.soc_decay_yr'] = 'analyst assumption, or derived by baseline steady-state initialization when soil.init_equilibrium is true'
@@ -100,7 +106,10 @@ def validate(P):
     for group, vals in P.items():
         for k, v in vals.items():
             if (group, k) == ('portfolio', 'species'):
-                _check_portfolio(v, P['fixer']['share'])
+                _check_portfolio(v, P['fixer']['share'] + sum(c['share'] for c in P['coppice_crops']['species']
+                                                             if isinstance(c, dict) and 'share' in c))
+            elif (group, k) == ('coppice_crops', 'species'):
+                _check_coppice(v)
             elif k in ('monthly_precip_mm', 'monthly_pet_mm', 'monthly_tmean_c'):
                 if len(v) not in (0, 12) or not all(num(x) for x in v):
                     raise ValueError(f'climate.{k} must be empty or 12 finite numbers')
@@ -148,6 +157,8 @@ def validate(P):
         raise ValueError('invalid discount, capacity or PET')
     if P['matrix']['type'] == 'rangeland' and P['matrix']['fertilizer'] != 'none':
         raise ValueError('rangeland matrix may not be fertilized (native grassland integrity rule)')
+    if P['pollination']['range_m'] <= 0:
+        raise ValueError('pollination.range_m must be positive')
     if P['snow']['enabled'] and not P['climate']['monthly_tmean_c']:
         raise ValueError('snow.enabled requires climate.monthly_tmean_c')
     if type(P['establishment']['years']) is not int:
@@ -163,13 +174,15 @@ def _check_portfolio(species, fixer_share):
         return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
     ids = set()
     for sp in species:
-        if not isinstance(sp, dict) or set(sp) != SPECIES_KEYS:
+        if not isinstance(sp, dict) or not SPECIES_KEYS <= set(sp) <= SPECIES_KEYS | {'pollinator_dep'}:
             raise ValueError(f'portfolio species entries need exactly {sorted(SPECIES_KEYS)}')
         if sp['id'] in ids:
             raise ValueError(f"duplicate portfolio species {sp['id']}")
         ids.add(sp['id'])
         if sp['use'] not in ('food', 'feed'):
             raise ValueError('portfolio use must be food or feed')
+        if not (num(sp.get('pollinator_dep', 0.0)) and 0 <= sp.get('pollinator_dep', 0.0) <= 1):
+            raise ValueError(f"portfolio {sp['id']}.pollinator_dep must be in [0,1]")
         for k in SPECIES_KEYS - {'id', 'use'}:
             if not num(sp[k]) or sp[k] < 0:
                 raise ValueError(f"portfolio {sp['id']}.{k} must be a non-negative number")
@@ -179,7 +192,28 @@ def _check_portfolio(species, fixer_share):
         if sp['c_frac'] > 1:
             raise ValueError('portfolio c_frac must be <= 1')
     if sum(sp['share'] for sp in species) > 1 - fixer_share + 1e-9:
-        raise ValueError('tree-crop shares plus fixer share must not exceed 1 (row length is shared)')
+        raise ValueError('tree-crop, coppice and fixer shares must not exceed 1 (row length is shared)')
+
+
+def _check_coppice(species):
+    def num(v):
+        return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
+    ids = set()
+    for cs in species:
+        if not isinstance(cs, dict) or set(cs) != COPPICE_KEYS:
+            raise ValueError(f'coppice crop entries need exactly {sorted(COPPICE_KEYS)}')
+        if cs['id'] in ids:
+            raise ValueError(f"duplicate coppice crop {cs['id']}")
+        ids.add(cs['id'])
+        if cs['use'] not in ('biomass', 'fodder'):
+            raise ValueError('coppice use must be biomass or fodder')
+        for k in COPPICE_KEYS - {'id', 'use'}:
+            if not num(cs[k]) or cs[k] < 0:
+                raise ValueError(f"coppice {cs['id']}.{k} must be a non-negative number")
+        if type(cs['start_yr']) is not int or type(cs['interval_yr']) is not int or cs['interval_yr'] < 1:
+            raise ValueError('coppice start_yr and interval_yr must be integers, interval >= 1')
+        if cs['cut_frac'] > 1 or cs['to_biochar_frac'] > 1 or not 0 < cs['c_frac'] <= 1:
+            raise ValueError('coppice cut_frac and to_biochar_frac must be <= 1 and c_frac in (0,1]')
 
 
 def export(P):

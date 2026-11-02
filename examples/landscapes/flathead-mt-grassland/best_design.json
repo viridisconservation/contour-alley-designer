@@ -1,8 +1,10 @@
 {
   "alley_m": 120.0,
+  "field_share_within_forage_range": 0.0,
   "fixers": [
     "buffaloberry"
   ],
+  "habitat": "none",
   "metrics": {
     "alley_area_ha": 11.825000000000001,
     "alley_cells": 4730,
@@ -22,6 +24,7 @@
   },
   "mode": "true_contour",
   "name": "X02",
+  "pollinator_habitat_ha": 0.0,
   "portfolio": [
     {
       "bearing_start_yr": 3,
@@ -32,6 +35,7 @@
       "harvest_usd_t": 1200,
       "id": "saskatoon",
       "n_kg_t": 5,
+      "pollinator_dep": 0.65,
       "price_usd_t": 4000,
       "share": 0.35,
       "use": "food",
@@ -46,6 +50,7 @@
       "harvest_usd_t": 1000,
       "id": "chokecherry",
       "n_kg_t": 6,
+      "pollinator_dep": 0.65,
       "price_usd_t": 2500,
       "share": 0.35,
       "use": "food",

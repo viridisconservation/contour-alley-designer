@@ -29,7 +29,7 @@ SITE_KEYS = {'name', 'field', 'land_cover', 'region', 'climate_normals', 'wind',
              'top_k', 'notes'}
 REQUIRED = {'name', 'field', 'land_cover', 'region', 'climate_normals', 'wind', 'soil', 'machinery_m', 'species_file'}
 DEFAULT_ASSUMED = {'effects': {'et_beta': 0.25, 'yield_gamma': 0.12, 'competition_c0': 0.3, 'competition_len_H': 1.0,
-                               'porosity': 0.45}, 'snow_trap_gamma': 0.6}
+                               'porosity': 0.45}, 'snow_trap_gamma': 0.6, 'pollination_gain': 0.15}
 
 
 def _j(o):
@@ -109,7 +109,7 @@ def design(site_path, output, log=print):
     def h_of(pf):
         return min(20.0, max([heights[s['id']] for s in pf] + [fix_h]))
     suit = {role: dict(zip(('eligible', 'rejected'), suitability(table, cls, role)))
-            for role in ('tree_crop', 'fixer_tree', 'cover_legume')}
+            for role in ('tree_crop', 'coppice_crop', 'fixer_tree', 'cover_legume')}
     assumed = site.get('assumed_effects', DEFAULT_ASSUMED)
     T = site.get('confirm_years', 40)
     res = run_search(field, cls, rule, P0, portfolios, h_of, machinery_m=site['machinery_m'], row_m=site.get('row_m', 5.0),
@@ -121,7 +121,8 @@ def design(site_path, output, log=print):
     pf = portfolios[best['portfolio']]
     rc, Pc = conf['runs'][('central', 'zero_effect')]
     viol = check_design(rule, d.metrics['tree_cells'] / d.metrics['field_cells'], best['mode'], best['strip_fraction'], Pc)
-    gate_ok = all(sp['id'] in [x for x, _ in suit['tree_crop']['eligible']] for sp in pf) and \
+    elig_ids = [x for x, _ in suit['tree_crop']['eligible'] + suit['coppice_crop']['eligible']]
+    gate_ok = all(sp['id'] in elig_ids for sp in pf) and \
         all(f in [x for x, _ in suit['fixer_tree']['eligible']] for f in fixers)
     verdict = success(conf, res['baseline'], T, viol, gate_ok)
     years = list(range(1, T + 1))
@@ -161,7 +162,10 @@ def design(site_path, output, log=print):
     dump(out / 'parameters_best_central_zero_effect.json', export(Pc))
     dump(out / 'water_july_alley_soil_mm.json', {'design': jul, 'A': julA})
     dump(out / 'best_design.json', {'name': best['name'], 'mode': best['mode'], 'alley_m': best['alley_m'],
-                                    'strip_fraction': best['strip_fraction'], 'portfolio': pf, 'fixers': fixers,
+                                    'strip_fraction': best['strip_fraction'], 'habitat': best['habitat'],
+                                    'pollinator_habitat_ha': rc[T]['pollinator_habitat_ha'],
+                                    'field_share_within_forage_range': rc[T]['field_share_within_forage_range'],
+                                    'portfolio': pf, 'fixers': fixers,
                                     'metrics': d.metrics, 'tree_cells': [i for i in range(field.n) if d.row[i]],
                                     'strip_cells': [i for i in range(field.n) if d.strip and d.strip[i]]})
     dump(out / 'verification.json', checks)
@@ -207,17 +211,31 @@ def write_report(out, site, cls, rule, suit, res, best, d, pf, fixers, verdict, 
     L.append(f"{len(res['screen'])} candidates (staged: geometry, then tree-crop mix, then strips), {len(ok)} admissible, screened {site.get('screen_years', 15)} years "
              f"(central climate, assumed effects). Finalists re-run {T} years under dry/central/wet climate x zero/assumed "
              'effects and ranked by their worst case.\n')
-    L.append('| Candidate | Layout | Alley m | Strips | Portfolio | Screen score | Worst-case score |')
+    L.append('| Candidate | Layout | Alley m | Native habitat | Row mix | Screen score | Worst-case score |')
     L.append('|---|---|---|---|---|---|---|')
     for s in sorted(ok, key=lambda s: -s['score'])[:10]:
-        L.append(f"| {s['name']} | {s['mode']} | {s['alley_m']:.0f} | {s['strip_fraction']:.2f} | {s['portfolio']} | "
+        L.append(f"| {s['name']} | {s['mode']} | {s['alley_m']:.0f} | {s['habitat'].replace('_', ' ')} | {s['portfolio']} | "
                  f"{_fmt(s['score'], 0)} | {_fmt(s.get('robust_score'), 0)} |")
     L.append('\nScore = NPV vs conventional (2026 USD) + carbon at '
              f"${site.get('carbon_price_usd_t', 50.0):.0f}/t on the reversal-adjusted, leakage-net removal (field total).\n")
+    hab = [s for s in res['finalists'] if s.get('pollinator_habitat_ha', 0) > 0]
+    nohab = [s for s in res['finalists'] if s.get('pollinator_habitat_ha', 0) == 0]
+    if hab and nohab:
+        bh, bn = max(hab, key=lambda s: s['robust_score']), max(nohab, key=lambda s: s['robust_score'])
+        L.append(f"Price of pollinator habitat (best habitat finalist vs best without, worst case): "
+                 f"${bn['robust_score'] - bh['robust_score']:,.0f} over {T} years for {bh['pollinator_habitat_ha']:.2f} ha "
+                 f"({bh['habitat'].replace('_', ' ')}). Pollination gains count only in the assumed-effects runs until measured.\n")
     L.append(f"## Chosen design: {best['name']}\n")
     L.append(f"- Layout {best['mode']}, alley {best['alley_m']:.0f} m ({best['alley_m'] / site['machinery_m']:.0f} machinery passes), "
-             f"tree rows {d.metrics['tree_area_ha']:.2f} ha of {d.metrics['field_area_ha']:.2f} ha; prairie strips "
-             f"{best['strip_fraction'] * 100:.0f}% of field")
+             f"tree rows {d.metrics['tree_area_ha']:.2f} ha of {d.metrics['field_area_ha']:.2f} ha; native habitat: "
+             f"{best['habitat'].replace('_', ' ')}"
+             + (f" ({best['strip_fraction'] * 100:.0f}% of field)" if best['strip_fraction'] else ''))
+    rc, Pc = res['confirm'][best['name']]['runs'][('central', 'zero_effect')]
+    L.append(f"- Pollinator habitat {rc[T]['pollinator_habitat_ha']:.2f} ha; "
+             f"{rc[T]['field_share_within_forage_range'] * 100:.0f}% of the field within {Pc['pollination']['range_m']:.0f} m of it")
+    if rc[T]['coppice_product_t'] > 0:
+        L.append(f"- Coppice harvest over {T} years: {rc[T]['coppice_product_t']:.1f} t dry matter "
+                 + ', '.join(f'{k} {v:.1f} t' for k, v in rc[T]['coppice_product_by_species_t'].items()))
     L.append('- Row mix: ' + ', '.join(f"{sp['id']} {sp['share'] * 100:.0f}%" for sp in pf)
              + (f", fixers {', '.join(fixers)}" if fixers else ''))
     L.append(f"\n{svg_map(field, d, 'Chosen design (green rows, gold prairie strips)', px=6)}\n")

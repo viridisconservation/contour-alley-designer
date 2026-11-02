@@ -1,8 +1,10 @@
 {
   "alley_m": 36.0,
+  "field_share_within_forage_range": 0.0,
   "fixers": [
     "buffaloberry"
   ],
+  "habitat": "none",
   "metrics": {
     "alley_area_ha": 11.23,
     "alley_cells": 4492,
@@ -22,6 +24,7 @@
   },
   "mode": "parallel_contour",
   "name": "X00",
+  "pollinator_habitat_ha": 0.0,
   "portfolio": [
     {
       "bearing_start_yr": 3,
@@ -32,6 +35,7 @@
       "harvest_usd_t": 1200,
       "id": "saskatoon",
       "n_kg_t": 5,
+      "pollinator_dep": 0.65,
       "price_usd_t": 4000,
       "share": 0.2333333333333333,
       "use": "food",
@@ -46,6 +50,7 @@
       "harvest_usd_t": 1000,
       "id": "persimmon_am",
       "n_kg_t": 8,
+      "pollinator_dep": 0.4,
       "price_usd_t": 3000,
       "share": 0.2333333333333333,
       "use": "food",
@@ -60,6 +65,7 @@
       "harvest_usd_t": 1000,
       "id": "pecan_northern",
       "n_kg_t": 15,
+      "pollinator_dep": 0.0,
       "price_usd_t": 5000,
       "share": 0.2333333333333333,
       "use": "food",

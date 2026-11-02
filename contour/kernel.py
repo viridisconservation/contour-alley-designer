@@ -100,6 +100,24 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
         raise ValueError('snow requires monthly temperature (climate.monthly_tmean_c)')
     est_on = es['mortality_max_yr'] > 0
     sp_by = {sp['id']: sp for sp in pf}
+    ccs = P['coppice_crops']['species']                 # coppice crops in the row (LG13)
+    po = P['pollination']
+    hab = [bool(strip[i]) and P['strip']['pollinator'] for i in range(n)]
+    under = cv['enabled'] and cv['pollinator_understory']
+    if under:
+        hab = [h or row[i] for i, h in enumerate(hab)]
+    habitat_ha = sum(1 for i in cells if hab[i]) * ha
+    hab_xy = [field.xy(i) for i in cells if hab[i]]
+
+    def _dist_hab(i):
+        if hab[i]:
+            return 0.0
+        x, y = field.xy(i)
+        return min(math.hypot(x - hx, y - hy) for hx, hy in hab_xy) if hab_xy else math.inf
+    dhab = {i: _dist_hab(i) for i in cells} if hab_xy else {}
+    forage_share = (sum(1 for i in cells if dhab.get(i, math.inf) <= po['range_m']) / len(cells)) if hab_xy else 0.0
+    pol_gain = {i: po['yield_gain_max'] * math.exp(-dhab[i] / po['range_m']) for i in cells if row[i]} \
+        if (hab_xy and po['yield_gain_max'] > 0) else {}
     amp_ = min(0.9, ef['shelter_max_reduction'] * (1 - ef['porosity']) / 0.55)
     sm_ = 1.5 + 8.0 * ef['porosity']
     c0_, clen_ = ef['competition_c0'], ef['competition_len_H']
@@ -148,8 +166,9 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
         'lateral_residue_tC', 'lateral_residue_kgN', 'interflow_mm_cells', 'sub_outflow_mm_cells',
         'snowfall_mm_cells', 'snow_loss_mm_cells', 'melt_mm_cells', 'strip_npp_tC', 'fix_strip_kgN',
         'fix_matrix_kgN', 'manure_return_tC', 'replant_ha', 'establish_dead_tC', 'tree_food_t', 'tree_feed_t',
-        'tree_grain_eq_t')}
+        'tree_grain_eq_t', 'coppice_product_t')}
     sp_t = {sp['id']: 0.0 for sp in pf}
+    cop_t = {cs['id']: 0.0 for cs in ccs}
     est_surv = {}
     ws_sum = {'crop': 0.0, 'tree': 0.0}
     ws_n = {'crop': 0, 'tree': 0}
@@ -404,6 +423,8 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
                             continue
                         ramp_b = min(1.0, (age - sp['bearing_start_yr'] + 1) / (sp['full_bearing_yr'] - sp['bearing_start_yr'] + 1))
                         tys[sp['id']] = sp['share'] * sp['yield_t_ha_yr'] * ramp_b * vig * ws_tree ** sp['drought_exp']
+                        if pol_gain and sp.get('pollinator_dep', 0.0) > 0:     # assumed pollination effect (LG14)
+                            tys[sp['id']] *= 1 + pol_gain[i] * sp['pollinator_dep']
                     want_c = sum(tys[k] * sp_by[k]['c_frac'] for k in tys)
                     want_n = sum(tys[k] * sp_by[k]['n_kg_t'] for k in tys)
                     sc = min(1.0, A[i] / want_c if want_c > 0 else 1.0, PN[i] / want_n if want_n > 0 else 1.0)
@@ -446,15 +467,42 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
                         R[i] -= mc; RN[i] -= mn; lat_c += mc; lat_n += mn
                         transfers.append((i, mc, mn))
                     Z[i] += bc['carbon_yield'] * feed
-                    pyro_c = (1 - bc['carbon_yield']) * feed
-                    L['pyro_loss_tC'] += pyro_c * ha
+                    pyro_c += (1 - bc['carbon_yield']) * feed
+                    L['pyro_loss_tC'] += (1 - bc['carbon_yield']) * feed * ha
                     feedn = cutn * cp['biochar_frac']
                     ZN[i] += feedn * bc['n_retained_frac']
-                    pyro_n = feedn * (1 - bc['n_retained_frac'])
-                    L['pyro_N_loss_kgN'] += pyro_n * ha
+                    pyro_n += feedn * (1 - bc['n_retained_frac'])
+                    L['pyro_N_loss_kgN'] += feedn * (1 - bc['n_retained_frac']) * ha
                     L['biochar_feed_tC'] += feed * ha
                     L['em_biochar_process'] += feed * ha * bc['process_tco2e_per_tC_feed']
                     cash -= feed * ha * bc['process_usd_per_tC_feed']
+                # ---- coppice crops: cut on rotation, sold as biomass/fodder or charred (LG13) ----
+                for cs in ccs:
+                    if year >= cs['start_yr'] and (year - cs['start_yr']) % cs['interval_yr'] == 0 and mon == cp['month']:
+                        wood = A[i] + Bb[i]
+                        cut = cs['cut_frac'] * cs['share'] * A[i]
+                        cutn = PN[i] * cut / wood if wood > 0 else 0.0
+                        A[i] -= cut; PN[i] -= cutn
+                        feed = cut * cs['to_biochar_frac']
+                        sold, soldn = cut - feed, cutn * (1 - cs['to_biochar_frac'])
+                        exp_c += sold; exp_n += soldn
+                        t_ = sold / cs['c_frac']
+                        cop_t[cs['id']] += t_ * ha
+                        L['coppice_product_t'] += t_ * ha
+                        if cs['use'] == 'fodder':
+                            L['tree_grain_eq_t'] += t_ * cs['grain_eq'] * ha
+                        cash += t_ * ha * (cs['price_usd_t'] - cs['harvest_usd_t'])
+                        if feed > 0:
+                            feedn = cutn * cs['to_biochar_frac']
+                            Z[i] += bc['carbon_yield'] * feed
+                            pyro_c += (1 - bc['carbon_yield']) * feed
+                            L['pyro_loss_tC'] += (1 - bc['carbon_yield']) * feed * ha
+                            ZN[i] += feedn * bc['n_retained_frac']
+                            pyro_n += feedn * (1 - bc['n_retained_frac'])
+                            L['pyro_N_loss_kgN'] += feedn * (1 - bc['n_retained_frac']) * ha
+                            L['biochar_feed_tC'] += feed * ha
+                            L['em_biochar_process'] += feed * ha * bc['process_tco2e_per_tC_feed']
+                            cash -= feed * ha * bc['process_usd_per_tC_feed']
                 # ---- cover crop in rows (CC1, CC2) ----
                 if cv['enabled'] and in_season:
                     pot = cv['npp_tC_ha_yr'] / nseason * (1 - canopy) * ws_cov
@@ -606,6 +654,8 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
                 'establishment_dead_tC': L['establish_dead_tC'],
                 'tree_product_by_species_t': dict(sp_t), 'tree_food_t': L['tree_food_t'],
                 'tree_feed_t': L['tree_feed_t'], 'tree_grain_equivalent_t': L['tree_grain_eq_t'],
+                'coppice_product_t': L['coppice_product_t'], 'coppice_product_by_species_t': dict(cop_t),
+                'pollinator_habitat_ha': habitat_ha, 'field_share_within_forage_range': forage_share,
             })
             c_now = sum(totC(i) for i in cells) * ha
             c_start = sum(C0.values())

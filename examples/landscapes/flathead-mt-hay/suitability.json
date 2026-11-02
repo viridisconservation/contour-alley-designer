@@ -1,4 +1,26 @@
 {
+  "coppice_crop": {
+    "eligible": [
+      [
+        "willow_sandbar",
+        "marginal aridity: run-on/snow-trap rows only"
+      ],
+      [
+        "hazel_coppice",
+        "marginal aridity: run-on/snow-trap rows only; invasive status unknown for northern_rockies_valleys: verify"
+      ]
+    ],
+    "rejected": [
+      [
+        "willow_heartleaf",
+        "aridity 0.45 below species floor 0.8"
+      ],
+      [
+        "dogwood_redosier",
+        "aridity 0.45 below species floor 0.6"
+      ]
+    ]
+  },
   "cover_legume": {
     "eligible": [
       [

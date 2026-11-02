@@ -203,6 +203,75 @@ class Portfolio(unittest.TestCase):
         self.assertAlmostEqual(row['net_additional_tCO2e'], row['gross_additional_tCO2e'] - row['leakage_tCO2e'])
 
 
+def cop_entry(**kw):
+    d = dict(id='willow', share=0.3, start_yr=2, interval_yr=2, cut_frac=0.9, price_usd_t=60, harvest_usd_t=25,
+             to_biochar_frac=0.0, c_frac=0.48, n_kg_t=5, use='biomass', grain_eq=0.0)
+    d.update(kw)
+    return d
+
+
+class Coppice(unittest.TestCase):
+    def test_rotation_product_and_closure(self):
+        """LG13: coppice crops are cut only on rotation, the cut is sold or charred, balances close."""
+        f = small(); d = contour(f)
+        P = validate(merge({'coppice_crops': {'species': [cop_entry()]}}))
+        r = simulate(f, d, P, weather(P, 7), (2, 3, 7))
+        closes(r)
+        self.assertEqual(r[2]['coppice_product_t'], 0.0)          # first cut in year index 2 (third season)
+        self.assertGreater(r[3]['coppice_product_t'], 0.0)
+        self.assertAlmostEqual(r[7]['coppice_product_by_species_t']['willow'], r[7]['coppice_product_t'])
+        Pb = validate(merge({'coppice_crops': {'species': [cop_entry(to_biochar_frac=0.5)]}}))
+        rb = simulate(f, d, Pb, weather(Pb, 7), (7,))
+        closes(rb)
+        self.assertGreater(rb[7]['biochar_feedstock_tC'], r[7]['biochar_feedstock_tC'])
+        self.assertLess(rb[7]['coppice_product_t'], r[7]['coppice_product_t'])
+
+    def test_row_shares_bounded(self):
+        with self.assertRaises(ValueError):
+            validate(merge({'coppice_crops': {'species': [cop_entry(share=0.5)]},
+                            'portfolio': {'species': [pf_entry(share=0.4)]}}))
+
+
+class Pollinators(unittest.TestCase):
+    def test_pollination_effect_only_on_insect_crops(self):
+        """LG14: the assumed pollination gain raises insect-pollinated yields only; zero by default."""
+        f = small(); d = contour(f)
+        st = prairie_strips(f, d.row, 0.1)
+        dd = dataclasses.replace(d, strip=st)
+        mix = [pf_entry(id='berry', share=0.35, bearing_start_yr=1, full_bearing_yr=2, pollinator_dep=0.65),
+               pf_entry(id='nut', share=0.35, bearing_start_yr=1, full_bearing_yr=2, pollinator_dep=0.0)]
+        base = {'portfolio': {'species': mix}, 'strip': {'pollinator': True}}
+        out = {}
+        for g in (0.0, 0.3):
+            P = validate(merge(dict(base, pollination={'yield_gain_max': g})))
+            out[g] = simulate(f, dd, P, weather(P, 5), (5,))[5]
+            closes({5: out[g]})
+        self.assertGreater(out[0.3]['tree_product_by_species_t']['berry'], out[0.0]['tree_product_by_species_t']['berry'])
+        # wind-pollinated crops get no direct gain; only a second-order change via shared row wood (< 1%)
+        b0, b1 = (out[g]['tree_product_by_species_t']['berry'] for g in (0.0, 0.3))
+        n0, n1 = (out[g]['tree_product_by_species_t']['nut'] for g in (0.0, 0.3))
+        self.assertLess(abs(n1 - n0) / n0, 0.01)
+        self.assertGreater((b1 - b0) / b0, 0.05)
+        self.assertAlmostEqual(out[0.0]['pollinator_habitat_ha'], sum(st) * f.cell_ha)
+        self.assertTrue(0 < out[0.0]['field_share_within_forage_range'] <= 1)
+
+    def test_understory_counts_rows_as_habitat(self):
+        f = small(); d = contour(f)
+        P = validate(merge({'cover': {'pollinator_understory': True}}))
+        r = simulate(f, d, P, weather(P, 3), (3,))
+        self.assertAlmostEqual(r[3]['pollinator_habitat_ha'], sum(d.row) * f.cell_ha)
+        P0 = validate(merge({'cover': {'pollinator_understory': True, 'enabled': False}}))
+        self.assertEqual(simulate(f, d, P0, weather(P0, 3), (3,))[3]['pollinator_habitat_ha'], 0.0)
+
+    def test_no_strips_on_native_grassland(self):
+        cls = classify(small(), dict(KAL, wind_summer=ROSE, wind_winter=ROSE), 'native_grassland', 'northern_rockies_valleys')
+        r = rules(cls)
+        self.assertEqual(r['strip_mixes'], [])
+        self.assertFalse(r['pollinator_understory'])
+        hay = rules(classify(small(), dict(KAL, wind_summer=ROSE, wind_winter=ROSE), 'hay_pasture', 'northern_rockies_valleys'))
+        self.assertEqual(hay['strip_mixes'], ['pollinator_strips'])
+
+
 class Landscape(unittest.TestCase):
     def clim(self):
         return dict(KAL, wind_summer=ROSE, wind_winter=ROSE)
@@ -252,9 +321,12 @@ class Landscape(unittest.TestCase):
         self.assertIn('locust_black', rej)
         self.assertNotIn('honeylocust_thornless', [i for i, _ in ok])
         pf = portfolio_options(table, cls, 0.7)
+        from contour.optimize import split_portfolio
         for mix in pf.values():
             self.assertAlmostEqual(sum(s['share'] for s in mix), 0.7)
-            validate(merge({'portfolio': {'species': mix}}))
+            crops, cop = split_portfolio(mix)
+            validate(merge({'portfolio': {'species': crops}, 'coppice_crops': {'species': cop}}))
+        self.assertIn('coppice_and_fruit', pf)
 
     def test_portfolio_diversity_and_precaution(self):
         """LG7/LG12: every mix has >= 2 species; a species listed elsewhere and unassessed here is excluded;

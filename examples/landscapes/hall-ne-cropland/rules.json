@@ -18,8 +18,13 @@
     "Plain: contour rows are undefined; rows run across the dominant wind and double as snow fences.",
     "Dryland assumed: irrigation (common on central-plains cropland) is not modeled."
   ],
+  "pollinator_understory": true,
   "snow_trap": true,
   "strip_fraction": 0.08,
+  "strip_mixes": [
+    "grass_strips",
+    "pollinator_strips"
+  ],
   "strips": true,
   "tillage_establishment": true,
   "tree_fraction": [

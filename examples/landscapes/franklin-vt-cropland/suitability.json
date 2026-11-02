@@ -1,4 +1,25 @@
 {
+  "coppice_crop": {
+    "eligible": [
+      [
+        "willow_heartleaf",
+        "suitable"
+      ],
+      [
+        "willow_sandbar",
+        "invasive status unknown for northeast: verify"
+      ],
+      [
+        "dogwood_redosier",
+        "suitable"
+      ],
+      [
+        "hazel_coppice",
+        "suitable"
+      ]
+    ],
+    "rejected": []
+  },
   "cover_legume": {
     "eligible": [
       [

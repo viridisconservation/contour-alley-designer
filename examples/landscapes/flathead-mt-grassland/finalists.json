@@ -2,6 +2,7 @@
   {
     "alley_m": 120.0,
     "carbon": 28.686406725359372,
+    "habitat": "none",
     "mean_along_row_grade": 5.146383002493376e-18,
     "mode": "true_contour",
     "name": "X02",
@@ -18,6 +19,7 @@
   {
     "alley_m": 120.0,
     "carbon": 28.66111053227526,
+    "habitat": "none",
     "mean_along_row_grade": 0.04819543715159716,
     "mode": "parallel_contour",
     "name": "X00",
@@ -34,6 +36,7 @@
   {
     "alley_m": 245.0,
     "carbon": 14.417717833971828,
+    "habitat": "none",
     "mean_along_row_grade": 0.06083697924010999,
     "mode": "parallel_contour",
     "name": "X01",

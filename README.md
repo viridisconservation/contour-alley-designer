@@ -6,7 +6,7 @@ An open, reproducible field-scale model for designing **agroforestry on every wo
 - **Hay and pasture:** silvopasture.
 - **Native grassland:** sparse savanna restoration under strict integrity rules.
 
-Every design can add a legume cover, nitrogen-fixing shrubs, on-farm biochar and prairie strips. The tree crops follow J. R. Smith's *Tree Crops* (1929): nuts and fruit for people, and feed crops for livestock.
+Every design can add a legume or native pollinator understory, nitrogen-fixing shrubs, coppice crops (native willows, red-osier dogwood, pole hazel), on-farm biochar, and native grass or pollinator strips. The tree crops follow J. R. Smith's *Tree Crops* (1929): nuts and fruit for people, and feed crops for livestock.
 
 For each field the designer classifies the landscape, searches the admissible designs and confirms the finalists under dry, central and wet climate, with windbreak effects both assumed and switched off. It then reports whether the design meets long-term success criteria and writes a monitoring plan that tests that claim in the field.
 
@@ -70,7 +70,7 @@ Four real fields are included, each about 10–13 ha. They use USGS 3DEP lidar, 
 
 | Field | Class | Chosen design | Worst-case net carbon, 40 yr* | Verdict |
 |---|---|---|---|---|
-| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the NW winter wind, 84 m alleys, 6% trees | +8 tCO₂e | confirmed (model) |
+| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the NW winter wind, 84 m alleys, 6% trees, native pollinator understory | +7 tCO₂e | confirmed (model) |
 | Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +63 tCO₂e | confirmed (model) |
 | Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +30 tCO₂e | confirmed (model) |
 | Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees | −46 tCO₂e | conditional: carbon fails in wet draws |
@@ -78,6 +78,8 @@ Four real fields are included, each about 10–13 ha. They use USGS 3DEP lidar, 
 \*Reversal-adjusted and leakage-net vs conventional, over the worst of 3 climate draws × 2 effect modes. "Confirmed (model)" means every success criterion held in every simulated draw. It is not a field guarantee.
 
 The Vermont result is the instructive one. On productive humid cropland, displaced crop output (leakage) takes most of the gross carbon gain. The money-weighted optimum then fails the carbon test, so the designer reports it as conditional instead of hiding it. On marginal, dry or grazed land the climate case holds in every draw.
+
+At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free: on the Nebraska field it cost $121 over 40 years in the worst case. Separate strips cost crop area.
 
 ## Use your own field
 

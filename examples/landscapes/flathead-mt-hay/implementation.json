@@ -10,6 +10,7 @@
   "nursery_stock": [
     {
       "common": "Saskatoon serviceberry",
+      "coppice_interval_yr": null,
       "first_harvest_year": 3,
       "full_bearing_year": 7,
       "plants": 291,
@@ -18,6 +19,7 @@
     },
     {
       "common": "American persimmon",
+      "coppice_interval_yr": null,
       "first_harvest_year": 5,
       "full_bearing_year": 10,
       "plants": 291,
@@ -26,6 +28,7 @@
     },
     {
       "common": "Northern pecan",
+      "coppice_interval_yr": null,
       "first_harvest_year": 10,
       "full_bearing_year": 20,
       "plants": 291,

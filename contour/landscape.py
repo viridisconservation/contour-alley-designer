@@ -100,8 +100,11 @@ def rules(cls):
         'contour_vertical_interval_m': [1.0, 2.0, 3.0],
         'windbreak_H_multiples': [6, 10, 15],
         'min_alley_machinery_passes': 2,
-        'strips': lc == 'cropland',
+        'strips': lc in ('cropland', 'hay_pasture'),
         'strip_fraction': 0.08,
+        # native strip mixes: grass (soil and water) or forb-rich pollinator; hay/pasture gets pollinator strips only
+        'strip_mixes': ['grass_strips', 'pollinator_strips'] if lc == 'cropland' else (['pollinator_strips'] if lc == 'hay_pasture' else []),
+        'pollinator_understory': lc != 'native_grassland',
         'cover_sowing': lc != 'native_grassland',
         'fertilizer': 'demand' if lc == 'cropland' else 'none',
         'native_species_only': lc == 'native_grassland',
@@ -131,7 +134,7 @@ def check_design(rule, tree_fraction, mode, strip_fraction, P):
     if mode not in rule['modes'] and mode != 'none':
         v.append(f'layout {mode} not admissible for this landscape')
     if strip_fraction > 0 and not rule['strips']:
-        v.append('prairie strips only apply to cropland')
+        v.append('native strips do not apply on native grassland (it is already habitat)')
     if P['cover']['enabled'] and not rule['cover_sowing']:
         v.append('sown cover not allowed on native grassland')
     if P['matrix']['fertilizer'] != rule['fertilizer'] and rule['fertilizer'] == 'none':
@@ -231,7 +234,33 @@ def portfolio_options(table, cls, crop_share):
     for name, ids in opts.items():
         share = crop_share / len(ids)
         out[name] = [dict(id=sid, share=share, **by[sid]['crop']) for sid in ids]
+    # coppice mixes (LG13): half the crop share in a coppice species, half in the earliest-bearing food crop.
+    # One mix sells the cut as biomass or fodder; the other chars half of it as on-farm biochar feedstock.
+    cop = [sid for sid, _ in suitability(table, cls, 'coppice_crop')[0]]
+    if cop:
+        def cval(sid):
+            c = by[sid]['coppice']
+            return (c['price_usd_t'] - c['harvest_usd_t']) / c['interval_yr'] * (2.0 if c['use'] == 'fodder' and cls['land_cover'] != 'cropland' else 1.0)
+        best_c = sorted(cop, key=lambda s: -cval(s))[0]
+        partner = sorted(food or feed, key=lambda s: (early(s), -value(s)))[:1]
+        for name, tb in (('coppice_and_fruit', 0.0), ('coppice_biochar', 0.5)):
+            mix = [dict(kind='coppice', id=best_c, share=crop_share / (1 + len(partner)),
+                        **dict(by[best_c]['coppice'], to_biochar_frac=tb))]
+            mix += [dict(id=sid, share=crop_share / (1 + len(partner)), **by[sid]['crop']) for sid in partner]
+            out[name] = mix
     return out
+
+
+def habitat_parameters(habitat):
+    """Native strip and understory presets (analyst assumptions; REVIEW REQUIRED)."""
+    if habitat == 'pollinator_strips':
+        return {'strip': {'pollinator': True, 'npp_tC_ha_yr': 2.2, 'ndfa': 0.35, 'establish_usd_ha': 1800.0,
+                          'maint_usd_ha_yr': 40.0}}
+    if habitat == 'pollinator_understory':
+        # forb-rich native understory in the rows replaces the sown clover/vetch; one late mow after bloom
+        return {'cover': {'pollinator_understory': True, 'ndfa_max': 0.5, 'npp_tC_ha_yr': 1.5, 'seed_usd_ha': 600.0,
+                          'mow_months': [9]}}
+    return {}
 
 
 def pick_fixers(table, cls, n=1):

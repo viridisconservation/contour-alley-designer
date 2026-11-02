@@ -17,7 +17,7 @@ import math
 
 from .accounting import compare
 from .kernel import simulate, weather
-from .landscape import alley_widths, check_design, row_bearing
+from .landscape import alley_widths, check_design, habitat_parameters, row_bearing
 from .layout import Design, layout, nearest_row_distance, prairie_strips, upwind_row_distance
 from .params import merge, validate
 from .terrain import receivers, routing_order
@@ -67,9 +67,8 @@ def candidate_space(cls, rule, portfolios, machinery_m, row_m, h_of):
                 tf = row_m / (a + row_m)
                 if tf > rule['tree_fraction_cap'] + 1e-9:
                     continue
-                for sf in ([0.0, rule['strip_fraction']] if rule['strips'] else [0.0]):
-                    out.append({'mode': mode, 'alley_m': a, 'tree_fraction_nominal': tf, 'strip_fraction': sf,
-                                'portfolio': pname})
+                out.append({'mode': mode, 'alley_m': a, 'tree_fraction_nominal': tf, 'strip_fraction': 0.0,
+                            'portfolio': pname, 'habitat': 'none'})
     return out
 
 
@@ -85,11 +84,21 @@ def _aux(field, d, dn):
             'dup': upwind_row_distance(field, d.row) if has else {}}
 
 
-def params_for(base, draw, effects_mode, assumed, pf, h_max):
+def split_portfolio(pf):
+    crops = [s for s in pf if s.get('kind', 'crop') == 'crop']
+    cop = [{k: v for k, v in s.items() if k != 'kind'} for s in pf if s.get('kind') == 'coppice']
+    return crops, cop
+
+
+def params_for(base, draw, effects_mode, assumed, pf, h_max, habitat='none'):
     P = merge(DRAWS[draw], base)
-    P = merge({'portfolio': {'species': pf}, 'tree': {'h_max_m': h_max}}, P)
+    crops, cop = split_portfolio(pf)
+    P = merge({'portfolio': {'species': crops}, 'coppice_crops': {'species': cop}, 'tree': {'h_max_m': h_max}}, P)
+    if habitat == 'pollinator_strips' or (habitat == 'pollinator_understory' and P['cover']['enabled']):
+        P = merge(habitat_parameters(habitat), P)
     if effects_mode == 'assumed_effects':
-        P = merge({'effects': assumed['effects'], 'snow': {'trap_gamma': assumed['snow_trap_gamma']}}, P)
+        P = merge({'effects': assumed['effects'], 'snow': {'trap_gamma': assumed['snow_trap_gamma']},
+                   'pollination': {'yield_gain_max': assumed.get('pollination_gain', 0.0)}}, P)
     return validate(P)
 
 
@@ -104,14 +113,14 @@ def run_search(field, cls, rule, base_P, portfolios, h_of, *, machinery_m, row_m
     screen, seen = [], set()
 
     def evaluate(c):
-        key = (c['mode'], c['alley_m'], c['strip_fraction'], c['portfolio'])
+        key = (c['mode'], c['alley_m'], c['strip_fraction'], c['portfolio'], c['habitat'])
         if key in seen:
             return None
         seen.add(key)
         name = f"X{len(screen):02d}"
         d, dn = build(field, cls, c['mode'], c['alley_m'], row_m, machinery_m, c['strip_fraction'], name)
         pf = portfolios[c['portfolio']]
-        P = params_for(base_P, 'central', 'assumed_effects', assumed, pf, h_of(pf))
+        P = params_for(base_P, 'central', 'assumed_effects', assumed, pf, h_of(pf), c['habitat'])
         viol = check_design(rule, d.metrics['tree_cells'] / d.metrics['field_cells'], c['mode'], c['strip_fraction'], P)
         if viol:
             screen.append(dict(c, name=name, violations=viol))
@@ -122,7 +131,7 @@ def run_search(field, cls, rule, base_P, portfolios, h_of, *, machinery_m, row_m
                            score=score(row, carbon_price), npv_vs_A=row['npv_vs_A_usd2026'],
                            carbon=row['reversal_adjusted_net_tCO2e'],
                            mean_along_row_grade=d.metrics.get('mean_along_row_grade')))
-        log(f"  screen {name} {c['mode']:<17} alley {c['alley_m']:>5.0f} m strips {c['strip_fraction']:.2f} "
+        log(f"  screen {name} {c['mode']:<17} alley {c['alley_m']:>5.0f} m {c['habitat']:<22} "
             f"{c['portfolio']:<18} score {screen[-1]['score']:>10.0f}")
         return screen[-1]
 
@@ -141,9 +150,12 @@ def run_search(field, cls, rule, base_P, portfolios, h_of, *, machinery_m, row_m
     for g in top_geo:
         for pname in portfolios:
             port.append(evaluate(dict(g, portfolio=pname)))
-    if rule['strips']:
-        for b in best_of(port, 2):
-            evaluate(dict(b, strip_fraction=rule['strip_fraction']))
+    # stage C: native strips (grass or pollinator mix) and a pollinator understory in the rows
+    for b in best_of(port, 2):
+        for mix in rule['strip_mixes']:
+            evaluate(dict(b, strip_fraction=rule['strip_fraction'], habitat=mix))
+        if rule['pollinator_understory'] and base_P['cover']['enabled']:
+            evaluate(dict(b, habitat='pollinator_understory'))
     ok = sorted((s for s in screen if not s['violations']), key=lambda s: -s['score'])
     # keep geometric diversity: at most two finalists per layout mode
     finalists, per_mode = [], {}
@@ -173,14 +185,21 @@ def run_search(field, cls, rule, base_P, portfolios, h_of, *, machinery_m, row_m
         for draw in DRAWS:
             wx, rA_ = base_runs[draw]
             for em in EFFECT_MODES:
-                P = params_for(base_P, draw, em, assumed, pf, h_of(pf))
+                P = params_for(base_P, draw, em, assumed, pf, h_of(pf), s['habitat'])
                 r = simulate(field, d, P, wx, years, aux=aux, record_monthly=True)
                 res[(draw, em)] = (r, P)
         conf[s['name']] = {'candidate': s, 'design': d, 'runs': res}
         rows = [compare(r[confirm_years], base_runs[dr][1][confirm_years], P) for (dr, em), (r, P) in res.items()]
         s['robust_score'] = min(score(x, carbon_price) for x in rows)
         s['robust_carbon_tCO2e'] = min(x['reversal_adjusted_net_tCO2e'] for x in rows)
+        s['pollinator_habitat_ha'] = res[('central', 'zero_effect')][0][confirm_years]['pollinator_habitat_ha']
         log(f"  confirm {s['name']} worst-case score {s['robust_score']:,.0f}, worst-case carbon {s['robust_carbon_tCO2e']:,.1f} tCO2e")
     # carbon must hold in every draw (success criterion S1) before money decides; otherwise best score
     best = max(finalists, key=lambda s: (s['robust_carbon_tCO2e'] > 0, s['robust_score'])) if finalists else None
+    # co-benefit tie rule (LG14): among carbon-positive finalists within 2% of the best worst-case score,
+    # prefer the one with the most pollinator habitat
+    if best is not None and best['robust_carbon_tCO2e'] > 0:
+        tol = 0.02 * abs(best['robust_score'])
+        near = [s for s in finalists if s['robust_carbon_tCO2e'] > 0 and s['robust_score'] >= best['robust_score'] - tol]
+        best = max(near, key=lambda s: (s['pollinator_habitat_ha'], s['robust_score']))
     return {'screen': screen, 'finalists': finalists, 'best': best, 'confirm': conf, 'baseline': base_runs}

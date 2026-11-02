@@ -9,6 +9,7 @@
   "nursery_stock": [
     {
       "common": "Saskatoon serviceberry",
+      "coppice_interval_yr": null,
       "first_harvest_year": 3,
       "full_bearing_year": 7,
       "plants": 369,
@@ -17,6 +18,7 @@
     },
     {
       "common": "Hybrid chestnut",
+      "coppice_interval_yr": null,
       "first_harvest_year": 5,
       "full_bearing_year": 12,
       "plants": 369,
@@ -25,6 +27,7 @@
     },
     {
       "common": "American elderberry",
+      "coppice_interval_yr": null,
       "first_harvest_year": 2,
       "full_bearing_year": 4,
       "plants": 369,

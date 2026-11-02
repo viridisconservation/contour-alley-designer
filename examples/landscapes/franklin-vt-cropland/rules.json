@@ -15,8 +15,13 @@
   ],
   "native_species_only": false,
   "notes": [],
+  "pollinator_understory": true,
   "snow_trap": true,
   "strip_fraction": 0.08,
+  "strip_mixes": [
+    "grass_strips",
+    "pollinator_strips"
+  ],
   "strips": true,
   "tillage_establishment": true,
   "tree_fraction": [

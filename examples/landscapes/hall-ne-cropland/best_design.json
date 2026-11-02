@@ -1,8 +1,10 @@
 {
   "alley_m": 84.0,
+  "field_share_within_forage_range": 1.0,
   "fixers": [
     "buffaloberry"
   ],
+  "habitat": "pollinator_understory",
   "metrics": {
     "alley_area_ha": 12.0725,
     "alley_cells": 4829,
@@ -21,7 +23,8 @@
     "tree_cells": 287
   },
   "mode": "windbreak_winter",
-  "name": "X02",
+  "name": "X23",
+  "pollinator_habitat_ha": 0.7175,
   "portfolio": [
     {
       "bearing_start_yr": 3,
@@ -32,6 +35,7 @@
       "harvest_usd_t": 1200,
       "id": "saskatoon",
       "n_kg_t": 5,
+      "pollinator_dep": 0.65,
       "price_usd_t": 4000,
       "share": 0.2333333333333333,
       "use": "food",
@@ -46,6 +50,7 @@
       "harvest_usd_t": 1500,
       "id": "chestnut_hyb",
       "n_kg_t": 10,
+      "pollinator_dep": 0.25,
       "price_usd_t": 5000,
       "share": 0.2333333333333333,
       "use": "food",
@@ -60,6 +65,7 @@
       "harvest_usd_t": 1200,
       "id": "elderberry",
       "n_kg_t": 6,
+      "pollinator_dep": 0.25,
       "price_usd_t": 3000,
       "share": 0.2333333333333333,
       "use": "food",
