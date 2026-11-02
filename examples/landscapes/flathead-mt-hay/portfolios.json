@@ -19,16 +19,16 @@
       "bearing_start_yr": 3,
       "c_frac": 0.45,
       "drought_exp": 0.4,
-      "full_bearing_yr": 7,
-      "grain_eq": 0.25,
-      "harvest_usd_t": 1200,
-      "id": "saskatoon",
-      "n_kg_t": 5,
+      "full_bearing_yr": 6,
+      "grain_eq": 0.2,
+      "harvest_usd_t": 1000,
+      "id": "chokecherry",
+      "n_kg_t": 6,
       "pollinator_dep": 0.65,
-      "price_usd_t": 4000,
+      "price_usd_t": 2500,
       "share": 0.35,
       "use": "food",
-      "yield_t_ha_yr": 3.0
+      "yield_t_ha_yr": 2.0
     }
   ],
   "coppice_biochar": [
@@ -51,16 +51,16 @@
       "bearing_start_yr": 3,
       "c_frac": 0.45,
       "drought_exp": 0.4,
-      "full_bearing_yr": 7,
-      "grain_eq": 0.25,
-      "harvest_usd_t": 1200,
-      "id": "saskatoon",
-      "n_kg_t": 5,
+      "full_bearing_yr": 6,
+      "grain_eq": 0.2,
+      "harvest_usd_t": 1000,
+      "id": "chokecherry",
+      "n_kg_t": 6,
       "pollinator_dep": 0.65,
-      "price_usd_t": 4000,
+      "price_usd_t": 2500,
       "share": 0.35,
       "use": "food",
-      "yield_t_ha_yr": 3.0
+      "yield_t_ha_yr": 2.0
     }
   ],
   "feed_silvopasture": [
@@ -110,21 +110,21 @@
       "yield_t_ha_yr": 1.0
     }
   ],
-  "food_value": [
+  "food_staged": [
     {
       "bearing_start_yr": 3,
       "c_frac": 0.45,
       "drought_exp": 0.4,
-      "full_bearing_yr": 7,
-      "grain_eq": 0.25,
-      "harvest_usd_t": 1200,
-      "id": "saskatoon",
-      "n_kg_t": 5,
+      "full_bearing_yr": 6,
+      "grain_eq": 0.2,
+      "harvest_usd_t": 1000,
+      "id": "chokecherry",
+      "n_kg_t": 6,
       "pollinator_dep": 0.65,
-      "price_usd_t": 4000,
+      "price_usd_t": 2500,
       "share": 0.2333333333333333,
       "use": "food",
-      "yield_t_ha_yr": 3.0
+      "yield_t_ha_yr": 2.0
     },
     {
       "bearing_start_yr": 5,
@@ -142,36 +142,83 @@
       "yield_t_ha_yr": 3.0
     },
     {
-      "bearing_start_yr": 10,
-      "c_frac": 0.5,
-      "drought_exp": 0.5,
-      "full_bearing_yr": 20,
-      "grain_eq": 1.2,
-      "harvest_usd_t": 1000,
-      "id": "pecan_northern",
-      "n_kg_t": 15,
-      "pollinator_dep": 0.0,
-      "price_usd_t": 5000,
-      "share": 0.2333333333333333,
-      "use": "food",
-      "yield_t_ha_yr": 1.0
-    }
-  ],
-  "mixed_food_feed": [
-    {
-      "bearing_start_yr": 3,
+      "bearing_start_yr": 4,
       "c_frac": 0.45,
       "drought_exp": 0.4,
-      "full_bearing_yr": 7,
+      "full_bearing_yr": 8,
       "grain_eq": 0.25,
-      "harvest_usd_t": 1200,
+      "harvest_usd_t": 900,
       "id": "saskatoon",
       "n_kg_t": 5,
       "pollinator_dep": 0.65,
       "price_usd_t": 4000,
       "share": 0.2333333333333333,
       "use": "food",
+      "yield_t_ha_yr": 2.35
+    }
+  ],
+  "food_value": [
+    {
+      "bearing_start_yr": 4,
+      "c_frac": 0.45,
+      "drought_exp": 0.4,
+      "full_bearing_yr": 8,
+      "grain_eq": 0.25,
+      "harvest_usd_t": 900,
+      "id": "saskatoon",
+      "n_kg_t": 5,
+      "pollinator_dep": 0.65,
+      "price_usd_t": 4000,
+      "share": 0.2333333333333333,
+      "use": "food",
+      "yield_t_ha_yr": 2.35
+    },
+    {
+      "bearing_start_yr": 5,
+      "c_frac": 0.45,
+      "drought_exp": 0.5,
+      "full_bearing_yr": 10,
+      "grain_eq": 0.4,
+      "harvest_usd_t": 1000,
+      "id": "persimmon_am",
+      "n_kg_t": 8,
+      "pollinator_dep": 0.4,
+      "price_usd_t": 3000,
+      "share": 0.2333333333333333,
+      "use": "food",
       "yield_t_ha_yr": 3.0
+    },
+    {
+      "bearing_start_yr": 5,
+      "c_frac": 0.5,
+      "drought_exp": 0.7,
+      "full_bearing_yr": 9,
+      "grain_eq": 0.9,
+      "harvest_usd_t": 700,
+      "id": "hazel_hyb",
+      "n_kg_t": 25,
+      "pollinator_dep": 0.0,
+      "price_usd_t": 2425,
+      "share": 0.2333333333333333,
+      "use": "food",
+      "yield_t_ha_yr": 2.8
+    }
+  ],
+  "mixed_food_feed": [
+    {
+      "bearing_start_yr": 4,
+      "c_frac": 0.45,
+      "drought_exp": 0.4,
+      "full_bearing_yr": 8,
+      "grain_eq": 0.25,
+      "harvest_usd_t": 900,
+      "id": "saskatoon",
+      "n_kg_t": 5,
+      "pollinator_dep": 0.65,
+      "price_usd_t": 4000,
+      "share": 0.2333333333333333,
+      "use": "food",
+      "yield_t_ha_yr": 2.35
     },
     {
       "bearing_start_yr": 5,
@@ -202,6 +249,53 @@
       "share": 0.2333333333333333,
       "use": "feed",
       "yield_t_ha_yr": 3.0
+    }
+  ],
+  "nut_feed_permanent": [
+    {
+      "bearing_start_yr": 5,
+      "c_frac": 0.45,
+      "drought_exp": 0.5,
+      "full_bearing_yr": 10,
+      "grain_eq": 0.4,
+      "harvest_usd_t": 1000,
+      "id": "persimmon_am",
+      "n_kg_t": 8,
+      "pollinator_dep": 0.4,
+      "price_usd_t": 3000,
+      "share": 0.2333333333333333,
+      "use": "food",
+      "yield_t_ha_yr": 3.0
+    },
+    {
+      "bearing_start_yr": 10,
+      "c_frac": 0.5,
+      "drought_exp": 0.5,
+      "full_bearing_yr": 20,
+      "grain_eq": 1.2,
+      "harvest_usd_t": 1000,
+      "id": "pecan_northern",
+      "n_kg_t": 15,
+      "pollinator_dep": 0.0,
+      "price_usd_t": 5000,
+      "share": 0.2333333333333333,
+      "use": "food",
+      "yield_t_ha_yr": 1.0
+    },
+    {
+      "bearing_start_yr": 3,
+      "c_frac": 0.45,
+      "drought_exp": 0.4,
+      "full_bearing_yr": 6,
+      "grain_eq": 0.2,
+      "harvest_usd_t": 1000,
+      "id": "chokecherry",
+      "n_kg_t": 6,
+      "pollinator_dep": 0.65,
+      "price_usd_t": 2500,
+      "share": 0.2333333333333333,
+      "use": "food",
+      "yield_t_ha_yr": 2.0
     }
   ]
 }

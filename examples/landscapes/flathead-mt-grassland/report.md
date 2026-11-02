@@ -24,16 +24,16 @@ Nitrogen fixers in the row: buffaloberry
 
 | Candidate | Layout | Alley m | Native habitat | Row mix | Screen score | Worst-case score |
 |---|---|---|---|---|---|---|
-| X02 | true_contour | 120 | none | food_value | 4,915 | 12,228 |
-| X00 | parallel_contour | 120 | none | food_value | 4,902 | 12,222 |
-| X01 | parallel_contour | 245 | none | food_value | 2,465 | 6,143 |
-| X03 | true_contour | 245 | none | food_value | 2,463 | — |
-| X04 | true_contour | 120 | none | coppice_and_fruit | 2,245 | — |
-| X06 | parallel_contour | 120 | none | coppice_and_fruit | 2,231 | — |
-| X05 | true_contour | 120 | none | coppice_biochar | 1,880 | — |
-| X07 | parallel_contour | 120 | none | coppice_biochar | 1,866 | — |
-| X08 | parallel_contour | 245 | none | coppice_and_fruit | 1,121 | — |
-| X09 | parallel_contour | 245 | none | coppice_biochar | 938 | — |
+| X02 | true_contour | 120 | none | food_value | 3,838 | 10,342 |
+| X00 | parallel_contour | 120 | none | food_value | 3,827 | 10,337 |
+| X01 | parallel_contour | 245 | none | food_value | 1,925 | 5,195 |
+| X03 | true_contour | 245 | none | food_value | 1,923 | — |
+| X08 | parallel_contour | 245 | none | coppice_and_fruit | -511 | — |
+| X09 | parallel_contour | 245 | none | coppice_biochar | -698 | — |
+| X04 | true_contour | 120 | none | coppice_and_fruit | -1,009 | — |
+| X06 | parallel_contour | 120 | none | coppice_and_fruit | -1,017 | — |
+| X05 | true_contour | 120 | none | coppice_biochar | -1,382 | — |
+| X07 | parallel_contour | 120 | none | coppice_biochar | -1,389 | — |
 
 Score = NPV vs conventional (2026 USD) + carbon at $50/t on the reversal-adjusted, leakage-net removal (field total).
 
@@ -54,18 +54,18 @@ Score = NPV vs conventional (2026 USD) + carbon at $50/t on the reversal-adjuste
 - PASS S5_integrity: no landscape rule violations; species pass the regional gate
 - PASS S6_balances_close: water, carbon and nitrogen balances close in every run
 
-Worst-case net carbon 30.4 tCO2e, best 36.0; breakeven year (central) 10; minimum establishment survival 0.97. Upfront support that would bring breakeven to year 25 (central): $0 ($0 per ha of tree row), the size of a cost-share or pre-purchase agreement that closes the gap.
+Worst-case net carbon 31.5 tCO2e, best 37.3; breakeven year (central) 11; minimum establishment survival 0.97. Upfront support that would bring breakeven to year 25 (central): $0 ($0 per ha of tree row), the size of a cost-share or pre-purchase agreement that closes the gap.
 
 ## Outcomes at year 40 vs conventional (chosen design)
 
 | Draw | Effects | Net carbon tCO2e | Reversal-adj. tCO2e | With food/feed substitution | NPV vs A $ | Outflow change mm | July alley water mm (A) |
 |---|---|---|---|---|---|---|---|
-| dry | zero_effect | 44.2 | 30.4 | 47.4 | 10,707 | 0.0 | 0.0 (0.0) |
-| dry | assumed_effects | 46.0 | 32.0 | 48.8 | 10,804 | 0.0 | 0.0 (0.0) |
-| central | zero_effect | 49.1 | 33.7 | 52.7 | 13,324 | -17.1 | 0.0 (0.0) |
-| central | assumed_effects | 49.2 | 33.8 | 52.8 | 13,349 | -6.5 | 0.0 (0.0) |
-| wet | zero_effect | 52.0 | 35.8 | 55.9 | 15,009 | -46.2 | 0.1 (0.1) |
-| wet | assumed_effects | 52.3 | 36.0 | 56.0 | 15,030 | -24.9 | 0.2 (0.1) |
+| dry | zero_effect | 45.6 | 31.5 | 48.3 | 8,768 | 0.0 | 0.0 (0.0) |
+| dry | assumed_effects | 47.4 | 33.1 | 50.1 | 8,860 | 0.0 | 0.0 (0.0) |
+| central | zero_effect | 50.6 | 34.9 | 53.7 | 11,033 | -17.1 | 0.0 (0.0) |
+| central | assumed_effects | 50.8 | 35.0 | 53.9 | 11,057 | -6.4 | 0.0 (0.0) |
+| wet | zero_effect | 53.7 | 37.1 | 57.0 | 12,488 | -46.3 | 0.1 (0.1) |
+| wet | assumed_effects | 54.0 | 37.3 | 57.3 | 12,508 | -24.7 | 0.2 (0.1) |
 
 The substitution column credits tree food/feed against displaced crop output; it is reported, never used as the headline.
 
@@ -75,7 +75,7 @@ The substitution column credits tree food/feed against displaced crop output; it
 
 | Species | Share of row | Plants | First harvest yr | Full bearing yr |
 |---|---|---|---|---|
-| Saskatoon serviceberry | 0.35 | 138 | 3 | 7 |
+| Saskatoon serviceberry | 0.35 | 138 | 4 | 8 |
 | Chokecherry | 0.35 | 138 | 3 | 6 |
 | Silver buffaloberry | 0.30 | 118 | — | — |
 

@@ -27,19 +27,19 @@
   "pollinator_habitat_ha": 0.0,
   "portfolio": [
     {
-      "bearing_start_yr": 3,
+      "bearing_start_yr": 4,
       "c_frac": 0.45,
       "drought_exp": 0.4,
-      "full_bearing_yr": 7,
+      "full_bearing_yr": 8,
       "grain_eq": 0.25,
-      "harvest_usd_t": 1200,
+      "harvest_usd_t": 900,
       "id": "saskatoon",
       "n_kg_t": 5,
       "pollinator_dep": 0.65,
       "price_usd_t": 4000,
       "share": 0.2333333333333333,
       "use": "food",
-      "yield_t_ha_yr": 3.0
+      "yield_t_ha_yr": 2.35
     },
     {
       "bearing_start_yr": 5,
@@ -57,19 +57,19 @@
       "yield_t_ha_yr": 3.0
     },
     {
-      "bearing_start_yr": 10,
+      "bearing_start_yr": 5,
       "c_frac": 0.5,
-      "drought_exp": 0.5,
-      "full_bearing_yr": 20,
-      "grain_eq": 1.2,
-      "harvest_usd_t": 1000,
-      "id": "pecan_northern",
-      "n_kg_t": 15,
+      "drought_exp": 0.7,
+      "full_bearing_yr": 9,
+      "grain_eq": 0.9,
+      "harvest_usd_t": 700,
+      "id": "hazel_hyb",
+      "n_kg_t": 25,
       "pollinator_dep": 0.0,
-      "price_usd_t": 5000,
+      "price_usd_t": 2425,
       "share": 0.2333333333333333,
       "use": "food",
-      "yield_t_ha_yr": 1.0
+      "yield_t_ha_yr": 2.8
     }
   ],
   "strip_cells": [],
