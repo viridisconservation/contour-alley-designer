@@ -1,0 +1,7 @@
+{
+  "LG12_species_gate_pass": true,
+  "LG1_regression_hook": "see tests/test_landscape.py::test_v050_golden",
+  "NG1_integrity_rules_pass": true,
+  "S_all_balances_close": true,
+  "finalists_robustly_ranked": true
+}

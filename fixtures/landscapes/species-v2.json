@@ -1,0 +1,855 @@
+{
+ "schema": "ViridisSpecies-2",
+ "status": "REVIEW REQUIRED",
+ "regions": [
+  "northeast",
+  "northern_rockies_valleys",
+  "central_plains"
+ ],
+ "note": "Illustrative draft. Every yield, price, bearing age, hardiness and invasive status must be verified before field use. Tree-crop palette follows J. R. Smith (1929) Tree Crops: nuts and livestock feed crops as permanent agriculture.",
+ "excluded": {
+  "Elaeagnus angustifolia (Russian olive)": "invasive across the West and Plains; not offered",
+  "Elaeagnus umbellata (autumn olive)": "invasive in the East; not offered"
+ },
+ "species": [
+  {
+   "id": "chestnut_hyb",
+   "taxon": "Castanea dentata x mollissima (hybrid)",
+   "common": "Hybrid chestnut",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 5,
+   "aridity_min": 0.6,
+   "height_m": 14,
+   "notes": "Acid, well-drained soils; not on calcareous or heavy wet soils. Zone 4 for some selections.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 5,
+    "full_bearing_yr": 12,
+    "yield_t_ha_yr": 2.5,
+    "price_usd_t": 5000,
+    "harvest_usd_t": 1500,
+    "grain_eq": 0.65,
+    "drought_exp": 0.6,
+    "c_frac": 0.45,
+    "n_kg_t": 10,
+    "pollinator_dep": 0.25
+   }
+  },
+  {
+   "id": "hazel_hyb",
+   "taxon": "Corylus americana x avellana (hybrid)",
+   "common": "Hybrid hazelnut",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.5,
+   "height_m": 4,
+   "notes": "Shrub row; eastern filbert blight resistance needed for avellana parentage. C. americana native east and central plains.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 4,
+    "full_bearing_yr": 8,
+    "yield_t_ha_yr": 1.5,
+    "price_usd_t": 3000,
+    "harvest_usd_t": 700,
+    "grain_eq": 0.9,
+    "drought_exp": 0.7,
+    "c_frac": 0.5,
+    "n_kg_t": 25,
+    "pollinator_dep": 0.0
+   }
+  },
+  {
+   "id": "walnut_black",
+   "taxon": "Juglans nigra",
+   "common": "Black walnut",
+   "roles": [
+    "tree_crop",
+    "timber"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.5,
+   "height_m": 22,
+   "notes": "JUGLONE: allelopathic to some crops (e.g. tomato, potato, some legumes); site away from sensitive alley crops. Long-rotation veneer timber value not modeled.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 8,
+    "full_bearing_yr": 20,
+    "yield_t_ha_yr": 1.0,
+    "price_usd_t": 600,
+    "harvest_usd_t": 200,
+    "grain_eq": 0.5,
+    "drought_exp": 0.5,
+    "c_frac": 0.5,
+    "n_kg_t": 15,
+    "pollinator_dep": 0.0
+   }
+  },
+  {
+   "id": "pecan_northern",
+   "taxon": "Carya illinoinensis (northern seedlings/selections)",
+   "common": "Northern pecan",
+   "roles": [
+    "tree_crop",
+    "timber"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 5,
+   "aridity_min": 0.55,
+   "height_m": 25,
+   "notes": "Long juvenility; northern selections needed; river-bottom soils.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 10,
+    "full_bearing_yr": 20,
+    "yield_t_ha_yr": 1.0,
+    "price_usd_t": 5000,
+    "harvest_usd_t": 1000,
+    "grain_eq": 1.2,
+    "drought_exp": 0.5,
+    "c_frac": 0.5,
+    "n_kg_t": 15,
+    "pollinator_dep": 0.0
+   }
+  },
+  {
+   "id": "oak_bur",
+   "taxon": "Quercus macrocarpa",
+   "common": "Bur oak (acorns)",
+   "roles": [
+    "tree_crop",
+    "timber"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "central_plains",
+    "northeast"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.3,
+   "height_m": 18,
+   "notes": "Smith feed crop: acorns for hogs/poultry, harvested by stock. Masting years vary. Native range reaches eastern MT, not the Flathead: treat as non-native there but not invasive.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "feed",
+    "bearing_start_yr": 12,
+    "full_bearing_yr": 25,
+    "yield_t_ha_yr": 1.0,
+    "price_usd_t": 150,
+    "harvest_usd_t": 50,
+    "grain_eq": 0.6,
+    "drought_exp": 0.3,
+    "c_frac": 0.45,
+    "n_kg_t": 10,
+    "pollinator_dep": 0.0
+   }
+  },
+  {
+   "id": "honeylocust_thornless",
+   "taxon": "Gleditsia triacanthos var. inermis",
+   "common": "Thornless honey locust (pods)",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.35,
+   "height_m": 15,
+   "notes": "Smith feed crop: sugary pods for livestock. DOES NOT fix nitrogen (no nodulation). Select thornless, high-pod-sugar cultivars. Can sucker/spread in pastures; monitor.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "feed",
+    "bearing_start_yr": 6,
+    "full_bearing_yr": 12,
+    "yield_t_ha_yr": 3.0,
+    "price_usd_t": 120,
+    "harvest_usd_t": 40,
+    "grain_eq": 0.7,
+    "drought_exp": 0.4,
+    "c_frac": 0.45,
+    "n_kg_t": 12,
+    "pollinator_dep": 0.3
+   }
+  },
+  {
+   "id": "mulberry_red",
+   "taxon": "Morus rubra",
+   "common": "Red mulberry",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 5,
+   "aridity_min": 0.45,
+   "height_m": 10,
+   "notes": "Smith feed crop for hogs/poultry (drop fruit). Native; hybridizes with M. alba.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "feed",
+    "bearing_start_yr": 3,
+    "full_bearing_yr": 8,
+    "yield_t_ha_yr": 3.0,
+    "price_usd_t": 200,
+    "harvest_usd_t": 30,
+    "grain_eq": 0.2,
+    "drought_exp": 0.5,
+    "c_frac": 0.45,
+    "n_kg_t": 8,
+    "pollinator_dep": 0.0
+   }
+  },
+  {
+   "id": "mulberry_white",
+   "taxon": "Morus alba",
+   "common": "White mulberry",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [],
+   "invasive_status": {
+    "northeast": "listed_some_jurisdictions",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "listed_some_jurisdictions"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.4,
+   "height_m": 10,
+   "notes": "Naturalizes widely and hybridizes with native M. rubra; requires written override.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "feed",
+    "bearing_start_yr": 3,
+    "full_bearing_yr": 8,
+    "yield_t_ha_yr": 4.0,
+    "price_usd_t": 200,
+    "harvest_usd_t": 30,
+    "grain_eq": 0.2,
+    "drought_exp": 0.4,
+    "c_frac": 0.45,
+    "n_kg_t": 8,
+    "pollinator_dep": 0.0
+   }
+  },
+  {
+   "id": "persimmon_am",
+   "taxon": "Diospyros virginiana",
+   "common": "American persimmon",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 5,
+   "aridity_min": 0.5,
+   "height_m": 10,
+   "notes": "Smith tree crop; also feed. Native range reaches SE Nebraska edge only; northern selections needed.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 5,
+    "full_bearing_yr": 10,
+    "yield_t_ha_yr": 3.0,
+    "price_usd_t": 3000,
+    "harvest_usd_t": 1000,
+    "grain_eq": 0.4,
+    "drought_exp": 0.5,
+    "c_frac": 0.45,
+    "n_kg_t": 8,
+    "pollinator_dep": 0.4
+   }
+  },
+  {
+   "id": "apple_hardy",
+   "taxon": "Malus domestica (hardy standard/semi-dwarf, cider)",
+   "common": "Hardy apple",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.5,
+   "height_m": 6,
+   "notes": "Low-input cider/juice grade price assumed; fresh-market would need spraying and different economics.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 4,
+    "full_bearing_yr": 10,
+    "yield_t_ha_yr": 10.0,
+    "price_usd_t": 250,
+    "harvest_usd_t": 80,
+    "grain_eq": 0.15,
+    "drought_exp": 0.6,
+    "c_frac": 0.45,
+    "n_kg_t": 3,
+    "pollinator_dep": 0.65
+   }
+  },
+  {
+   "id": "saskatoon",
+   "taxon": "Amelanchier alnifolia",
+   "common": "Saskatoon serviceberry",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northern_rockies_valleys",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.35,
+   "height_m": 4,
+   "notes": "Native shrub of the northern plains and Rockies; commercial orchards exist on the Canadian prairies.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 3,
+    "full_bearing_yr": 7,
+    "yield_t_ha_yr": 3.0,
+    "price_usd_t": 4000,
+    "harvest_usd_t": 1200,
+    "grain_eq": 0.25,
+    "drought_exp": 0.4,
+    "c_frac": 0.45,
+    "n_kg_t": 5,
+    "pollinator_dep": 0.65
+   }
+  },
+  {
+   "id": "elderberry",
+   "taxon": "Sambucus canadensis",
+   "common": "American elderberry",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.6,
+   "height_m": 3,
+   "notes": "Moist sites; short-lived shrub row, good early cash.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 2,
+    "full_bearing_yr": 4,
+    "yield_t_ha_yr": 5.0,
+    "price_usd_t": 3000,
+    "harvest_usd_t": 1200,
+    "grain_eq": 0.2,
+    "drought_exp": 0.8,
+    "c_frac": 0.45,
+    "n_kg_t": 6,
+    "pollinator_dep": 0.25
+   }
+  },
+  {
+   "id": "chokecherry",
+   "taxon": "Prunus virginiana",
+   "common": "Chokecherry",
+   "roles": [
+    "tree_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "northern_rockies_valleys",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.35,
+   "height_m": 5,
+   "notes": "Native shrub widely used in plains shelterbelts; fruit for processing. Leaves toxic to livestock when wilted: fence from stock.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "crop": {
+    "use": "food",
+    "bearing_start_yr": 3,
+    "full_bearing_yr": 6,
+    "yield_t_ha_yr": 2.0,
+    "price_usd_t": 2500,
+    "harvest_usd_t": 1000,
+    "grain_eq": 0.2,
+    "drought_exp": 0.4,
+    "c_frac": 0.45,
+    "n_kg_t": 6,
+    "pollinator_dep": 0.65
+   }
+  },
+  {
+   "id": "alder_speckled",
+   "taxon": "Alnus incana ssp. rugosa",
+   "common": "Speckled alder",
+   "roles": [
+    "fixer_tree"
+   ],
+   "fixation": "actinorhizal",
+   "native_regions": [
+    "northeast"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "unknown"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.8,
+   "height_m": 6,
+   "notes": "Wet sites; coppices well.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "buffaloberry",
+   "taxon": "Shepherdia argentea",
+   "common": "Silver buffaloberry",
+   "roles": [
+    "fixer_tree"
+   ],
+   "fixation": "actinorhizal",
+   "native_regions": [
+    "northern_rockies_valleys",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.3,
+   "height_m": 4,
+   "notes": "Native plains shrub; edible fruit (minor); suckering hedge.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "ceanothus_nj",
+   "taxon": "Ceanothus americanus",
+   "common": "New Jersey tea",
+   "roles": [
+    "fixer_tree"
+   ],
+   "fixation": "actinorhizal",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.4,
+   "height_m": 1,
+   "notes": "Low shrub; prairie and savanna native; slow to establish.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "ceanothus_snowbrush",
+   "taxon": "Ceanothus velutinus",
+   "common": "Snowbrush ceanothus",
+   "roles": [
+    "fixer_tree"
+   ],
+   "fixation": "actinorhizal",
+   "native_regions": [
+    "northern_rockies_valleys"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "unknown"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.35,
+   "height_m": 2,
+   "notes": "Native to the northern Rockies; fire-adapted; seed needs heat scarification.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "leadplant",
+   "taxon": "Amorpha canescens",
+   "common": "Leadplant",
+   "roles": [
+    "fixer_tree"
+   ],
+   "fixation": "rhizobial",
+   "native_regions": [
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.3,
+   "height_m": 1,
+   "notes": "Native prairie shrub; suited to native grassland and prairie strips.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "false_indigo",
+   "taxon": "Amorpha fruticosa",
+   "common": "False indigo bush",
+   "roles": [
+    "fixer_tree"
+   ],
+   "fixation": "rhizobial",
+   "native_regions": [
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "listed_some_jurisdictions",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.4,
+   "height_m": 3,
+   "notes": "Native to the plains; listed invasive in parts of the Northeast. Override required there.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "caragana",
+   "taxon": "Caragana arborescens",
+   "common": "Siberian peashrub",
+   "roles": [
+    "fixer_tree"
+   ],
+   "fixation": "rhizobial",
+   "native_regions": [],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "listed_some_jurisdictions",
+    "central_plains": "listed_some_jurisdictions"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.3,
+   "height_m": 4,
+   "notes": "Classic plains shelterbelt fixer but naturalizes; requires written override.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "locust_black",
+   "taxon": "Robinia pseudoacacia",
+   "common": "Black locust",
+   "roles": [
+    "fixer_tree",
+    "timber"
+   ],
+   "fixation": "rhizobial",
+   "native_regions": [],
+   "invasive_status": {
+    "northeast": "listed_some_jurisdictions",
+    "northern_rockies_valleys": "listed_some_jurisdictions",
+    "central_plains": "listed_some_jurisdictions"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.35,
+   "height_m": 20,
+   "notes": "Native only to Appalachian/Ozark areas; aggressive root suckering; requires written override.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "clover_white",
+   "taxon": "Trifolium repens",
+   "common": "White clover",
+   "roles": [
+    "cover_legume"
+   ],
+   "fixation": "rhizobial",
+   "native_regions": [],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.5,
+   "height_m": 0.5,
+   "notes": "Naturalized agronomic legume; not for native grassland.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "vetch_hairy",
+   "taxon": "Vicia villosa",
+   "common": "Hairy vetch",
+   "roles": [
+    "cover_legume"
+   ],
+   "fixation": "rhizobial",
+   "native_regions": [],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "unknown"
+   },
+   "hardiness_zone_min": 4,
+   "aridity_min": 0.4,
+   "height_m": 0.5,
+   "notes": "Winter-annual cover; can become weedy in small grains.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "prairie_clover",
+   "taxon": "Dalea purpurea",
+   "common": "Purple prairie clover",
+   "roles": [
+    "cover_legume"
+   ],
+   "fixation": "rhizobial",
+   "native_regions": [
+    "central_plains",
+    "northern_rockies_valleys"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.3,
+   "height_m": 0.5,
+   "notes": "Native prairie legume for strips and native contexts.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists"
+  },
+  {
+   "id": "willow_heartleaf",
+   "taxon": "Salix eriocephala",
+   "common": "Heartleaf willow (coppice)",
+   "roles": [
+    "coppice_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.8,
+   "height_m": 5,
+   "notes": "Native shrub willow; moist soils, run-on and riparian positions. Chips for heat, mulch or biochar; withies for basketry.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "coppice": {
+    "start_yr": 3,
+    "interval_yr": 3,
+    "cut_frac": 0.9,
+    "price_usd_t": 60,
+    "harvest_usd_t": 25,
+    "to_biochar_frac": 0.0,
+    "c_frac": 0.48,
+    "n_kg_t": 5.0,
+    "use": "biomass",
+    "grain_eq": 0.0
+   }
+  },
+  {
+   "id": "willow_sandbar",
+   "taxon": "Salix interior (S. exigua group)",
+   "common": "Sandbar willow (coppice)",
+   "roles": [
+    "coppice_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "central_plains",
+    "northern_rockies_valleys"
+   ],
+   "invasive_status": {
+    "northeast": "unknown",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.5,
+   "height_m": 4,
+   "notes": "Native suckering willow of plains and western streams; drought-season leaf fodder for livestock. Needs run-on, snow-trap or swale positions on dry sites.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "coppice": {
+    "start_yr": 2,
+    "interval_yr": 2,
+    "cut_frac": 0.9,
+    "price_usd_t": 120,
+    "harvest_usd_t": 30,
+    "to_biochar_frac": 0.0,
+    "c_frac": 0.48,
+    "n_kg_t": 5.0,
+    "use": "fodder",
+    "grain_eq": 0.35
+   }
+  },
+  {
+   "id": "dogwood_redosier",
+   "taxon": "Cornus sericea",
+   "common": "Red-osier dogwood (coppice)",
+   "roles": [
+    "coppice_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains",
+    "northern_rockies_valleys"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "not_listed",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 2,
+   "aridity_min": 0.6,
+   "height_m": 3,
+   "notes": "Native; stems for floral and basketry markets, chips otherwise. Early pollinator bloom, fruit for birds.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "coppice": {
+    "start_yr": 3,
+    "interval_yr": 3,
+    "cut_frac": 0.9,
+    "price_usd_t": 80,
+    "harvest_usd_t": 30,
+    "to_biochar_frac": 0.0,
+    "c_frac": 0.48,
+    "n_kg_t": 5.0,
+    "use": "biomass",
+    "grain_eq": 0.0
+   }
+  },
+  {
+   "id": "hazel_coppice",
+   "taxon": "Corylus americana",
+   "common": "American hazel (pole coppice)",
+   "roles": [
+    "coppice_crop"
+   ],
+   "fixation": "none",
+   "native_regions": [
+    "northeast",
+    "central_plains"
+   ],
+   "invasive_status": {
+    "northeast": "not_listed",
+    "northern_rockies_valleys": "unknown",
+    "central_plains": "not_listed"
+   },
+   "hardiness_zone_min": 3,
+   "aridity_min": 0.5,
+   "height_m": 4,
+   "notes": "Coppiced for poles and wattle instead of nuts; forgoes the nut crop in the coppiced share.",
+   "source": "Analyst draft from general horticultural knowledge; REVIEW REQUIRED against extension sources, nursery catalogs and state invasive lists",
+   "coppice": {
+    "start_yr": 5,
+    "interval_yr": 7,
+    "cut_frac": 0.9,
+    "price_usd_t": 100,
+    "harvest_usd_t": 35,
+    "to_biochar_frac": 0.0,
+    "c_frac": 0.48,
+    "n_kg_t": 5.0,
+    "use": "biomass",
+    "grain_eq": 0.0
+   }
+  }
+ ]
+}

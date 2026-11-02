@@ -1,0 +1,138 @@
+{
+  "coppice_crop": {
+    "eligible": [
+      [
+        "willow_sandbar",
+        "marginal aridity: run-on/snow-trap rows only"
+      ]
+    ],
+    "rejected": [
+      [
+        "willow_heartleaf",
+        "aridity 0.45 below species floor 0.8; not native to region (native grassland rule)"
+      ],
+      [
+        "dogwood_redosier",
+        "aridity 0.45 below species floor 0.6"
+      ],
+      [
+        "hazel_coppice",
+        "not native to region (native grassland rule)"
+      ]
+    ]
+  },
+  "cover_legume": {
+    "eligible": [
+      [
+        "prairie_clover",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "clover_white",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "vetch_hairy",
+        "not native to region (native grassland rule)"
+      ]
+    ]
+  },
+  "fixer_tree": {
+    "eligible": [
+      [
+        "buffaloberry",
+        "suitable"
+      ],
+      [
+        "ceanothus_snowbrush",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "alder_speckled",
+        "aridity 0.45 below species floor 0.8; not native to region (native grassland rule)"
+      ],
+      [
+        "ceanothus_nj",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "leadplant",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "false_indigo",
+        "listed invasive elsewhere and unassessed in northern_rockies_valleys: precautionary exclusion; not native to region (native grassland rule)"
+      ],
+      [
+        "caragana",
+        "invasive-listed in northern_rockies_valleys (listed_some_jurisdictions); needs written override; not native to region (native grassland rule)"
+      ],
+      [
+        "locust_black",
+        "invasive-listed in northern_rockies_valleys (listed_some_jurisdictions); needs written override; not native to region (native grassland rule)"
+      ]
+    ]
+  },
+  "tree_crop": {
+    "eligible": [
+      [
+        "saskatoon",
+        "suitable"
+      ],
+      [
+        "chokecherry",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "chestnut_hyb",
+        "aridity 0.45 below species floor 0.6; not native to region (native grassland rule)"
+      ],
+      [
+        "hazel_hyb",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "walnut_black",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "pecan_northern",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "oak_bur",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "honeylocust_thornless",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "mulberry_red",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "mulberry_white",
+        "listed invasive elsewhere and unassessed in northern_rockies_valleys: precautionary exclusion; not native to region (native grassland rule)"
+      ],
+      [
+        "persimmon_am",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "apple_hardy",
+        "not native to region (native grassland rule)"
+      ],
+      [
+        "elderberry",
+        "aridity 0.45 below species floor 0.6; not native to region (native grassland rule)"
+      ]
+    ]
+  }
+}

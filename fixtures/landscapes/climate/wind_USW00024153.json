@@ -1,0 +1,35 @@
+{
+ "annual": {
+  "N": 0.087,
+  "NE": 0.0,
+  "E": 0.001,
+  "SE": 0.082,
+  "S": 0.001,
+  "SW": 0.0,
+  "W": 0.073,
+  "NW": 0.756
+ },
+ "winter": {
+  "N": 0.005,
+  "NE": 0.0,
+  "E": 0.005,
+  "SE": 0.488,
+  "S": 0.0,
+  "SW": 0.0,
+  "W": 0.234,
+  "NW": 0.268
+ },
+ "summer": {
+  "N": 0.112,
+  "NE": 0.0,
+  "E": 0.0,
+  "SE": 0.017,
+  "S": 0.002,
+  "SW": 0.0,
+  "W": 0.001,
+  "NW": 0.868
+ },
+ "station": "USW00024153",
+ "source": "NOAA NCEI hourly normals 1991-2020: modal hourly direction (HLY-WIND-1STDIR) weighted by its frequency and mean speed squared; a coarse rose",
+ "retrieved": "2026-11-01"
+}

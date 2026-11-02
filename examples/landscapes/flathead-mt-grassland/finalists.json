@@ -1,0 +1,53 @@
+[
+  {
+    "alley_m": 120.0,
+    "carbon": 28.686406725359372,
+    "habitat": "none",
+    "mean_along_row_grade": 5.146383002493376e-18,
+    "mode": "true_contour",
+    "name": "X02",
+    "npv_vs_A": 3480.4833484081496,
+    "portfolio": "food_value",
+    "robust_carbon_tCO2e": 30.424838795385696,
+    "robust_score": 12228.486352697963,
+    "score": 4914.803684676118,
+    "strip_fraction": 0.0,
+    "tree_fraction": 0.039983762938908055,
+    "tree_fraction_nominal": 0.04,
+    "violations": []
+  },
+  {
+    "alley_m": 120.0,
+    "carbon": 28.66111053227526,
+    "habitat": "none",
+    "mean_along_row_grade": 0.04819543715159716,
+    "mode": "parallel_contour",
+    "name": "X00",
+    "npv_vs_A": 3468.600829234872,
+    "portfolio": "food_value",
+    "robust_carbon_tCO2e": 30.43166748088356,
+    "robust_score": 12222.259162739756,
+    "score": 4901.656355848635,
+    "strip_fraction": 0.0,
+    "tree_fraction": 0.039983762938908055,
+    "tree_fraction_nominal": 0.04,
+    "violations": []
+  },
+  {
+    "alley_m": 245.0,
+    "carbon": 14.417717833971828,
+    "habitat": "none",
+    "mean_along_row_grade": 0.06083697924010999,
+    "mode": "parallel_contour",
+    "name": "X01",
+    "npv_vs_A": 1743.662634326795,
+    "portfolio": "food_value",
+    "robust_carbon_tCO2e": 15.299658043781918,
+    "robust_score": 6143.087951260881,
+    "score": 2464.5485260253863,
+    "strip_fraction": 0.0,
+    "tree_fraction": 0.02009336310127867,
+    "tree_fraction_nominal": 0.02,
+    "violations": []
+  }
+]

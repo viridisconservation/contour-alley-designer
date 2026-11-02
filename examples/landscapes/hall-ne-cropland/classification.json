@@ -1,0 +1,33 @@
+{
+  "annual_pet_mm": 1103.5,
+  "annual_precip_mm": 675.9,
+  "aridity_class": "subhumid",
+  "aridity_p_over_pet": 0.6125056637970095,
+  "design_family": "alley_cropping_windbreak",
+  "geometry": "windbreak",
+  "growing_season_months": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "hardiness_zone_proxy": 5,
+  "land_cover": "cropland",
+  "region": "central_plains",
+  "slope_class": "plain",
+  "smoothed_grade": 0.012034469820957152,
+  "snow_climate": true,
+  "snow_months": 3,
+  "summer_wind_from": "S",
+  "thresholds": {
+    "hardiness_offset_c": -22.0,
+    "hill_grade": 0.05,
+    "plain_grade": 0.02,
+    "season_tmean_c": 10.0,
+    "smoothing_m": 25.0
+  },
+  "winter_wind_from": "NW"
+}

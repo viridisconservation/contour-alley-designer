@@ -1,0 +1,137 @@
+{
+  "coppice_crop": {
+    "eligible": [
+      [
+        "willow_sandbar",
+        "suitable"
+      ],
+      [
+        "dogwood_redosier",
+        "suitable"
+      ],
+      [
+        "hazel_coppice",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "willow_heartleaf",
+        "aridity 0.61 below species floor 0.8"
+      ]
+    ]
+  },
+  "cover_legume": {
+    "eligible": [
+      [
+        "clover_white",
+        "suitable"
+      ],
+      [
+        "vetch_hairy",
+        "invasive status unknown for central_plains: verify"
+      ],
+      [
+        "prairie_clover",
+        "suitable"
+      ]
+    ],
+    "rejected": []
+  },
+  "fixer_tree": {
+    "eligible": [
+      [
+        "buffaloberry",
+        "suitable"
+      ],
+      [
+        "ceanothus_nj",
+        "suitable"
+      ],
+      [
+        "ceanothus_snowbrush",
+        "invasive status unknown for central_plains: verify"
+      ],
+      [
+        "leadplant",
+        "suitable"
+      ],
+      [
+        "false_indigo",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "alder_speckled",
+        "aridity 0.61 below species floor 0.8"
+      ],
+      [
+        "caragana",
+        "invasive-listed in central_plains (listed_some_jurisdictions); needs written override"
+      ],
+      [
+        "locust_black",
+        "invasive-listed in central_plains (listed_some_jurisdictions); needs written override"
+      ]
+    ]
+  },
+  "tree_crop": {
+    "eligible": [
+      [
+        "chestnut_hyb",
+        "at hardiness limit"
+      ],
+      [
+        "hazel_hyb",
+        "suitable"
+      ],
+      [
+        "walnut_black",
+        "suitable"
+      ],
+      [
+        "pecan_northern",
+        "at hardiness limit"
+      ],
+      [
+        "oak_bur",
+        "suitable"
+      ],
+      [
+        "honeylocust_thornless",
+        "suitable"
+      ],
+      [
+        "mulberry_red",
+        "at hardiness limit"
+      ],
+      [
+        "persimmon_am",
+        "at hardiness limit"
+      ],
+      [
+        "apple_hardy",
+        "suitable"
+      ],
+      [
+        "saskatoon",
+        "suitable"
+      ],
+      [
+        "elderberry",
+        "suitable"
+      ],
+      [
+        "chokecherry",
+        "suitable"
+      ]
+    ],
+    "rejected": [
+      [
+        "mulberry_white",
+        "invasive-listed in central_plains (listed_some_jurisdictions); needs written override"
+      ]
+    ]
+  }
+}

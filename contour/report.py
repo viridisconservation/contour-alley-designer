@@ -28,6 +28,8 @@ def svg_map(field, design, title, px=9):
         r, c = divmod(i, field.cols)
         if design.row[i]:
             col = '#1f5e3b'
+        elif getattr(design, 'strip', None) and design.strip[i]:
+            col = '#c9a227'
         else:
             t = (field.z[i] - lo) / (hi - lo) if hi > lo else 0.5
             g = int(232 - 60 * t)

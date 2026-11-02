@@ -1,0 +1,50 @@
+{
+ "status": "observational terrain and soils; land cover from NLCD 2021; climate from NOAA 1991-2020 normals; everything else assumed",
+ "county": "Flathead County, Montana",
+ "field_area_ha": 12.79,
+ "relief_m": 9.76,
+ "land_cover": "NLCD 2021 Hay/Pasture (class 81)",
+ "soils": {
+  "units": {
+   "144883": {
+    "name": "Mires gravelly loam, 7 to 12 percent slopes",
+    "component": "Mires",
+    "soc0_30_tC_ha": 39.2,
+    "aws0_100_mm": 59.3,
+    "samples": 11
+   },
+   "144881": {
+    "name": "Mires gravelly loam, 0 to 3 percent slopes",
+    "component": "Mires",
+    "soc0_30_tC_ha": 49.9,
+    "aws0_100_mm": 67.6,
+    "samples": 7
+   },
+   "144800": {
+    "name": "Blanchard loamy fine sand, 0 to 3 percent slopes",
+    "component": "Blanchard",
+    "soc0_30_tC_ha": 14.5,
+    "aws0_100_mm": 71.8,
+    "samples": 7
+   },
+   "144882": {
+    "name": "Mires gravelly loam, 3 to 7 percent slopes",
+    "component": "Mires",
+    "soc0_30_tC_ha": 49.9,
+    "aws0_100_mm": 67.6,
+    "samples": 2
+   },
+   "144885": {
+    "name": "Mires loam, 0 to 3 percent slopes",
+    "component": "Mires",
+    "soc0_30_tC_ha": 97.9,
+    "aws0_100_mm": 94.4,
+    "samples": 13
+   }
+  },
+  "weighted_soc0_30_tC_ha": 56.4,
+  "weighted_aws0_100_mm": 74.8,
+  "method": "SSURGO dominant major component per map unit; SOC = OM*0.58*BD*thickness 0-30 cm, O horizons excluded; AWS = AWC*thickness 0-100 cm; point-sample weights"
+ },
+ "anonymization": "origin moved to (0,0) and elevation made relative; exact location kept in the private record only"
+}
