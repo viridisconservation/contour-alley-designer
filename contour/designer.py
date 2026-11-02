@@ -28,8 +28,31 @@ SITE_KEYS = {'name', 'field', 'land_cover', 'region', 'climate_normals', 'wind',
              'species_file', 'parameters', 'assumed_effects', 'carbon_price_usd_t', 'screen_years', 'confirm_years',
              'top_k', 'notes'}
 REQUIRED = {'name', 'field', 'land_cover', 'region', 'climate_normals', 'wind', 'soil', 'machinery_m', 'species_file'}
-DEFAULT_ASSUMED = {'effects': {'et_beta': 0.25, 'yield_gamma': 0.12, 'competition_c0': 0.3, 'competition_len_H': 1.0,
-                               'porosity': 0.45}, 'snow_trap_gamma': 0.6, 'pollination_gain': 0.15}
+# Assumed effects by aridity class (LG16, grounded 2026-11-01; see reports/Agroforestry parameter grounding.md).
+# Shelter saves water mainly in dry, windy climates (CSIRO EA02006), so et_beta falls toward humid sites. Edge
+# competition is strong near rows (Lyles 1984 Kansas ~75% at 0.5H; Rivest 2005 Quebec 51-63% at 2 m; Ontario
+# 71-75%), decays over 0.5-1.5H, and root pruning recovers 10-44% (Brandle 2009): values assume root-pruned rows.
+# Sheltered-zone gains follow Kort 1988 protected-zone means (corn +12%, soybean +15%) via yield_gamma x shelter.
+# The zero-effect run stays the control.
+ASSUMED_BY_CLASS = {
+    'semiarid': {'effects': {'et_beta': 0.25, 'yield_gamma': 0.25, 'competition_c0': 0.30, 'competition_len_H': 0.75,
+                             'porosity': 0.45}, 'snow_trap_gamma': 0.6, 'pollination_gain': 0.15},
+    'subhumid': {'effects': {'et_beta': 0.15, 'yield_gamma': 0.25, 'competition_c0': 0.25, 'competition_len_H': 0.6,
+                             'porosity': 0.45}, 'snow_trap_gamma': 0.6, 'pollination_gain': 0.15},
+    'humid': {'effects': {'et_beta': 0.05, 'yield_gamma': 0.15, 'competition_c0': 0.25, 'competition_len_H': 0.6,
+                          'porosity': 0.45}, 'snow_trap_gamma': 0.3, 'pollination_gain': 0.15},
+}
+DEFAULT_ASSUMED = ASSUMED_BY_CLASS['subhumid']
+# Woody growth per ha of row by aridity (Cardinael 2018 temperate hedgerow/windbreak ~1.1 tC/ha/yr per ha of system;
+# COMET-Planner windbreak ~0.7 dry / ~1.2 moist tC per ha of windbreak; alley rows up to ~4-6 per ha of row)
+GROWTH_BY_CLASS = {'semiarid': 1.5, 'subhumid': 2.5, 'humid': 3.5}
+
+
+def n2o_factors(cls):
+    """IPCC 2019 Refinement disaggregated EF1/EF4: wet temperate when P/PET > 1, otherwise dry."""
+    if cls['aridity_p_over_pet'] > 1.0:
+        return {'ef1': 0.016, 'ef1_organic': 0.006, 'ef4': 0.014}
+    return {'ef1': 0.005, 'ef1_organic': 0.005, 'ef4': 0.005}
 
 
 def _j(o):
@@ -60,12 +83,20 @@ def base_parameters(site, cls, rule, fixers):
                     'monthly_tmean_c': clim['tmean_c'], 'season_months': cls['growing_season_months'],
                     'wind_sectors': _norm(wind['summer']), 'wind_sectors_winter': _norm(wind['winter'])},
         'soil': {'soc_tC_ha': so['soc_tC_ha'], 'capacity_mm': so['capacity_mm'], 'init_equilibrium': True},
-        'snow': {'enabled': cls['snow_climate']},
+        'snow': {'enabled': cls['snow_climate'], 'loss_basis': 'snowfall'},
         'establishment': {'mortality_max_yr': 0.5},
+        'tree': {'height_model': 'age', 'h_tau_yr': 10.0, 'growth_tC_ha_yr': GROWTH_BY_CLASS[cls['aridity_class']]},
+        'snow_basis': None,
+        'emissions': n2o_factors(cls),
+        # on-farm kiln char without documented >=450 C production: Fperm 0.70 (IPCC 2019 Ap4 0.65-0.80; Woolf 2021 ~0.72
+        # at 10 C soil); decay is inside Fperm, so no extra biochar reversal hazard (avoids double counting)
+        'biochar': {'f_perm_100yr': 0.70},
+        'reversal': {'biochar_yr': 0.0},
         'cover': {'enabled': rule['cover_sowing'], 'mow_months': [m for m in (6, 8) if m in cls['growing_season_months']]
                   or [cls['growing_season_months'][len(cls['growing_season_months']) // 2]]},
         'fixer': {'share': 0.3 if fixers else 0.0},
     }
+    ov.pop('snow_basis')
     P = merge(ov)
     P = merge(matrix_parameters(site['land_cover']), P)
     P = merge(site.get('parameters', {}), P)
@@ -110,7 +141,7 @@ def design(site_path, output, log=print):
         return min(20.0, max([heights[s['id']] for s in pf] + [fix_h]))
     suit = {role: dict(zip(('eligible', 'rejected'), suitability(table, cls, role)))
             for role in ('tree_crop', 'coppice_crop', 'fixer_tree', 'cover_legume')}
-    assumed = site.get('assumed_effects', DEFAULT_ASSUMED)
+    assumed = site.get('assumed_effects', ASSUMED_BY_CLASS[cls['aridity_class']])
     T = site.get('confirm_years', 40)
     res = run_search(field, cls, rule, P0, portfolios, h_of, machinery_m=site['machinery_m'], row_m=site.get('row_m', 5.0),
                      assumed=assumed, carbon_price=site.get('carbon_price_usd_t', 50.0),
@@ -259,6 +290,21 @@ def write_report(out, site, cls, rule, suit, res, best, d, pf, fixers, verdict, 
                  f"{_fmt(r['net_additional_with_substitution_tCO2e'])} | {_fmt(r['npv_vs_A_usd2026'], 0)} | "
                  f"{_fmt(r['field_outflow_change_mm'])} | {_fmt(jul.get(r['draw'] + '/' + r['effects']))} ({_fmt(julA[r['draw']])}) |")
     L.append('\nThe substitution column credits tree food/feed against displaced crop output; it is reported, never used as the headline.\n')
+    # grounding checks (LG16): field-scale carbon vs literature, and leakage-factor sensitivity
+    rcz = res['confirm'][best['name']]['runs'][('central', 'zero_effect')][0]
+    rA = res['baseline']['central'][1]
+    fha = d.metrics['field_area_ha']
+    dc = {k: rcz[T]['pool_change_tC'][k] - rA[T]['pool_change_tC'][k] for k in ('woody', 'soc', 'biochar')}
+    tha = max(d.metrics['tree_area_ha'], 1e-9)
+    L.append(f"Carbon gain vs A (central, zero effects): woody {dc['woody'] / tha / T:.2f} tC per ha of tree row per year "
+             f"({dc['woody'] / fha / T:.2f} per field ha); soil {dc['soc'] / fha / T:.2f} and biochar {dc['biochar'] / fha / T:.2f} "
+             'tC per field ha per year. Benchmarks: COMET-Planner windbreak ~0.7 (dry) to ~1.2 (moist) tC per planted ha per year; '
+             'Cardinael et al. 2018 temperate hedgerow SOC ~0.45 tC/ha/yr. The model\'s row-zone SOC response is not yet calibrated.\n')
+    cz = next(r for r in rows if r['design'] == best['name'] and r['draw'] == 'central' and r['effects'] == 'zero_effect')
+    lam = res['confirm'][best['name']]['runs'][('central', 'zero_effect')][1]['leakage']['crop_tco2e_per_t']
+    sens = {f: cz['gross_additional_tCO2e'] - lam * f * cz['crop_product_deficit_t'] for f in (0.25, 1.0, 3.0)}
+    L.append(f"Leakage-factor sensitivity (central, zero effects; the defensible range spans ~0.2-3 tCO2e/t grain): net carbon "
+             f"{sens[0.25]:,.1f} / {sens[1.0]:,.1f} / {sens[3.0]:,.1f} tCO2e at {lam * 0.25:.2f} / {lam:.2f} / {lam * 3:.2f} tCO2e per t.\n")
     L.append('## Implementation\n')
     L.append(f"- Row area {impl['row_area_ha']:.2f} ha, {impl['plants_total']:,} plants, replanting allowance "
              f"{impl['replanting_allowance_plants']:,} (central draw)")

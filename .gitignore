@@ -3,3 +3,6 @@ __pycache__/
 runs/
 results/
 .DS_Store
+PRIVATE_location.json
+sites/
+runs/

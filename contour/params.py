@@ -28,7 +28,8 @@ DEFAULTS = {
              'mortality_yr': 0.02, 'n_kg_per_tC': 6.0, 'kc': 1.0, 'canopy_tC_ha': 30.0, 'h_max_m': 12.0,
              'h_half_tC_ha': 40.0, 'product_t_ha_yr': 1.5, 'mature_tC_ha': 20.0, 'harvest_month': 9,
              'product_price_usd_t': 1500.0, 'product_c_frac': 0.45, 'product_n_kg_t': 25.0,
-             'maint_usd_ha_yr': 300.0, 'establish_usd_ha': 6000.0, 'establish_tco2e_ha': 1.0},
+             'maint_usd_ha_yr': 300.0, 'establish_usd_ha': 6000.0, 'establish_tco2e_ha': 1.0,
+             'height_model': 'carbon', 'h_tau_yr': 10.0},
     'cover': {'enabled': True, 'npp_tC_ha_yr': 2.0, 'n_kg_per_tC': 30.0, 'ndfa_max': 0.8, 'kc': 0.8,
               'mow_months': [6, 8], 'cut_frac': 0.7, 'senesce_month': 11, 'seed_usd_ha': 150.0,
               'mow_usd_ha_pass': 40.0, 'mow_tco2e_ha_pass': 0.01, 'circle_years': 3, 'pollinator_understory': False},
@@ -39,14 +40,14 @@ DEFAULTS = {
     'biochar': {'carbon_yield': 0.5, 'f_perm_100yr': 0.8, 'n_retained_frac': 0.5,
                 'process_tco2e_per_tC_feed': 0.05, 'process_usd_per_tC_feed': 100.0, 'imported_tC_ha': 0.0,
                 'count_imported': False},
-    'emissions': {'fert_mfg_kgco2e_kgN': 4.0, 'ef1': 0.01, 'ef4': 0.01, 'ef5': 0.011, 'frac_gasf': 0.11,
+    'emissions': {'fert_mfg_kgco2e_kgN': 4.0, 'ef1': 0.01, 'ef1_organic': 0.01, 'ef4': 0.01, 'ef5': 0.011, 'frac_gasf': 0.11,
                   'gwp_n2o': 273.0},
     'economics': {'discount': 0.04, 'fert_usd_kgN': 1.2},
     'leakage': {'crop_tco2e_per_t': 0.8, 'grain_eq_tco2e_per_t': 0.8},
     'reversal': {'biomass_yr': 0.01, 'soil_yr': 0.005, 'biochar_yr': 0.001},
     # ---- v0.6 landscape-general groups; defaults reproduce v0.5 exactly ----
     'snow': {'enabled': False, 'rain_snow_t_c': 0.0, 'transition_c': 4.0, 'ddf_mm_per_c_day': 3.0,
-             'loss_frac_month': 0.2, 'trap_gamma': 0.0, 'melt_runoff_frac': 0.5},
+             'loss_frac_month': 0.2, 'trap_gamma': 0.0, 'melt_runoff_frac': 0.5, 'loss_basis': 'pack'},
     'matrix': {'type': 'annual_crop', 'fertilizer': 'demand', 'legume_ndfa': 0.0,
                'export_return_c_frac': 0.0, 'export_return_n_frac': 0.0},
     'strip': {'npp_tC_ha_yr': 3.0, 'n_kg_per_tC': 15.0, 'kc': 0.85, 'ndfa': 0.2, 'infil_cap_mm': 70.0,
@@ -115,6 +116,12 @@ def validate(P):
                     raise ValueError(f'climate.{k} must be empty or 12 finite numbers')
                 if k != 'monthly_tmean_c' and any(x < 0 for x in v):
                     raise ValueError(f'climate.{k} must be non-negative')
+            elif (group, k) == ('snow', 'loss_basis'):
+                if v not in ('pack', 'snowfall'):
+                    raise ValueError('snow.loss_basis must be pack or snowfall')
+            elif (group, k) == ('tree', 'height_model'):
+                if v not in ('carbon', 'age'):
+                    raise ValueError('tree.height_model must be carbon or age')
             elif (group, k) == ('matrix', 'type'):
                 if v not in MATRIX_TYPES:
                     raise ValueError(f'matrix.type must be one of {MATRIX_TYPES}')

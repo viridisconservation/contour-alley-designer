@@ -203,17 +203,20 @@ def implementation(cls, rule, design, P, pf, fixers, r_central, field, table):
     es, fx = P['establishment'], P['fixer']
     T = max(k for k in r_central if isinstance(k, int))
     row_ha = r_central[T]['tree_area_ha']
-    trees = row_ha * es['trees_per_ha_row']
-    replant_trees = r_central[T]['replanted_row_ha'] * es['trees_per_ha_row']
     by = {s['id']: s for s in table['species']}
+    dens = lambda sid: by[sid].get('plants_per_ha_row', es['trees_per_ha_row'])   # species in-row spacing
+    mean_d = (sum(sp['share'] * dens(sp['id']) for sp in pf)
+              + sum(fx['share'] / len(fixers) * dens(f) for f in fixers)) if (pf or fixers) else es['trees_per_ha_row']
+    trees = row_ha * mean_d
+    replant_trees = r_central[T]['replanted_row_ha'] * mean_d
     stock = [{'species': sp['id'], 'common': by[sp['id']]['common'], 'share_of_row': round(sp['share'], 3),
-              'plants': round(trees * sp['share']),
+              'plants': round(row_ha * sp['share'] * dens(sp['id'])),
               'first_harvest_year': sp.get('bearing_start_yr', sp.get('start_yr')),
               'full_bearing_year': sp.get('full_bearing_yr'),
               'coppice_interval_yr': sp.get('interval_yr')} for sp in pf]
     for fid in fixers:
         stock.append({'species': fid, 'common': by[fid]['common'], 'share_of_row': round(fx['share'] / len(fixers), 3),
-                      'plants': round(trees * fx['share'] / len(fixers)), 'first_harvest_year': None,
+                      'plants': round(row_ha * fx['share'] / len(fixers) * dens(fid)), 'first_harvest_year': None,
                       'full_bearing_year': None})
     cal = []
     if rule['cover_sowing'] and P['cover']['enabled']:

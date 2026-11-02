@@ -42,7 +42,7 @@ Tree-row geometry, land marginality and management decide all three. This tool m
 - **Accounts against conventional cropping.** It reports gross and net carbon, commodity leakage, reversal-adjusted carbon by pool, a component decomposition, NPV, fertilizer avoided and runoff change. Imported biochar is excluded from removals by default.
 - **Checks itself.** Carbon, nitrogen and water balances close per cell and per field. Every run writes `verification.json` and exits non-zero if any invariant fails.
 
-Standard-library Python 3.10+, with no dependencies.
+Standard-library Python 3.10+, with no dependencies for the model; the optional public-data fetcher uses numpy, pillow and pyproj.
 
 ## Quick start
 
@@ -70,23 +70,31 @@ Four real fields are included, each about 10–13 ha. They use USGS 3DEP lidar, 
 
 | Field | Class | Chosen design | Worst-case net carbon, 40 yr* | Verdict |
 |---|---|---|---|---|
-| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the summer wind, 84 m alleys, 6% trees (chestnut, saskatoon, persimmon), native pollinator understory | +10 tCO₂e | confirmed (model) |
-| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +62 tCO₂e | confirmed (model) |
-| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +32 tCO₂e | confirmed (model) |
-| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees (chestnut, saskatoon, persimmon) | −34 tCO₂e | conditional: carbon fails in wet draws |
+| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the NW winter wind, 84 m alleys, 6% trees (chestnut, chokecherry, saskatoon) | −5 tCO₂e | conditional: carbon ≈ leakage charge |
+| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +24 tCO₂e | conditional: payback year 27 |
+| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +15 tCO₂e | confirmed (model) |
+| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees (chestnut, chokecherry, saskatoon), native pollinator understory | +9 tCO₂e | confirmed (model) |
 
 \*Reversal-adjusted and leakage-net vs conventional, over the worst of 3 climate draws × 2 effect modes. "Confirmed (model)" means every success criterion held in every simulated draw. It is not a field guarantee.
 
-The Vermont result is the instructive one. On productive humid cropland, displaced crop output (leakage) takes most of the gross carbon gain. The money-weighted optimum then fails the carbon test, so the designer reports it as conditional instead of hiding it. On marginal, dry or grazed land the climate case holds in every draw.
+Parameters are grounded in a literature review ([docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md](docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md)). Woody carbon lands at about 0.7 (Nebraska) to 1.0 (Vermont) tC per ha of tree row per year, matching USDA COMET-Planner windbreak rates. On cropland, the charge for displaced crop (leakage) cancels most of the gross gain. Nebraska's result swings from +71 to −121 tCO₂e across the defensible leakage range (0.2–2.4 tCO₂e per t grain), so leakage, not tree growth, decides the climate case there.
 
-At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free: on the Nebraska field it cost $137 over 40 years in the worst case. Separate strips cost crop area.
+At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free: on the Nebraska field it cost about $460 over 40 years in the worst case. Separate strips cost crop area.
 
 ## Use your own field
 
-1. Export a DEM for the field boundary, for example with `earth_engine/export_field_dem.js`. This script is untested; verify the dataset IDs.
-2. Convert it to ESRI ASCII (`gdal_translate -of AAIGrid field.tif field.asc`) or to the `ViridisFieldDEM-1` JSON schema (see `contour/terrain.py`).
-3. Copy a config and point `"field"` at it.
-4. Set measured soil carbon and water capacity under `parameters.soil`, and your machinery width under `layout`.
+Any US field, from public data, in two commands:
+
+```sh
+pip install -r tools/requirements-fetch.txt          # numpy, pillow, pyproj (the model itself needs none)
+python3 tools/fetch_site.py --name my-field --lon -98.507 --lat 40.899 --cover cropland \
+    --region central_plains --normals-station USW00014935 --wind-station USW00014935 --out sites/my-field
+python3 -m contour.designer --site sites/my-field/site.json --output runs/my-field
+```
+
+`fetch_site.py` pulls USGS 3DEP terrain, NLCD 2021 land cover, USDA SSURGO soils and NOAA 1991–2020 normals and hourly wind. It anonymizes the field and writes a designer-ready `site.json`. The exact location goes only to `PRIVATE_location.json`, which is git-ignored. Given the Franklin County coordinates, it rebuilt the shipped Vermont fixture to within one cell, about 1% on soil carbon and 0.1% on PET.
+
+On Google Earth Engine, `earth_engine/export_field_dem.js` exports terrain, NLCD and the AlphaEarth satellite embedding. Its dataset IDs were checked against the catalog on 2026-11-02, but the script has not yet been executed. `tools/geotiff_to_field.py` converts its exports into a field for the designer.
 
 ## Pilot results (Franklin County field, 40 years; simulated)
 

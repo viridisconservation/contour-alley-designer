@@ -4,9 +4,8 @@
     "Year 0, fall: mark rows on the design lines; rip or strip-till row centres only.",
     "Year 1, spring: plant trees and shrubs into the cover/sod; protect from browse.",
     "Years 1-3: supplemental water to new plantings in dry months (water is the binding limit here).",
-    "Each season: mow row cover in months [9], blowing clippings to the alleys.",
-    "From year 4: coppice fixers every 4 years; 50% of prunings to on-farm biochar.",
-    "Year 0: sow a native forb understory in the rows instead of clover/vetch; mow once in September after bloom."
+    "Each season: mow row cover in months [6, 8], blowing clippings to the alleys.",
+    "From year 4: coppice fixers every 4 years; 50% of prunings to on-farm biochar."
   ],
   "nursery_stock": [
     {
@@ -14,38 +13,38 @@
       "coppice_interval_yr": null,
       "first_harvest_year": 5,
       "full_bearing_year": 17,
-      "plants": 134,
+      "plants": 55,
       "share_of_row": 0.233,
       "species": "chestnut_hyb"
+    },
+    {
+      "common": "Chokecherry",
+      "coppice_interval_yr": null,
+      "first_harvest_year": 3,
+      "full_bearing_year": 7,
+      "plants": 275,
+      "share_of_row": 0.233,
+      "species": "chokecherry"
     },
     {
       "common": "Saskatoon serviceberry",
       "coppice_interval_yr": null,
       "first_harvest_year": 4,
       "full_bearing_year": 8,
-      "plants": 134,
+      "plants": 275,
       "share_of_row": 0.233,
       "species": "saskatoon"
-    },
-    {
-      "common": "American persimmon",
-      "coppice_interval_yr": null,
-      "first_harvest_year": 5,
-      "full_bearing_year": 10,
-      "plants": 134,
-      "share_of_row": 0.233,
-      "species": "persimmon_am"
     },
     {
       "common": "Silver buffaloberry",
       "first_harvest_year": null,
       "full_bearing_year": null,
-      "plants": 172,
+      "plants": 353,
       "share_of_row": 0.3,
       "species": "buffaloberry"
     }
   ],
-  "plants_total": 574,
+  "plants_total": 957,
   "replanting_allowance_plants": 0,
   "row_area_ha": 0.7175
 }
