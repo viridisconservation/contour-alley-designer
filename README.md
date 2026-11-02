@@ -42,7 +42,7 @@ Tree-row geometry, land marginality and management decide all three. This tool m
 - **Accounts against conventional cropping.** It reports gross and net carbon, commodity leakage, reversal-adjusted carbon by pool, a component decomposition, NPV, fertilizer avoided and runoff change. Imported biochar is excluded from removals by default.
 - **Checks itself.** Carbon, nitrogen and water balances close per cell and per field. Every run writes `verification.json` and exits non-zero if any invariant fails.
 
-Standard-library Python 3.10+, with no dependencies.
+Standard-library Python 3.10+, with no dependencies for the model; the optional public-data fetcher uses numpy, pillow and pyproj.
 
 ## Quick start
 
@@ -83,10 +83,18 @@ At the assumed commodity prices, coppice crops lost to fruit and nut rows on eve
 
 ## Use your own field
 
-1. Export a DEM for the field boundary, for example with `earth_engine/export_field_dem.js`. This script is untested; verify the dataset IDs.
-2. Convert it to ESRI ASCII (`gdal_translate -of AAIGrid field.tif field.asc`) or to the `ViridisFieldDEM-1` JSON schema (see `contour/terrain.py`).
-3. Copy a config and point `"field"` at it.
-4. Set measured soil carbon and water capacity under `parameters.soil`, and your machinery width under `layout`.
+Any US field, from public data, in two commands:
+
+```sh
+pip install -r tools/requirements-fetch.txt          # numpy, pillow, pyproj (the model itself needs none)
+python3 tools/fetch_site.py --name my-field --lon -98.507 --lat 40.899 --cover cropland \
+    --region central_plains --normals-station USW00014935 --wind-station USW00014935 --out sites/my-field
+python3 -m contour.designer --site sites/my-field/site.json --output runs/my-field
+```
+
+`fetch_site.py` pulls USGS 3DEP terrain, NLCD 2021 land cover, USDA SSURGO soils and NOAA 1991–2020 normals and hourly wind. It anonymizes the field and writes a designer-ready `site.json`. The exact location goes only to `PRIVATE_location.json`, which is git-ignored. Given the Franklin County coordinates, it rebuilt the shipped Vermont fixture to within one cell, about 1% on soil carbon and 0.1% on PET.
+
+On Google Earth Engine, `earth_engine/export_field_dem.js` exports terrain, NLCD and the AlphaEarth satellite embedding. Its dataset IDs were checked against the catalog on 2026-11-02, but the script has not yet been executed. `tools/geotiff_to_field.py` converts its exports into a field for the designer.
 
 ## Pilot results (Franklin County field, 40 years; simulated)
 
