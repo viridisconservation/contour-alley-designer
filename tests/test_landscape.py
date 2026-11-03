@@ -81,6 +81,9 @@ class Regression(unittest.TestCase):
             elif isinstance(x, float) and sys.version_info < (3, 12):
                 # sum() became compensated in Python 3.12; older versions differ at ~1e-5 relative
                 self.assertTrue(abs(x - y) <= 1e-3 * max(1.0, abs(x)), p)
+            elif isinstance(x, float) and sys.version_info >= (3, 14):
+                # bit-exact on 3.12-3.13; Python 3.14 (macOS) differs at ~4e-7 relative in accumulated sums
+                self.assertTrue(abs(x - y) <= 1e-5 * max(1.0, abs(x)), p)
             else:
                 self.assertEqual(x, y, p)
         cmp(gold, got, '')
