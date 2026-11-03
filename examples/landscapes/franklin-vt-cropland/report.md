@@ -22,20 +22,20 @@ Nitrogen fixers in the row: alder_speckled
 
 | Candidate | Layout | Alley m | Native habitat | Row mix | Screen score | Worst-case score |
 |---|---|---|---|---|---|---|
-| X24 | parallel_contour | 20 | pollinator understory | food_value | 54,447 | 163,998 |
-| X00 | parallel_contour | 20 | none | food_value | 49,871 | 159,568 |
-| X23 | parallel_contour | 20 | pollinator strips | food_value | 48,288 | — |
-| X27 | parallel_contour | 20 | pollinator understory | food_staged | 47,307 | — |
-| X07 | parallel_contour | 20 | none | food_staged | 44,023 | 141,959 |
-| X22 | parallel_contour | 20 | grass strips | food_value | 43,975 | — |
-| X26 | parallel_contour | 20 | pollinator strips | food_staged | 41,314 | — |
-| X25 | parallel_contour | 20 | grass strips | food_staged | 38,127 | — |
-| X09 | parallel_contour | 20 | none | mixed_food_feed | 33,359 | — |
-| X08 | parallel_contour | 20 | none | nut_feed_permanent | 25,734 | — |
+| X24 | parallel_contour | 20 | pollinator understory | food_value | 48,699 | 70,438 |
+| X00 | parallel_contour | 20 | none | food_value | 45,680 | 67,747 |
+| X23 | parallel_contour | 20 | pollinator strips | food_value | 42,208 | — |
+| X22 | parallel_contour | 20 | grass strips | food_value | 39,776 | — |
+| X27 | parallel_contour | 20 | pollinator understory | food_staged | 39,562 | — |
+| X07 | parallel_contour | 20 | none | food_staged | 37,135 | — |
+| X26 | parallel_contour | 20 | pollinator strips | food_staged | 33,214 | — |
+| X25 | parallel_contour | 20 | grass strips | food_staged | 31,216 | — |
+| X09 | parallel_contour | 20 | none | mixed_food_feed | 29,832 | — |
+| X08 | parallel_contour | 20 | none | nut_feed_permanent | 24,699 | 43,981 |
 
 Score = NPV vs conventional (2026 USD) + carbon at $50/t on the reversal-adjusted, leakage-net removal (field total).
 
-Price of pollinator habitat (best habitat finalist vs best without, worst case): $-4,430 over 40 years for 1.98 ha (pollinator understory). Pollination gains count only in the assumed-effects runs until measured.
+Price of pollinator habitat (best habitat finalist vs best without, worst case): $-2,691 over 40 years for 1.98 ha (pollinator understory). Pollination gains count only in the assumed-effects runs until measured.
 
 ## Chosen design: X24
 
@@ -54,24 +54,33 @@ Price of pollinator habitat (best habitat finalist vs best without, worst case):
 - PASS S5_integrity: no landscape rule violations; species pass the regional gate
 - PASS S6_balances_close: water, carbon and nitrogen balances close in every run
 
-Worst-case net carbon 8.9 tCO2e, best 59.7; breakeven year (central) 10; minimum establishment survival 1.00. Upfront support that would bring breakeven to year 25 (central): $0 ($0 per ha of tree row), the size of a cost-share or pre-purchase agreement that closes the gap.
+Worst-case net carbon 136.7 tCO2e, best 187.9; breakeven year (central) 10; minimum establishment survival 1.00. Upfront support that would bring breakeven to year 25 (central): $0 ($0 per ha of tree row), the size of a cost-share or pre-purchase agreement that closes the gap.
 
 ## Outcomes at year 40 vs conventional (chosen design)
 
 | Draw | Effects | Net carbon tCO2e | Reversal-adj. tCO2e | With food/feed substitution | NPV vs A $ | Outflow change mm | July alley water mm (A) |
 |---|---|---|---|---|---|---|---|
-| dry | zero_effect | 131.6 | 55.0 | 173.0 | 161,246 | -358.7 | 0.0 (0.0) |
-| dry | assumed_effects | 92.5 | 19.0 | 136.7 | 171,678 | -333.2 | 0.0 (0.0) |
-| central | zero_effect | 138.9 | 56.9 | 186.1 | 186,052 | -845.8 | 5.9 (5.9) |
-| central | assumed_effects | 89.6 | 12.5 | 140.0 | 197,181 | -784.1 | 7.2 (5.9) |
-| wet | zero_effect | 146.3 | 59.7 | 196.1 | 197,484 | -1,230.9 | 16.6 (16.5) |
-| wet | assumed_effects | 91.0 | 8.9 | 144.3 | 208,503 | -1,155.9 | 18.2 (16.5) |
+| dry | zero_effect | 275.2 | 171.7 | 293.5 | 64,343 | -371.4 | 0.0 (0.0) |
+| dry | assumed_effects | 236.0 | 137.3 | 254.7 | 63,571 | -347.2 | 0.0 (0.0) |
+| central | zero_effect | 294.5 | 180.3 | 317.5 | 84,946 | -888.7 | 5.9 (5.9) |
+| central | assumed_effects | 245.1 | 136.7 | 268.6 | 83,631 | -828.8 | 7.3 (5.9) |
+| wet | zero_effect | 307.6 | 187.9 | 332.8 | 94,414 | -1,293.5 | 16.7 (16.5) |
+| wet | assumed_effects | 252.2 | 138.6 | 277.9 | 93,065 | -1,219.9 | 18.3 (16.5) |
 
 The substitution column credits tree food/feed against displaced crop output; it is reported, never used as the headline.
 
-Carbon gain vs A (central, zero effects): woody 0.95 tC per ha of tree row per year (0.19 per field ha); soil -0.02 and biochar 0.03 tC per field ha per year. Benchmarks: COMET-Planner windbreak ~0.7 (dry) to ~1.2 (moist) tC per planted ha per year; Cardinael et al. 2018 temperate hedgerow SOC ~0.45 tC/ha/yr. The model's row-zone SOC response is not yet calibrated.
+Carbon gain vs A (central, zero effects): woody 0.96 tC per ha of tree row per year (0.19 per field ha); soil 0.07 and biochar 0.03 tC per field ha per year. Benchmarks: COMET-Planner windbreak ~0.7 (dry) to ~1.2 (moist) tC per planted ha per year; Cardinael et al. 2018 temperate hedgerow SOC ~0.45 tC/ha/yr. The model's row-zone SOC response is not yet calibrated.
 
-Leakage-factor sensitivity (central, zero effects; the defensible range spans ~0.2-3 tCO2e/t grain): net carbon 314.0 / 138.9 / -327.8 tCO2e at 0.20 / 0.80 / 2.40 tCO2e per t.
+Leakage-factor sensitivity (central, zero effects; the defensible range spans ~0.2-3 tCO2e/t grain): net carbon 469.5 / 294.5 / -172.0 tCO2e at 0.20 / 0.80 / 2.40 tCO2e per t.
+
+Verra VMD0054 v1.1 leakage (leakage-only defaults IS 75% x NL 40%, new land assumed forest at 90 tC/ha, counted once): peak displaced output 7.9 t/yr at a regional yield of 3.70 t/ha/yr = 0.64 ha converted, 211.3 tCO2e (central, zero effects; the per-tonne factor charges 233.3). Reversal-adjusted net under VMD0054: 202.2 central, 92.9 worst case; S1 under VMD0054 holds. Cross-commodity netting of the new tree crops (v1.1) is allowed but not computed here.
+
+Indicative cost-share from published NRCS schedules (standard rates; actual contracts set by the NRCS planner):
+
+- NRCS EQIP FY2023 380 Windbreak/Shelterbelt, 2-row windbreak, trees, machine planted (5 m row taken as 2 plant rows): $0.62 per ft row x 12,959 = $8,035
+- NRCS EQIP FY2023 327 Conservation Cover, Pollinator Species: $536.39 per ac strip x 0 = $0
+
+Total $8,035 against $0 upfront support needed for year-25 breakeven.
 
 ## Implementation
 

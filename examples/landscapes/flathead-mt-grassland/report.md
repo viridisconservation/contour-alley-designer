@@ -24,16 +24,16 @@ Nitrogen fixers in the row: buffaloberry
 
 | Candidate | Layout | Alley m | Native habitat | Row mix | Screen score | Worst-case score |
 |---|---|---|---|---|---|---|
-| X02 | true_contour | 120 | none | food_value | 3,770 | 13,586 |
-| X00 | parallel_contour | 120 | none | food_value | 3,746 | 13,555 |
-| X03 | true_contour | 245 | none | food_value | 1,887 | 6,807 |
-| X01 | parallel_contour | 245 | none | food_value | 1,884 | — |
-| X04 | true_contour | 120 | none | coppice_and_fruit | 69 | — |
-| X06 | parallel_contour | 120 | none | coppice_and_fruit | 60 | — |
-| X08 | true_contour | 245 | none | coppice_and_fruit | 32 | — |
-| X09 | true_contour | 245 | none | coppice_biochar | -53 | — |
-| X05 | true_contour | 120 | none | coppice_biochar | -101 | — |
-| X07 | parallel_contour | 120 | none | coppice_biochar | -110 | — |
+| X02 | true_contour | 120 | none | food_value | 4,985 | 14,711 |
+| X00 | parallel_contour | 120 | none | food_value | 4,961 | 14,696 |
+| X01 | parallel_contour | 245 | none | food_value | 2,494 | 7,387 |
+| X03 | true_contour | 245 | none | food_value | 2,493 | — |
+| X04 | true_contour | 120 | none | coppice_and_fruit | 674 | — |
+| X06 | parallel_contour | 120 | none | coppice_and_fruit | 670 | — |
+| X05 | true_contour | 120 | none | coppice_biochar | 501 | — |
+| X07 | parallel_contour | 120 | none | coppice_biochar | 497 | — |
+| X08 | parallel_contour | 245 | none | coppice_and_fruit | 338 | — |
+| X09 | parallel_contour | 245 | none | coppice_biochar | 251 | — |
 
 Score = NPV vs conventional (2026 USD) + carbon at $50/t on the reversal-adjusted, leakage-net removal (field total).
 
@@ -54,24 +54,32 @@ Score = NPV vs conventional (2026 USD) + carbon at $50/t on the reversal-adjuste
 - PASS S5_integrity: no landscape rule violations; species pass the regional gate
 - PASS S6_balances_close: water, carbon and nitrogen balances close in every run
 
-Worst-case net carbon 14.6 tCO2e, best 19.1; breakeven year (central) 11; minimum establishment survival 1.00. Upfront support that would bring breakeven to year 25 (central): $0 ($0 per ha of tree row), the size of a cost-share or pre-purchase agreement that closes the gap.
+Worst-case net carbon 29.9 tCO2e, best 35.7; breakeven year (central) 10; minimum establishment survival 1.00. Upfront support that would bring breakeven to year 25 (central): $0 ($0 per ha of tree row), the size of a cost-share or pre-purchase agreement that closes the gap.
 
 ## Outcomes at year 40 vs conventional (chosen design)
 
 | Draw | Effects | Net carbon tCO2e | Reversal-adj. tCO2e | With food/feed substitution | NPV vs A $ | Outflow change mm | July alley water mm (A) |
 |---|---|---|---|---|---|---|---|
-| dry | zero_effect | 22.9 | 14.6 | 26.5 | 12,857 | -16.5 | -0.0 (-0.0) |
-| dry | assumed_effects | 26.0 | 17.5 | 28.4 | 13,008 | -10.1 | 0.0 (-0.0) |
-| central | zero_effect | 25.6 | 16.3 | 29.3 | 17,365 | -72.3 | 0.0 (0.0) |
-| central | assumed_effects | 27.1 | 17.6 | 30.3 | 17,438 | -49.8 | 0.0 (0.0) |
-| wet | zero_effect | 27.6 | 17.7 | 31.4 | 20,010 | -90.1 | 0.1 (0.1) |
-| wet | assumed_effects | 29.2 | 19.1 | 32.4 | 20,091 | -64.4 | 0.4 (0.1) |
+| dry | zero_effect | 39.9 | 29.9 | 43.4 | 13,217 | -17.8 | -0.0 (-0.0) |
+| dry | assumed_effects | 42.9 | 32.8 | 45.3 | 13,365 | -11.6 | -0.0 (-0.0) |
+| central | zero_effect | 43.4 | 32.4 | 47.1 | 16,704 | -83.4 | 0.0 (0.0) |
+| central | assumed_effects | 44.9 | 33.8 | 48.1 | 16,781 | -61.8 | 0.0 (0.0) |
+| wet | zero_effect | 45.9 | 34.3 | 49.7 | 18,873 | -105.1 | 0.1 (0.1) |
+| wet | assumed_effects | 47.5 | 35.7 | 50.7 | 18,967 | -80.2 | 0.4 (0.1) |
 
 The substitution column credits tree food/feed against displaced crop output; it is reported, never used as the headline.
 
-Carbon gain vs A (central, zero effects): woody 0.50 tC per ha of tree row per year (0.02 per field ha); soil -0.00 and biochar 0.00 tC per field ha per year. Benchmarks: COMET-Planner windbreak ~0.7 (dry) to ~1.2 (moist) tC per planted ha per year; Cardinael et al. 2018 temperate hedgerow SOC ~0.45 tC/ha/yr. The model's row-zone SOC response is not yet calibrated.
+Carbon gain vs A (central, zero effects): woody 0.44 tC per ha of tree row per year (0.02 per field ha); soil 0.00 and biochar 0.00 tC per field ha per year. Benchmarks: COMET-Planner windbreak ~0.7 (dry) to ~1.2 (moist) tC per planted ha per year; Cardinael et al. 2018 temperate hedgerow SOC ~0.45 tC/ha/yr. The model's row-zone SOC response is not yet calibrated.
 
-Leakage-factor sensitivity (central, zero effects; the defensible range spans ~0.2-3 tCO2e/t grain): net carbon 28.4 / 25.6 / 18.0 tCO2e at 0.07 / 0.30 / 0.90 tCO2e per t.
+Leakage-factor sensitivity (central, zero effects; the defensible range spans ~0.2-3 tCO2e/t grain): net carbon 46.2 / 43.4 / 35.8 tCO2e at 0.07 / 0.30 / 0.90 tCO2e per t.
+
+Verra VMD0054 v1.1 leakage (leakage-only defaults IS 75% x NL 40%, new land assumed forest at 90 tC/ha, counted once): peak displaced output 0.4 t/yr at a regional yield of 0.65 t/ha/yr = 0.17 ha converted, 55.5 tCO2e (central, zero effects; the per-tonne factor charges 3.8). Reversal-adjusted net under VMD0054: -19.3 central, -23.6 worst case; S1 under VMD0054 fails. Cross-commodity netting of the new tree crops (v1.1) is allowed but not computed here.
+
+Indicative cost-share from published NRCS schedules (standard rates; actual contracts set by the NRCS planner):
+
+- NRCS EQIP FY2025 612 Tree/Shrub Establishment, Forested Area, Per Plant, Tree, Hand Planted (closest component for sparse savanna planting): $1.48 per plant x 808 = $1,196
+
+Total $1,196 against $0 upfront support needed for year-25 breakeven.
 
 ## Implementation
 

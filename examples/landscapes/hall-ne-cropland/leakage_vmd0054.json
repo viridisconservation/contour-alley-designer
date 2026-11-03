@@ -1,0 +1,1298 @@
+{
+  "central/assumed_effects": {
+    "converted_area_ha": 0.1189212401620739,
+    "leakage_tCO2e": 39.244009253484386,
+    "max_annual_deficit_t": 1.2093964729531699,
+    "method": "VMD0054 v1.1 leakage-only defaults",
+    "net_tCO2e": 102.85263648796021,
+    "parameters": {
+      "delta_cs_tC_ha": 90.0,
+      "increased_supply_frac": 0.75,
+      "new_land_frac": 0.4
+    },
+    "regional_yield_t_ha_yr": 3.0509179133305104,
+    "reversal_adjusted_net_tCO2e": 66.50920824878969,
+    "windows": [
+      {
+        "annual_deficit_t": 1.2093964729531699,
+        "from_yr": 0,
+        "to_yr": 1
+      },
+      {
+        "annual_deficit_t": 0.5031835752782747,
+        "from_yr": 1,
+        "to_yr": 2
+      },
+      {
+        "annual_deficit_t": -0.3820946730723165,
+        "from_yr": 2,
+        "to_yr": 3
+      },
+      {
+        "annual_deficit_t": -1.092650393304183,
+        "from_yr": 3,
+        "to_yr": 4
+      },
+      {
+        "annual_deficit_t": -0.39990361532386487,
+        "from_yr": 4,
+        "to_yr": 5
+      },
+      {
+        "annual_deficit_t": -0.5795789578668575,
+        "from_yr": 5,
+        "to_yr": 6
+      },
+      {
+        "annual_deficit_t": -0.7630306794526405,
+        "from_yr": 6,
+        "to_yr": 7
+      },
+      {
+        "annual_deficit_t": -0.8684840979622095,
+        "from_yr": 7,
+        "to_yr": 8
+      },
+      {
+        "annual_deficit_t": -1.6726738960722969,
+        "from_yr": 8,
+        "to_yr": 9
+      },
+      {
+        "annual_deficit_t": 0.02836129909644569,
+        "from_yr": 9,
+        "to_yr": 10
+      },
+      {
+        "annual_deficit_t": -1.342248443013034,
+        "from_yr": 10,
+        "to_yr": 11
+      },
+      {
+        "annual_deficit_t": -1.2290192810941676,
+        "from_yr": 11,
+        "to_yr": 12
+      },
+      {
+        "annual_deficit_t": -0.8081559530655795,
+        "from_yr": 12,
+        "to_yr": 13
+      },
+      {
+        "annual_deficit_t": 0.19065626021335902,
+        "from_yr": 13,
+        "to_yr": 14
+      },
+      {
+        "annual_deficit_t": -0.3278342379726382,
+        "from_yr": 14,
+        "to_yr": 15
+      },
+      {
+        "annual_deficit_t": -0.8172639896537248,
+        "from_yr": 15,
+        "to_yr": 16
+      },
+      {
+        "annual_deficit_t": -0.4449975244754114,
+        "from_yr": 16,
+        "to_yr": 17
+      },
+      {
+        "annual_deficit_t": 0.6166056206197936,
+        "from_yr": 17,
+        "to_yr": 18
+      },
+      {
+        "annual_deficit_t": -0.5934330839035056,
+        "from_yr": 18,
+        "to_yr": 19
+      },
+      {
+        "annual_deficit_t": 0.041878671086578834,
+        "from_yr": 19,
+        "to_yr": 20
+      },
+      {
+        "annual_deficit_t": -0.04457478419544714,
+        "from_yr": 20,
+        "to_yr": 21
+      },
+      {
+        "annual_deficit_t": -1.304468919936312,
+        "from_yr": 21,
+        "to_yr": 22
+      },
+      {
+        "annual_deficit_t": -0.6703126156183998,
+        "from_yr": 22,
+        "to_yr": 23
+      },
+      {
+        "annual_deficit_t": 0.06881021819560829,
+        "from_yr": 23,
+        "to_yr": 24
+      },
+      {
+        "annual_deficit_t": -0.4842068970226592,
+        "from_yr": 24,
+        "to_yr": 25
+      },
+      {
+        "annual_deficit_t": -0.46008605904023625,
+        "from_yr": 25,
+        "to_yr": 26
+      },
+      {
+        "annual_deficit_t": -0.9870917848776344,
+        "from_yr": 26,
+        "to_yr": 27
+      },
+      {
+        "annual_deficit_t": 0.6229134624418293,
+        "from_yr": 27,
+        "to_yr": 28
+      },
+      {
+        "annual_deficit_t": -0.7845682276015395,
+        "from_yr": 28,
+        "to_yr": 29
+      },
+      {
+        "annual_deficit_t": -1.1680989606543335,
+        "from_yr": 29,
+        "to_yr": 30
+      },
+      {
+        "annual_deficit_t": -0.8838353986334369,
+        "from_yr": 30,
+        "to_yr": 31
+      },
+      {
+        "annual_deficit_t": -1.0865279686349822,
+        "from_yr": 31,
+        "to_yr": 32
+      },
+      {
+        "annual_deficit_t": 0.21867281795675808,
+        "from_yr": 32,
+        "to_yr": 33
+      },
+      {
+        "annual_deficit_t": -0.2571721686863384,
+        "from_yr": 33,
+        "to_yr": 34
+      },
+      {
+        "annual_deficit_t": -1.1601355681887071,
+        "from_yr": 34,
+        "to_yr": 35
+      },
+      {
+        "annual_deficit_t": -0.5371211223250612,
+        "from_yr": 35,
+        "to_yr": 36
+      },
+      {
+        "annual_deficit_t": -0.06396914484935223,
+        "from_yr": 36,
+        "to_yr": 37
+      },
+      {
+        "annual_deficit_t": 0.16483976286281177,
+        "from_yr": 37,
+        "to_yr": 38
+      },
+      {
+        "annual_deficit_t": 0.11629511179262408,
+        "from_yr": 38,
+        "to_yr": 39
+      },
+      {
+        "annual_deficit_t": -0.22496756359851133,
+        "from_yr": 39,
+        "to_yr": 40
+      }
+    ]
+  },
+  "central/zero_effect": {
+    "converted_area_ha": 0.2419929567847307,
+    "leakage_tCO2e": 79.85767573896113,
+    "max_annual_deficit_t": 2.4610021558478365,
+    "method": "VMD0054 v1.1 leakage-only defaults",
+    "net_tCO2e": 45.83727534761168,
+    "parameters": {
+      "delta_cs_tC_ha": 90.0,
+      "increased_supply_frac": 0.75,
+      "new_land_frac": 0.4
+    },
+    "regional_yield_t_ha_yr": 3.0509179133305104,
+    "reversal_adjusted_net_tCO2e": 17.581430274567197,
+    "windows": [
+      {
+        "annual_deficit_t": 1.8266860316431845,
+        "from_yr": 0,
+        "to_yr": 1
+      },
+      {
+        "annual_deficit_t": 2.041479361141917,
+        "from_yr": 1,
+        "to_yr": 2
+      },
+      {
+        "annual_deficit_t": 2.0399453514216788,
+        "from_yr": 2,
+        "to_yr": 3
+      },
+      {
+        "annual_deficit_t": 2.2016678187308827,
+        "from_yr": 3,
+        "to_yr": 4
+      },
+      {
+        "annual_deficit_t": 2.1441599862149587,
+        "from_yr": 4,
+        "to_yr": 5
+      },
+      {
+        "annual_deficit_t": 2.4279829395624972,
+        "from_yr": 5,
+        "to_yr": 6
+      },
+      {
+        "annual_deficit_t": 1.9770412804065245,
+        "from_yr": 6,
+        "to_yr": 7
+      },
+      {
+        "annual_deficit_t": 2.364889607290337,
+        "from_yr": 7,
+        "to_yr": 8
+      },
+      {
+        "annual_deficit_t": 1.9812290894807916,
+        "from_yr": 8,
+        "to_yr": 9
+      },
+      {
+        "annual_deficit_t": 2.3563654886741574,
+        "from_yr": 9,
+        "to_yr": 10
+      },
+      {
+        "annual_deficit_t": 1.7671757356084186,
+        "from_yr": 10,
+        "to_yr": 11
+      },
+      {
+        "annual_deficit_t": 1.9233011002035596,
+        "from_yr": 11,
+        "to_yr": 12
+      },
+      {
+        "annual_deficit_t": 2.097634817678909,
+        "from_yr": 12,
+        "to_yr": 13
+      },
+      {
+        "annual_deficit_t": 2.2253781283491776,
+        "from_yr": 13,
+        "to_yr": 14
+      },
+      {
+        "annual_deficit_t": 2.3561948098403036,
+        "from_yr": 14,
+        "to_yr": 15
+      },
+      {
+        "annual_deficit_t": 2.438017663103892,
+        "from_yr": 15,
+        "to_yr": 16
+      },
+      {
+        "annual_deficit_t": 2.3096384724491372,
+        "from_yr": 16,
+        "to_yr": 17
+      },
+      {
+        "annual_deficit_t": 2.405957384378894,
+        "from_yr": 17,
+        "to_yr": 18
+      },
+      {
+        "annual_deficit_t": 2.3620402784096086,
+        "from_yr": 18,
+        "to_yr": 19
+      },
+      {
+        "annual_deficit_t": 2.192979940337068,
+        "from_yr": 19,
+        "to_yr": 20
+      },
+      {
+        "annual_deficit_t": 2.3841355781040647,
+        "from_yr": 20,
+        "to_yr": 21
+      },
+      {
+        "annual_deficit_t": 2.1068148902201074,
+        "from_yr": 21,
+        "to_yr": 22
+      },
+      {
+        "annual_deficit_t": 2.2552723773900425,
+        "from_yr": 22,
+        "to_yr": 23
+      },
+      {
+        "annual_deficit_t": 2.4610021558478365,
+        "from_yr": 23,
+        "to_yr": 24
+      },
+      {
+        "annual_deficit_t": 1.9914544962141463,
+        "from_yr": 24,
+        "to_yr": 25
+      },
+      {
+        "annual_deficit_t": 2.3069306736480257,
+        "from_yr": 25,
+        "to_yr": 26
+      },
+      {
+        "annual_deficit_t": 2.073797954315637,
+        "from_yr": 26,
+        "to_yr": 27
+      },
+      {
+        "annual_deficit_t": 2.164726069160338,
+        "from_yr": 27,
+        "to_yr": 28
+      },
+      {
+        "annual_deficit_t": 2.0639165982527174,
+        "from_yr": 28,
+        "to_yr": 29
+      },
+      {
+        "annual_deficit_t": 2.185689061619314,
+        "from_yr": 29,
+        "to_yr": 30
+      },
+      {
+        "annual_deficit_t": 1.7971402823202425,
+        "from_yr": 30,
+        "to_yr": 31
+      },
+      {
+        "annual_deficit_t": 1.9839685373583507,
+        "from_yr": 31,
+        "to_yr": 32
+      },
+      {
+        "annual_deficit_t": 2.436750743055427,
+        "from_yr": 32,
+        "to_yr": 33
+      },
+      {
+        "annual_deficit_t": 2.0003737283896044,
+        "from_yr": 33,
+        "to_yr": 34
+      },
+      {
+        "annual_deficit_t": 2.2884083741457744,
+        "from_yr": 34,
+        "to_yr": 35
+      },
+      {
+        "annual_deficit_t": 1.97272562654166,
+        "from_yr": 35,
+        "to_yr": 36
+      },
+      {
+        "annual_deficit_t": 2.360572447271352,
+        "from_yr": 36,
+        "to_yr": 37
+      },
+      {
+        "annual_deficit_t": 2.4441304641588886,
+        "from_yr": 37,
+        "to_yr": 38
+      },
+      {
+        "annual_deficit_t": 2.190037971376114,
+        "from_yr": 38,
+        "to_yr": 39
+      },
+      {
+        "annual_deficit_t": 2.2899946229192665,
+        "from_yr": 39,
+        "to_yr": 40
+      }
+    ]
+  },
+  "dry/assumed_effects": {
+    "converted_area_ha": 0.122823918603484,
+    "leakage_tCO2e": 40.53189313914972,
+    "max_annual_deficit_t": 0.9552246673332192,
+    "method": "VMD0054 v1.1 leakage-only defaults",
+    "net_tCO2e": 93.04650678275297,
+    "parameters": {
+      "delta_cs_tC_ha": 90.0,
+      "increased_supply_frac": 0.75,
+      "new_land_frac": 0.4
+    },
+    "regional_yield_t_ha_yr": 2.3331563058584672,
+    "reversal_adjusted_net_tCO2e": 63.00206751868252,
+    "windows": [
+      {
+        "annual_deficit_t": 0.9552246673332192,
+        "from_yr": 0,
+        "to_yr": 1
+      },
+      {
+        "annual_deficit_t": -0.20489057295142032,
+        "from_yr": 1,
+        "to_yr": 2
+      },
+      {
+        "annual_deficit_t": -0.9033584755409549,
+        "from_yr": 2,
+        "to_yr": 3
+      },
+      {
+        "annual_deficit_t": -1.5782579283901441,
+        "from_yr": 3,
+        "to_yr": 4
+      },
+      {
+        "annual_deficit_t": -1.2574658076974856,
+        "from_yr": 4,
+        "to_yr": 5
+      },
+      {
+        "annual_deficit_t": -1.2531963625471292,
+        "from_yr": 5,
+        "to_yr": 6
+      },
+      {
+        "annual_deficit_t": -1.2483961036419942,
+        "from_yr": 6,
+        "to_yr": 7
+      },
+      {
+        "annual_deficit_t": -2.523960249931804,
+        "from_yr": 7,
+        "to_yr": 8
+      },
+      {
+        "annual_deficit_t": -1.5413180859224553,
+        "from_yr": 8,
+        "to_yr": 9
+      },
+      {
+        "annual_deficit_t": -1.730748554092429,
+        "from_yr": 9,
+        "to_yr": 10
+      },
+      {
+        "annual_deficit_t": -1.3093172418494419,
+        "from_yr": 10,
+        "to_yr": 11
+      },
+      {
+        "annual_deficit_t": -1.526436191059645,
+        "from_yr": 11,
+        "to_yr": 12
+      },
+      {
+        "annual_deficit_t": -2.2463983022828984,
+        "from_yr": 12,
+        "to_yr": 13
+      },
+      {
+        "annual_deficit_t": -1.180248973736525,
+        "from_yr": 13,
+        "to_yr": 14
+      },
+      {
+        "annual_deficit_t": -0.8037856187917782,
+        "from_yr": 14,
+        "to_yr": 15
+      },
+      {
+        "annual_deficit_t": -1.2767249190295615,
+        "from_yr": 15,
+        "to_yr": 16
+      },
+      {
+        "annual_deficit_t": -1.2889725078977676,
+        "from_yr": 16,
+        "to_yr": 17
+      },
+      {
+        "annual_deficit_t": -1.289079152397278,
+        "from_yr": 17,
+        "to_yr": 18
+      },
+      {
+        "annual_deficit_t": -1.5477839038067032,
+        "from_yr": 18,
+        "to_yr": 19
+      },
+      {
+        "annual_deficit_t": -0.9632472250150386,
+        "from_yr": 19,
+        "to_yr": 20
+      },
+      {
+        "annual_deficit_t": -1.698704128945792,
+        "from_yr": 20,
+        "to_yr": 21
+      },
+      {
+        "annual_deficit_t": -1.372227035562105,
+        "from_yr": 21,
+        "to_yr": 22
+      },
+      {
+        "annual_deficit_t": -1.5188125415338618,
+        "from_yr": 22,
+        "to_yr": 23
+      },
+      {
+        "annual_deficit_t": -1.099221676122852,
+        "from_yr": 23,
+        "to_yr": 24
+      },
+      {
+        "annual_deficit_t": -1.2376679174129777,
+        "from_yr": 24,
+        "to_yr": 25
+      },
+      {
+        "annual_deficit_t": -0.9456441526298249,
+        "from_yr": 25,
+        "to_yr": 26
+      },
+      {
+        "annual_deficit_t": -1.3350822556692492,
+        "from_yr": 26,
+        "to_yr": 27
+      },
+      {
+        "annual_deficit_t": -0.8293649741896161,
+        "from_yr": 27,
+        "to_yr": 28
+      },
+      {
+        "annual_deficit_t": -1.2820725823055454,
+        "from_yr": 28,
+        "to_yr": 29
+      },
+      {
+        "annual_deficit_t": -1.7699388618439116,
+        "from_yr": 29,
+        "to_yr": 30
+      },
+      {
+        "annual_deficit_t": -1.2865262332564953,
+        "from_yr": 30,
+        "to_yr": 31
+      },
+      {
+        "annual_deficit_t": -1.4740613158365932,
+        "from_yr": 31,
+        "to_yr": 32
+      },
+      {
+        "annual_deficit_t": -1.0690912982214513,
+        "from_yr": 32,
+        "to_yr": 33
+      },
+      {
+        "annual_deficit_t": -1.1795311214677895,
+        "from_yr": 33,
+        "to_yr": 34
+      },
+      {
+        "annual_deficit_t": -1.408876843509347,
+        "from_yr": 34,
+        "to_yr": 35
+      },
+      {
+        "annual_deficit_t": -1.1445119866909863,
+        "from_yr": 35,
+        "to_yr": 36
+      },
+      {
+        "annual_deficit_t": -1.7960479769731137,
+        "from_yr": 36,
+        "to_yr": 37
+      },
+      {
+        "annual_deficit_t": -1.549061077977285,
+        "from_yr": 37,
+        "to_yr": 38
+      },
+      {
+        "annual_deficit_t": -0.7741157011641917,
+        "from_yr": 38,
+        "to_yr": 39
+      },
+      {
+        "annual_deficit_t": -1.3104446747770453,
+        "from_yr": 39,
+        "to_yr": 40
+      }
+    ]
+  },
+  "dry/zero_effect": {
+    "converted_area_ha": 0.24711533611990463,
+    "leakage_tCO2e": 81.54806091956853,
+    "max_annual_deficit_t": 1.9218623491416338,
+    "method": "VMD0054 v1.1 leakage-only defaults",
+    "net_tCO2e": 26.354056407050777,
+    "parameters": {
+      "delta_cs_tC_ha": 90.0,
+      "increased_supply_frac": 0.75,
+      "new_land_frac": 0.4
+    },
+    "regional_yield_t_ha_yr": 2.3331563058584672,
+    "reversal_adjusted_net_tCO2e": 6.09430126640099,
+    "windows": [
+      {
+        "annual_deficit_t": 1.4199297305188097,
+        "from_yr": 0,
+        "to_yr": 1
+      },
+      {
+        "annual_deficit_t": 1.465077388222305,
+        "from_yr": 1,
+        "to_yr": 2
+      },
+      {
+        "annual_deficit_t": 1.488924592104965,
+        "from_yr": 2,
+        "to_yr": 3
+      },
+      {
+        "annual_deficit_t": 1.6266278518881592,
+        "from_yr": 3,
+        "to_yr": 4
+      },
+      {
+        "annual_deficit_t": 1.6145921116103494,
+        "from_yr": 4,
+        "to_yr": 5
+      },
+      {
+        "annual_deficit_t": 1.8761858863365717,
+        "from_yr": 5,
+        "to_yr": 6
+      },
+      {
+        "annual_deficit_t": 1.4949841118043423,
+        "from_yr": 6,
+        "to_yr": 7
+      },
+      {
+        "annual_deficit_t": 1.768675239525038,
+        "from_yr": 7,
+        "to_yr": 8
+      },
+      {
+        "annual_deficit_t": 1.4733051833138688,
+        "from_yr": 8,
+        "to_yr": 9
+      },
+      {
+        "annual_deficit_t": 1.8082326865296636,
+        "from_yr": 9,
+        "to_yr": 10
+      },
+      {
+        "annual_deficit_t": 1.325024573453959,
+        "from_yr": 10,
+        "to_yr": 11
+      },
+      {
+        "annual_deficit_t": 1.472484421096226,
+        "from_yr": 11,
+        "to_yr": 12
+      },
+      {
+        "annual_deficit_t": 1.59740077854849,
+        "from_yr": 12,
+        "to_yr": 13
+      },
+      {
+        "annual_deficit_t": 1.7779834520520694,
+        "from_yr": 13,
+        "to_yr": 14
+      },
+      {
+        "annual_deficit_t": 1.9218623491416338,
+        "from_yr": 14,
+        "to_yr": 15
+      },
+      {
+        "annual_deficit_t": 1.9001539710030215,
+        "from_yr": 15,
+        "to_yr": 16
+      },
+      {
+        "annual_deficit_t": 1.8187634577145104,
+        "from_yr": 16,
+        "to_yr": 17
+      },
+      {
+        "annual_deficit_t": 1.8912985588797824,
+        "from_yr": 17,
+        "to_yr": 18
+      },
+      {
+        "annual_deficit_t": 1.7996230256854346,
+        "from_yr": 18,
+        "to_yr": 19
+      },
+      {
+        "annual_deficit_t": 1.714739915997825,
+        "from_yr": 19,
+        "to_yr": 20
+      },
+      {
+        "annual_deficit_t": 1.8140356848017518,
+        "from_yr": 20,
+        "to_yr": 21
+      },
+      {
+        "annual_deficit_t": 1.5619353758949046,
+        "from_yr": 21,
+        "to_yr": 22
+      },
+      {
+        "annual_deficit_t": 1.6847216952838835,
+        "from_yr": 22,
+        "to_yr": 23
+      },
+      {
+        "annual_deficit_t": 1.9047957170332666,
+        "from_yr": 23,
+        "to_yr": 24
+      },
+      {
+        "annual_deficit_t": 1.485908016136591,
+        "from_yr": 24,
+        "to_yr": 25
+      },
+      {
+        "annual_deficit_t": 1.8469896295703165,
+        "from_yr": 25,
+        "to_yr": 26
+      },
+      {
+        "annual_deficit_t": 1.554536232280043,
+        "from_yr": 26,
+        "to_yr": 27
+      },
+      {
+        "annual_deficit_t": 1.743812091820132,
+        "from_yr": 27,
+        "to_yr": 28
+      },
+      {
+        "annual_deficit_t": 1.560431540397758,
+        "from_yr": 28,
+        "to_yr": 29
+      },
+      {
+        "annual_deficit_t": 1.6684906132543347,
+        "from_yr": 29,
+        "to_yr": 30
+      },
+      {
+        "annual_deficit_t": 1.3410682632224962,
+        "from_yr": 30,
+        "to_yr": 31
+      },
+      {
+        "annual_deficit_t": 1.4720368198414917,
+        "from_yr": 31,
+        "to_yr": 32
+      },
+      {
+        "annual_deficit_t": 1.8704181514068523,
+        "from_yr": 32,
+        "to_yr": 33
+      },
+      {
+        "annual_deficit_t": 1.495646736008439,
+        "from_yr": 33,
+        "to_yr": 34
+      },
+      {
+        "annual_deficit_t": 1.6986636309452479,
+        "from_yr": 34,
+        "to_yr": 35
+      },
+      {
+        "annual_deficit_t": 1.4833202748396843,
+        "from_yr": 35,
+        "to_yr": 36
+      },
+      {
+        "annual_deficit_t": 1.7848871986353743,
+        "from_yr": 36,
+        "to_yr": 37
+      },
+      {
+        "annual_deficit_t": 1.8336041037027826,
+        "from_yr": 37,
+        "to_yr": 38
+      },
+      {
+        "annual_deficit_t": 1.7590504289855744,
+        "from_yr": 38,
+        "to_yr": 39
+      },
+      {
+        "annual_deficit_t": 1.770739035605402,
+        "from_yr": 39,
+        "to_yr": 40
+      }
+    ]
+  },
+  "wet/assumed_effects": {
+    "converted_area_ha": 0.14014756831015382,
+    "leakage_tCO2e": 46.24869754235076,
+    "max_annual_deficit_t": 1.6042827765904804,
+    "method": "VMD0054 v1.1 leakage-only defaults",
+    "net_tCO2e": 97.21079784088161,
+    "parameters": {
+      "delta_cs_tC_ha": 90.0,
+      "increased_supply_frac": 0.75,
+      "new_land_frac": 0.4
+    },
+    "regional_yield_t_ha_yr": 3.4341290311369224,
+    "reversal_adjusted_net_tCO2e": 61.63954962235577,
+    "windows": [
+      {
+        "annual_deficit_t": 1.4564795759935194,
+        "from_yr": 0,
+        "to_yr": 1
+      },
+      {
+        "annual_deficit_t": 0.9869501979653208,
+        "from_yr": 1,
+        "to_yr": 2
+      },
+      {
+        "annual_deficit_t": 0.273404877121024,
+        "from_yr": 2,
+        "to_yr": 3
+      },
+      {
+        "annual_deficit_t": 0.676806877718775,
+        "from_yr": 3,
+        "to_yr": 4
+      },
+      {
+        "annual_deficit_t": 0.36463589265929386,
+        "from_yr": 4,
+        "to_yr": 5
+      },
+      {
+        "annual_deficit_t": 0.551871442968519,
+        "from_yr": 5,
+        "to_yr": 6
+      },
+      {
+        "annual_deficit_t": -0.6328303372838207,
+        "from_yr": 6,
+        "to_yr": 7
+      },
+      {
+        "annual_deficit_t": 0.3937515757852452,
+        "from_yr": 7,
+        "to_yr": 8
+      },
+      {
+        "annual_deficit_t": -1.1420857527494945,
+        "from_yr": 8,
+        "to_yr": 9
+      },
+      {
+        "annual_deficit_t": 0.3060012785607569,
+        "from_yr": 9,
+        "to_yr": 10
+      },
+      {
+        "annual_deficit_t": -0.8473640103783282,
+        "from_yr": 10,
+        "to_yr": 11
+      },
+      {
+        "annual_deficit_t": -0.9137744356535791,
+        "from_yr": 11,
+        "to_yr": 12
+      },
+      {
+        "annual_deficit_t": 0.3581813323424967,
+        "from_yr": 12,
+        "to_yr": 13
+      },
+      {
+        "annual_deficit_t": 0.4306710651553658,
+        "from_yr": 13,
+        "to_yr": 14
+      },
+      {
+        "annual_deficit_t": 0.48160651216392125,
+        "from_yr": 14,
+        "to_yr": 15
+      },
+      {
+        "annual_deficit_t": 1.6042827765904804,
+        "from_yr": 15,
+        "to_yr": 16
+      },
+      {
+        "annual_deficit_t": 0.6334530580517139,
+        "from_yr": 16,
+        "to_yr": 17
+      },
+      {
+        "annual_deficit_t": 1.0290475446811342,
+        "from_yr": 17,
+        "to_yr": 18
+      },
+      {
+        "annual_deficit_t": 0.7369846752044396,
+        "from_yr": 18,
+        "to_yr": 19
+      },
+      {
+        "annual_deficit_t": -0.11990563550443767,
+        "from_yr": 19,
+        "to_yr": 20
+      },
+      {
+        "annual_deficit_t": 0.7154935362320884,
+        "from_yr": 20,
+        "to_yr": 21
+      },
+      {
+        "annual_deficit_t": 0.09157685438322005,
+        "from_yr": 21,
+        "to_yr": 22
+      },
+      {
+        "annual_deficit_t": 0.40603640185327095,
+        "from_yr": 22,
+        "to_yr": 23
+      },
+      {
+        "annual_deficit_t": 0.9018119653350141,
+        "from_yr": 23,
+        "to_yr": 24
+      },
+      {
+        "annual_deficit_t": 0.3587616736676864,
+        "from_yr": 24,
+        "to_yr": 25
+      },
+      {
+        "annual_deficit_t": 0.5483274309597164,
+        "from_yr": 25,
+        "to_yr": 26
+      },
+      {
+        "annual_deficit_t": 0.008770304265226514,
+        "from_yr": 26,
+        "to_yr": 27
+      },
+      {
+        "annual_deficit_t": 0.659371171105704,
+        "from_yr": 27,
+        "to_yr": 28
+      },
+      {
+        "annual_deficit_t": 0.2540596213191293,
+        "from_yr": 28,
+        "to_yr": 29
+      },
+      {
+        "annual_deficit_t": -0.3871304538849927,
+        "from_yr": 29,
+        "to_yr": 30
+      },
+      {
+        "annual_deficit_t": -0.6640019105909687,
+        "from_yr": 30,
+        "to_yr": 31
+      },
+      {
+        "annual_deficit_t": -0.5919807884995407,
+        "from_yr": 31,
+        "to_yr": 32
+      },
+      {
+        "annual_deficit_t": 0.6282960135429221,
+        "from_yr": 32,
+        "to_yr": 33
+      },
+      {
+        "annual_deficit_t": 0.3622110812525534,
+        "from_yr": 33,
+        "to_yr": 34
+      },
+      {
+        "annual_deficit_t": 0.5641514769818059,
+        "from_yr": 34,
+        "to_yr": 35
+      },
+      {
+        "annual_deficit_t": -0.360454306444808,
+        "from_yr": 35,
+        "to_yr": 36
+      },
+      {
+        "annual_deficit_t": 0.8312853042307324,
+        "from_yr": 36,
+        "to_yr": 37
+      },
+      {
+        "annual_deficit_t": 1.113924849400746,
+        "from_yr": 37,
+        "to_yr": 38
+      },
+      {
+        "annual_deficit_t": 0.23433479195909968,
+        "from_yr": 38,
+        "to_yr": 39
+      },
+      {
+        "annual_deficit_t": 0.6766445022201424,
+        "from_yr": 39,
+        "to_yr": 40
+      }
+    ]
+  },
+  "wet/zero_effect": {
+    "converted_area_ha": 0.24091578740002967,
+    "leakage_tCO2e": 79.50220984200979,
+    "max_annual_deficit_t": 2.757786331898842,
+    "method": "VMD0054 v1.1 leakage-only defaults",
+    "net_tCO2e": 55.55334842441562,
+    "parameters": {
+      "delta_cs_tC_ha": 90.0,
+      "increased_supply_frac": 0.75,
+      "new_land_frac": 0.4
+    },
+    "regional_yield_t_ha_yr": 3.4341290311369224,
+    "reversal_adjusted_net_tCO2e": 25.235054620222414,
+    "windows": [
+      {
+        "annual_deficit_t": 2.0931143597035557,
+        "from_yr": 0,
+        "to_yr": 1
+      },
+      {
+        "annual_deficit_t": 2.403501261096686,
+        "from_yr": 1,
+        "to_yr": 2
+      },
+      {
+        "annual_deficit_t": 2.3554135569572594,
+        "from_yr": 2,
+        "to_yr": 3
+      },
+      {
+        "annual_deficit_t": 2.5265296783835964,
+        "from_yr": 3,
+        "to_yr": 4
+      },
+      {
+        "annual_deficit_t": 2.3544983926049383,
+        "from_yr": 4,
+        "to_yr": 5
+      },
+      {
+        "annual_deficit_t": 2.673854451129756,
+        "from_yr": 5,
+        "to_yr": 6
+      },
+      {
+        "annual_deficit_t": 2.2003163962952215,
+        "from_yr": 6,
+        "to_yr": 7
+      },
+      {
+        "annual_deficit_t": 2.677620471236253,
+        "from_yr": 7,
+        "to_yr": 8
+      },
+      {
+        "annual_deficit_t": 2.322835048149102,
+        "from_yr": 8,
+        "to_yr": 9
+      },
+      {
+        "annual_deficit_t": 2.551543729834407,
+        "from_yr": 9,
+        "to_yr": 10
+      },
+      {
+        "annual_deficit_t": 2.0591915113638493,
+        "from_yr": 10,
+        "to_yr": 11
+      },
+      {
+        "annual_deficit_t": 2.186774985264094,
+        "from_yr": 11,
+        "to_yr": 12
+      },
+      {
+        "annual_deficit_t": 2.346900001395113,
+        "from_yr": 12,
+        "to_yr": 13
+      },
+      {
+        "annual_deficit_t": 2.3879888428721188,
+        "from_yr": 13,
+        "to_yr": 14
+      },
+      {
+        "annual_deficit_t": 2.606632246864706,
+        "from_yr": 14,
+        "to_yr": 15
+      },
+      {
+        "annual_deficit_t": 2.757786331898842,
+        "from_yr": 15,
+        "to_yr": 16
+      },
+      {
+        "annual_deficit_t": 2.55854650641038,
+        "from_yr": 16,
+        "to_yr": 17
+      },
+      {
+        "annual_deficit_t": 2.5846189605122163,
+        "from_yr": 17,
+        "to_yr": 18
+      },
+      {
+        "annual_deficit_t": 2.6371599201775098,
+        "from_yr": 18,
+        "to_yr": 19
+      },
+      {
+        "annual_deficit_t": 2.4072137047176057,
+        "from_yr": 19,
+        "to_yr": 20
+      },
+      {
+        "annual_deficit_t": 2.626851921631669,
+        "from_yr": 20,
+        "to_yr": 21
+      },
+      {
+        "annual_deficit_t": 2.491582178709905,
+        "from_yr": 21,
+        "to_yr": 22
+      },
+      {
+        "annual_deficit_t": 2.554914410689662,
+        "from_yr": 22,
+        "to_yr": 23
+      },
+      {
+        "annual_deficit_t": 2.6714453163924645,
+        "from_yr": 23,
+        "to_yr": 24
+      },
+      {
+        "annual_deficit_t": 2.26923499947452,
+        "from_yr": 24,
+        "to_yr": 25
+      },
+      {
+        "annual_deficit_t": 2.540353723904218,
+        "from_yr": 25,
+        "to_yr": 26
+      },
+      {
+        "annual_deficit_t": 2.3986433416509954,
+        "from_yr": 26,
+        "to_yr": 27
+      },
+      {
+        "annual_deficit_t": 2.3086345307640386,
+        "from_yr": 27,
+        "to_yr": 28
+      },
+      {
+        "annual_deficit_t": 2.3662343629437146,
+        "from_yr": 28,
+        "to_yr": 29
+      },
+      {
+        "annual_deficit_t": 2.4451572800885515,
+        "from_yr": 29,
+        "to_yr": 30
+      },
+      {
+        "annual_deficit_t": 2.1234378296965133,
+        "from_yr": 30,
+        "to_yr": 31
+      },
+      {
+        "annual_deficit_t": 2.3401747401476314,
+        "from_yr": 31,
+        "to_yr": 32
+      },
+      {
+        "annual_deficit_t": 2.6435118556676116,
+        "from_yr": 32,
+        "to_yr": 33
+      },
+      {
+        "annual_deficit_t": 2.2891902794378893,
+        "from_yr": 33,
+        "to_yr": 34
+      },
+      {
+        "annual_deficit_t": 2.665556293294685,
+        "from_yr": 34,
+        "to_yr": 35
+      },
+      {
+        "annual_deficit_t": 2.268077882792568,
+        "from_yr": 35,
+        "to_yr": 36
+      },
+      {
+        "annual_deficit_t": 2.6607331835457444,
+        "from_yr": 36,
+        "to_yr": 37
+      },
+      {
+        "annual_deficit_t": 2.69856502368998,
+        "from_yr": 37,
+        "to_yr": 38
+      },
+      {
+        "annual_deficit_t": 2.4169212511142177,
+        "from_yr": 38,
+        "to_yr": 39
+      },
+      {
+        "annual_deficit_t": 2.4855340439371503,
+        "from_yr": 39,
+        "to_yr": 40
+      }
+    ]
+  }
+}

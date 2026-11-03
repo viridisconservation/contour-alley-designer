@@ -11,5 +11,25 @@
  },
  "machinery_m": 6.0,
  "notes": "Wind rose from Missoula (USW00024153) as a proxy: Kalispell has no hourly normals.",
- "species_file": "fixtures/landscapes/species-v2.json"
+ "species_file": "fixtures/landscapes/species-v2.json",
+ "cost_share_reference": [
+  {
+   "program": "NRCS EQIP",
+   "fiscal_year": 2025,
+   "practice": "380 Windbreak/Shelterbelt",
+   "component": "2-row windbreak, trees, machine planted (5 m row taken as 2 plant rows)",
+   "unit": "ft_row",
+   "rate_usd": 0.77,
+   "source": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-mt-eqip.pdf"
+  },
+  {
+   "program": "NRCS EQIP",
+   "fiscal_year": 2025,
+   "practice": "327 Conservation Cover",
+   "component": "Pollinator Species",
+   "unit": "ac_strip",
+   "rate_usd": 687.21,
+   "source": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-mt-eqip.pdf"
+  }
+ ]
 }

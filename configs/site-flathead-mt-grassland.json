@@ -11,5 +11,16 @@
  },
  "machinery_m": 5.0,
  "notes": "NLCD grassland/herbaceous; native status not verified. Wind rose proxy from Missoula.",
- "species_file": "fixtures/landscapes/species-v2.json"
+ "species_file": "fixtures/landscapes/species-v2.json",
+ "cost_share_reference": [
+  {
+   "program": "NRCS EQIP",
+   "fiscal_year": 2025,
+   "practice": "612 Tree/Shrub Establishment",
+   "component": "Forested Area, Per Plant, Tree, Hand Planted (closest component for sparse savanna planting)",
+   "unit": "plant",
+   "rate_usd": 1.48,
+   "source": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-mt-eqip.pdf"
+  }
+ ]
 }

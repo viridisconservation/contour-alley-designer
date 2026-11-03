@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "component": "Forested Area, Per Plant, Tree, Hand Planted (closest component for sparse savanna planting)",
+      "fiscal_year": 2025,
+      "payment_usd": 1195.84,
+      "practice": "612 Tree/Shrub Establishment",
+      "program": "NRCS EQIP",
+      "quantity": 808.0,
+      "rate_usd": 1.48,
+      "source": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-mt-eqip.pdf",
+      "unit": "plant"
+    }
+  ],
+  "support_needed_usd": 0.0,
+  "total_usd": 1195.84
+}

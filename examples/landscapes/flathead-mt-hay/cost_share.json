@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "component": "2-row windbreak, trees, machine planted (5 m row taken as 2 plant rows)",
+      "fiscal_year": 2025,
+      "payment_usd": 7881.890015999999,
+      "practice": "380 Windbreak/Shelterbelt",
+      "program": "NRCS EQIP",
+      "quantity": 10236.2208,
+      "rate_usd": 0.77,
+      "source": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-mt-eqip.pdf",
+      "unit": "ft_row"
+    },
+    {
+      "component": "Pollinator Species",
+      "fiscal_year": 2025,
+      "payment_usd": 0.0,
+      "practice": "327 Conservation Cover",
+      "program": "NRCS EQIP",
+      "quantity": 0.0,
+      "rate_usd": 687.21,
+      "source": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-mt-eqip.pdf",
+      "unit": "ac_strip"
+    }
+  ],
+  "support_needed_usd": 457.55411590771473,
+  "total_usd": 7881.890015999999
+}

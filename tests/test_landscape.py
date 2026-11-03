@@ -277,6 +277,21 @@ class Grounding(unittest.TestCase):
         self.assertGreater(r[0.3][4]['tree_product_t'], r[0.0][4]['tree_product_t'])
 
 
+class RowSoil(unittest.TestCase):
+    def test_litter_and_untilled_rows_build_soil_carbon(self):
+        """LG18: leaf/fine-root litter and slower decay under untilled rows raise row SOC; balances close."""
+        f = small(); d = contour(f)
+        base = {'soil': {'init_equilibrium': False}}
+        P0 = validate(merge(base))
+        P1 = validate(merge({'tree': {'leaf_litter_tC_ha_yr': 1.5, 'fine_root_litter_tC_ha_yr': 1.0},
+                             'soil': {'perennial_decay_factor': 0.7}}, P0))
+        r0 = simulate(f, d, P0, weather(P0, 10), (10,))
+        r1 = simulate(f, d, P1, weather(P1, 10), (10,))
+        closes(r1)
+        self.assertGreater(r1[10]['tree_litter_tC'], 0)
+        self.assertGreater(r1[10]['pools_tC']['soc'], r0[10]['pools_tC']['soc'])
+
+
 class Height(unittest.TestCase):
     def test_age_height_ignores_harvest(self):
         """LG15: age-based height is independent of wood removed by harvest and coppice."""
@@ -449,3 +464,21 @@ class DesignerEndToEnd(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+def test_vmd0054_leakage_and_cost_share():
+    """LG19: VMD0054 leakage is a one-time conversion (IS x NL / yield x dCS), floored at zero;
+    cost-share is quantity x published rate."""
+    from contour.accounting import vmd0054_leakage, cost_share_estimate
+    base = {10: {'crop_product_t': 1000.0}, 25: {'crop_product_t': 2500.0}, 40: {'crop_product_t': 4000.0}}
+    rec = {10: {'crop_product_t': 950.0}, 25: {'crop_product_t': 2300.0}, 40: {'crop_product_t': 3650.0}}
+    v = vmd0054_leakage(rec, base, field_ha=10.0)
+    assert abs(v['regional_yield_t_ha_yr'] - 10.0) < 1e-12
+    assert abs(v['max_annual_deficit_t'] - 10.0) < 1e-12          # (200-50)/15 = 10 t/yr in yrs 10-25
+    assert abs(v['converted_area_ha'] - 10.0 * 0.3 / 10.0) < 1e-12
+    assert abs(v['leakage_tCO2e'] - 0.3 * 90.0 * 44 / 12) < 1e-9
+    gain = {h: {'crop_product_t': x['crop_product_t'] * 1.1} for h, x in base.items()}
+    assert vmd0054_leakage(gain, base, 10.0)['leakage_tCO2e'] == 0.0  # no credit for land sparing
+    cs = cost_share_estimate([{'unit': 'ft_row', 'rate_usd': 1.0}, {'unit': 'plant', 'rate_usd': 2.0}],
+                             tree_area_ha=1.0, row_m=5.0, plants=100, strip_ha=0.0)
+    assert abs(cs['items'][0]['quantity'] - 2000 * 3.28084) < 1e-6 and abs(cs['total_usd'] - (2000 * 3.28084 + 200)) < 1e-6

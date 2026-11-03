@@ -15,7 +15,7 @@ import platform
 from pathlib import Path
 
 from . import __version__
-from .accounting import compare
+from .accounting import compare, cost_share_estimate, vmd0054_leakage
 from .landscape import (check_design, classify, load_species_v2, matrix_parameters, pick_fixers,
                         portfolio_options, rules, suitability)
 from .monitoring import (implementation, predictions, sampling_plan, schedule, success, write_predictions_csv)
@@ -26,9 +26,9 @@ from .terrain import load_json
 
 SITE_KEYS = {'name', 'field', 'land_cover', 'region', 'climate_normals', 'wind', 'soil', 'machinery_m', 'row_m',
              'species_file', 'parameters', 'assumed_effects', 'carbon_price_usd_t', 'screen_years', 'confirm_years',
-             'top_k', 'notes'}
+             'top_k', 'notes', 'cost_share_reference', 'vmd0054'}
 REQUIRED = {'name', 'field', 'land_cover', 'region', 'climate_normals', 'wind', 'soil', 'machinery_m', 'species_file'}
-# Assumed effects by aridity class (LG16, grounded 2026-11-01; see reports/Agroforestry parameter grounding.md).
+# Assumed effects by aridity class (LG16, grounded 2026-11-01; see docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md).
 # Shelter saves water mainly in dry, windy climates (CSIRO EA02006), so et_beta falls toward humid sites. Edge
 # competition is strong near rows (Lyles 1984 Kansas ~75% at 0.5H; Rivest 2005 Quebec 51-63% at 2 m; Ontario
 # 71-75%), decays over 0.5-1.5H, and root pruning recovers 10-44% (Brandle 2009): values assume root-pruned rows.
@@ -46,6 +46,9 @@ DEFAULT_ASSUMED = ASSUMED_BY_CLASS['subhumid']
 # Woody growth per ha of row by aridity (Cardinael 2018 temperate hedgerow/windbreak ~1.1 tC/ha/yr per ha of system;
 # COMET-Planner windbreak ~0.7 dry / ~1.2 moist tC per ha of windbreak; alley rows up to ~4-6 per ha of row)
 GROWTH_BY_CLASS = {'semiarid': 1.5, 'subhumid': 2.5, 'humid': 3.5}
+# Leaf and fine-root turnover (tC per ha of row per year at full canopy; LG18). Temperate deciduous leaf fall is
+# ~1.5-2 tC/ha/yr in closed stands; narrower rows and drier sites lower. REVIEW.
+LITTER_BY_CLASS = {'semiarid': (0.8, 0.6), 'subhumid': (1.2, 0.8), 'humid': (1.5, 1.0)}
 
 
 def n2o_factors(cls):
@@ -82,10 +85,15 @@ def base_parameters(site, cls, rule, fixers):
         'climate': {'monthly_precip_mm': clim['precip_mm_month'], 'monthly_pet_mm': clim['pet_hargreaves_mm_month'],
                     'monthly_tmean_c': clim['tmean_c'], 'season_months': cls['growing_season_months'],
                     'wind_sectors': _norm(wind['summer']), 'wind_sectors_winter': _norm(wind['winter'])},
-        'soil': {'soc_tC_ha': so['soc_tC_ha'], 'capacity_mm': so['capacity_mm'], 'init_equilibrium': True},
+        # untilled perennial rows and strips decompose SOC at 0.7x the tilled rate; with litter this gives row-zone
+        # SOC gains ~0.2-0.25 tC/ha-row/yr, below Cardinael et al. 2018 hedgerow ~0.45 (conservative). REVIEW.
+        'soil': {'soc_tC_ha': so['soc_tC_ha'], 'capacity_mm': so['capacity_mm'], 'init_equilibrium': True,
+                 'perennial_decay_factor': 0.7},
         'snow': {'enabled': cls['snow_climate'], 'loss_basis': 'snowfall'},
         'establishment': {'mortality_max_yr': 0.5},
-        'tree': {'height_model': 'age', 'h_tau_yr': 10.0, 'growth_tC_ha_yr': GROWTH_BY_CLASS[cls['aridity_class']]},
+        'tree': {'height_model': 'age', 'h_tau_yr': 10.0, 'growth_tC_ha_yr': GROWTH_BY_CLASS[cls['aridity_class']],
+                 'leaf_litter_tC_ha_yr': LITTER_BY_CLASS[cls['aridity_class']][0],
+                 'fine_root_litter_tC_ha_yr': LITTER_BY_CLASS[cls['aridity_class']][1]},
         'snow_basis': None,
         'emissions': n2o_factors(cls),
         # on-farm kiln char without documented >=450 C production: Fperm 0.70 (IPCC 2019 Ap4 0.65-0.80; Woolf 2021 ~0.72
@@ -305,6 +313,37 @@ def write_report(out, site, cls, rule, suit, res, best, d, pf, fixers, verdict, 
     sens = {f: cz['gross_additional_tCO2e'] - lam * f * cz['crop_product_deficit_t'] for f in (0.25, 1.0, 3.0)}
     L.append(f"Leakage-factor sensitivity (central, zero effects; the defensible range spans ~0.2-3 tCO2e/t grain): net carbon "
              f"{sens[0.25]:,.1f} / {sens[1.0]:,.1f} / {sens[3.0]:,.1f} tCO2e at {lam * 0.25:.2f} / {lam:.2f} / {lam * 3:.2f} tCO2e per t.\n")
+    # LG19: Verra VMD0054 v1.1 leakage (one-time land conversion) beside the per-tonne factor
+    vmd = {}
+    for (draw, em), (r, P) in res['confirm'][best['name']]['runs'].items():
+        v = vmd0054_leakage(r, res['baseline'][draw][1], fha, site.get('vmd0054'))
+        cr = next(x for x in rows if x['design'] == best['name'] and x['draw'] == draw and x['effects'] == em)
+        v['net_tCO2e'] = cr['gross_additional_tCO2e'] - v['leakage_tCO2e']
+        v['reversal_adjusted_net_tCO2e'] = v['net_tCO2e'] - cr['reversal_exposure_tCO2e']
+        vmd[f'{draw}/{em}'] = v
+    vc = vmd['central/zero_effect']
+    worst_v = min(v['reversal_adjusted_net_tCO2e'] for v in vmd.values())
+    L.append(f"Verra VMD0054 v1.1 leakage (leakage-only defaults IS 75% x NL 40%, new land assumed forest at "
+             f"{vc['parameters']['delta_cs_tC_ha']:.0f} tC/ha, counted once): peak displaced output "
+             f"{vc['max_annual_deficit_t']:,.1f} t/yr at a regional yield of {vc['regional_yield_t_ha_yr']:.2f} t/ha/yr "
+             f"= {vc['converted_area_ha']:.2f} ha converted, {vc['leakage_tCO2e']:,.1f} tCO2e (central, zero effects; "
+             f"the per-tonne factor charges {cz['leakage_tCO2e']:,.1f}). Reversal-adjusted net under VMD0054: "
+             f"{vc['reversal_adjusted_net_tCO2e']:,.1f} central, {worst_v:,.1f} worst case; S1 under VMD0054 "
+             f"{'holds' if worst_v > 0 else 'fails'}. Cross-commodity netting of the new tree crops (v1.1) is "
+             'allowed but not computed here.\n')
+    dump(out / 'leakage_vmd0054.json', vmd)
+    cs = cost_share_estimate(site.get('cost_share_reference'), d.metrics['tree_area_ha'], d.metrics['row_m'],
+                             impl['plants_total'], best['strip_fraction'] * fha)
+    if cs['items']:
+        need = dd['upfront_support_for_year25_breakeven_usd'] or 0.0
+        L.append('Indicative cost-share from published NRCS schedules (standard rates; actual contracts set by the NRCS planner):\n')
+        for i in cs['items']:
+            L.append(f"- {i['program']} FY{i['fiscal_year']} {i['practice']}, {i['component']}: ${i['rate_usd']:.2f} per "
+                     f"{i['unit'].replace('_', ' ')} x {i['quantity']:,.0f} = ${i['payment_usd']:,.0f}")
+        L.append(f"\nTotal ${cs['total_usd']:,.0f} against ${need:,.0f} upfront support needed for year-25 breakeven"
+                 + ((' (fully covered).' if cs['total_usd'] >= need else f" ({cs['total_usd'] / need * 100:.0f}% covered).")
+                    if need > 0 else '.') + '\n')
+        dump(out / 'cost_share.json', dict(cs, support_needed_usd=need))
     L.append('## Implementation\n')
     L.append(f"- Row area {impl['row_area_ha']:.2f} ha, {impl['plants_total']:,} plants, replanting allowance "
              f"{impl['replanting_allowance_plants']:,} (central draw)")

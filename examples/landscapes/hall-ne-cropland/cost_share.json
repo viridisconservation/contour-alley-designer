@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "component": "Machine Plant Trees",
+      "fiscal_year": 2025,
+      "payment_usd": 2636.483024,
+      "practice": "380 Windbreak/Shelterbelt",
+      "program": "NRCS EQIP",
+      "quantity": 4708.0054,
+      "rate_usd": 0.56,
+      "source": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-ne-eqip.pdf",
+      "unit": "ft_row"
+    }
+  ],
+  "support_needed_usd": 0.0,
+  "total_usd": 2636.483024
+}
