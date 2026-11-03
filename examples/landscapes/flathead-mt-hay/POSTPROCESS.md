@@ -1,1 +1,1 @@
-The carbon benchmark line in report.md/report.html was rewritten after the run to express woody gain per ha of tree row (woody per field ha / tree fraction) against COMET-Planner windbreak rates. No simulation changed.
+The cost-share line in report.md/report.html was corrected after the run from '(999% covered)' to '(fully covered)' (a display cap bug, fixed in contour/designer.py). No simulation changed.

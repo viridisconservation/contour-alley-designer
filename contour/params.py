@@ -20,7 +20,7 @@ DEFAULTS = {
              'infil_cap_row_mm': 70.0, 'infil_soc_coef': 0.002, 'infil_residue_boost': 1.0,
              'drain_frac_month': 0.03, 'interflow_frac': 0.3, 'soil_evap_frac': 0.3, 'soc_tC_ha': 55.0, 'soc_decay_yr': 0.012,
              'soil_cn': 11.0, 'initial_mineral_kgN_ha': 30.0, 'gas_loss_yr': 0.6, 'leach_mobility': 0.3,
-             'mineral_n_ceiling_kgN_ha': 300.0,
+             'mineral_n_ceiling_kgN_ha': 300.0, 'perennial_decay_factor': 1.0,
              'init_equilibrium': False, 'equilibrium_moisture_factor': 0.85, 'equilibrium_water_satisfaction': 0.9},
     'crop': {'npp_tC_ha_yr': 4.0, 'product_t_per_tC': 1.0, 'n_kg_per_tC': 25.0, 'residue_frac': 0.3, 'root_frac': 0.2,
              'kc': 0.9, 'price_usd_t': 300.0, 'op_cost_usd_ha_yr': 600.0, 'ops_tco2e_ha_yr': 0.25},
@@ -29,7 +29,9 @@ DEFAULTS = {
              'h_half_tC_ha': 40.0, 'product_t_ha_yr': 1.5, 'mature_tC_ha': 20.0, 'harvest_month': 9,
              'product_price_usd_t': 1500.0, 'product_c_frac': 0.45, 'product_n_kg_t': 25.0,
              'maint_usd_ha_yr': 300.0, 'establish_usd_ha': 6000.0, 'establish_tco2e_ha': 1.0,
-             'height_model': 'carbon', 'h_tau_yr': 10.0},
+             'height_model': 'carbon', 'h_tau_yr': 10.0,
+             'leaf_litter_tC_ha_yr': 0.0, 'fine_root_litter_tC_ha_yr': 0.0, 'litter_n_kg_per_tC': 20.0,
+             'root_litter_to_soc_frac': 0.3},
     'cover': {'enabled': True, 'npp_tC_ha_yr': 2.0, 'n_kg_per_tC': 30.0, 'ndfa_max': 0.8, 'kc': 0.8,
               'mow_months': [6, 8], 'cut_frac': 0.7, 'senesce_month': 11, 'seed_usd_ha': 150.0,
               'mow_usd_ha_pass': 40.0, 'mow_tco2e_ha_pass': 0.01, 'circle_years': 3, 'pollinator_understory': False},
@@ -147,7 +149,7 @@ def validate(P):
     for k in ('storm_fraction',):
         if P['climate'][k] > 1:
             raise ValueError('storm_fraction must be <= 1')
-    for g, k in (('crop', 'residue_frac'), ('crop', 'root_frac'), ('tree', 'root_frac'), ('cover', 'ndfa_max'), ('cover', 'cut_frac'),
+    for g, k in (('crop', 'residue_frac'), ('crop', 'root_frac'), ('tree', 'root_frac'), ('tree', 'root_litter_to_soc_frac'), ('cover', 'ndfa_max'), ('cover', 'cut_frac'),
                  ('fixer', 'share'), ('coppice', 'cut_frac'), ('coppice', 'biochar_frac'),
                  ('residue', 'stabilized_frac'), ('biochar', 'carbon_yield'), ('biochar', 'n_retained_frac'),
                  ('effects', 'porosity'), ('effects', 'shelter_max_reduction'), ('effects', 'et_beta'),

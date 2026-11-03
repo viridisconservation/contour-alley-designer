@@ -10,5 +10,16 @@
   "capacity_mm": 185.2
  },
  "machinery_m": 12.0,
- "species_file": "fixtures/landscapes/species-v2.json"
+ "species_file": "fixtures/landscapes/species-v2.json",
+ "cost_share_reference": [
+  {
+   "program": "NRCS EQIP",
+   "fiscal_year": 2025,
+   "practice": "380 Windbreak/Shelterbelt",
+   "component": "Machine Plant Trees",
+   "unit": "ft_row",
+   "rate_usd": 0.56,
+   "source": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-ne-eqip.pdf"
+  }
+ ]
 }

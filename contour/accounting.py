@@ -45,3 +45,54 @@ def compare(rec, base, P):
         'net_additional_with_substitution_tCO2e': net + min(leakage, P['leakage']['grain_eq_tco2e_per_t']
                                                              * rec.get('tree_grain_equivalent_t', 0.0)),
     }
+
+
+VMD0054_DEFAULTS = {
+    # Verra VMD0054 v1.1 (13 Jan 2026) Table 1, leakage-only accounting of displaced agricultural production
+    'increased_supply_frac': 0.75, 'new_land_frac': 0.40,
+    # Carbon lost when new land is assumed to be forest (VMD0054 s5.4: all above/belowground biomass, dead wood
+    # and litter, plus a soil loss). ASSUMED national mean: ~73 tC/ha non-soil forest carbon (Birdsey 1992, USFS:
+    # 177 total - 104 soil) + ~0.31 x 60 tC/ha SOC loss on conversion to cropland. Replace with regional FIA values.
+    'delta_cs_tC_ha': 90.0,
+}
+
+
+def vmd0054_leakage(rec, base, field_ha, cfg=None):
+    """Leakage under Verra VMD0054 v1.1 leakage-only defaults (LG19).
+
+    rec, base: kernel horizon records {year: record} for the design and conventional A (same draw).
+    Displacement is a one-time land conversion, not an annual charge: the converted area is set by the
+    largest mean annual production deficit over the horizon windows, x IS x NL / regional yield.
+    The regional yield G is A's own modeled yield (finer than national, as the module allows).
+    No baseline yield trend is applied because the kernel has none (the module's 2.5%/yr default trend
+    would apply in MRV to the historical baseline). Cross-commodity netting of new tree crops
+    (IS = NL = 100% project-wide) is not computed: it needs national yields and FAOSTAT trends."""
+    c = dict(VMD0054_DEFAULTS, **(cfg or {}))
+    hz = sorted(k for k in rec if isinstance(k, int))
+    T = hz[-1]
+    G = base[T]['crop_product_t'] / max(field_ha * T, 1e-12)  # t per ha per yr
+    prev_y, prev_d, worst = 0, 0.0, 0.0
+    windows = []
+    for h in hz:
+        dcum = base[h]['crop_product_t'] - rec[h]['crop_product_t']
+        rate = (dcum - prev_d) / (h - prev_y)
+        windows.append({'from_yr': prev_y, 'to_yr': h, 'annual_deficit_t': rate})
+        worst = max(worst, rate)
+        prev_y, prev_d = h, dcum
+    area = worst * c['increased_supply_frac'] * c['new_land_frac'] / G if G > 0 else 0.0
+    lk = area * c['delta_cs_tC_ha'] * 44 / 12
+    return {'method': 'VMD0054 v1.1 leakage-only defaults', 'regional_yield_t_ha_yr': G,
+            'max_annual_deficit_t': worst, 'converted_area_ha': area, 'leakage_tCO2e': lk,
+            'windows': windows, 'parameters': c}
+
+
+def cost_share_estimate(refs, tree_area_ha, row_m, plants, strip_ha):
+    """Indicative NRCS payment for the chosen design from a site's published schedule rows (LG19).
+    Units: ft_row (row centre-line length), plant, ac_row (tree-row acres), ac_strip (native strip acres)."""
+    qty = {'ft_row': tree_area_ha * 1e4 / max(row_m, 1e-9) * 3.28084, 'plant': float(plants),
+           'ac_row': tree_area_ha * 2.47105, 'ac_strip': strip_ha * 2.47105}
+    items = []
+    for r in refs or []:
+        q = qty[r['unit']]
+        items.append(dict(r, quantity=q, payment_usd=q * r['rate_usd']))
+    return {'items': items, 'total_usd': sum(i['payment_usd'] for i in items)}

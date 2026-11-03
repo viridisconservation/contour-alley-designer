@@ -12,20 +12,20 @@
   "model": "contour.designer",
   "python": "3.13.18",
   "source_sha256": {
-    "__init__.py": "bb6eee5dda0e415497509ae58838d90291b0b19c9c8058a29c9c135ac4de1505",
-    "accounting.py": "1ee66e797caf9084b24fa023a647f1e52757dc57134608ccaf829bd5034a47cf",
-    "designer.py": "3e037d8bde0ec13901a8d6d78a731e72d60640c260691cee69f2f911c3f3cd5a",
+    "__init__.py": "02dd238f7fe731c8499b9185927eccd5cd6225286325fdbc968423ea27543edc",
+    "accounting.py": "4f301f5f03a4156fc30a66129044a4002ade265fd4cdd3402286b42b960acb62",
+    "designer.py": "117dcb94a16fc8ece8609185dd838d618f478547764bf035d4b05ca55b470602",
     "experiment.py": "132416d4dab020db75f38742c8055b571ac025af964b7df7399704db929fee25",
-    "kernel.py": "0feb3d1357b8a7a09e8e8ffd4dc824793875cc73b601091dd3c2bf35a0a76205",
+    "kernel.py": "60c715043159ebb6f39631cc94bf3bd6d9c68b8c0aff3647c39acb10b81292cc",
     "landscape.py": "3c7a0ec9e21ad68e9c064185910ad9f068971f0004eb3b5fc299d7b989b295f7",
     "layout.py": "335f340d456c83d74552b103902e4e12e4c3ce0909755d0343b7b5ec40185f7b",
     "monitor_check.py": "f02ba12ec7679037402fc481988a905e59924dd2902ada42ef609824fa106083",
     "monitoring.py": "3b3524cef1432cd435a1fdce4513960959f029567f2c86515a63d4e239f2c3d9",
     "optimize.py": "a3902c04e8a1712ad2193daa18ebfe9d94fc504034c78220876c789cc93b2b8c",
-    "params.py": "df487e20a3ce7278bf8b8dde012cb8f73f78aa4676bb57be47a838bc46130ba3",
+    "params.py": "6b5fa4aa0358df2449245689bbf631b40239cedb36ac5e8872be5db894384c6a",
     "report.py": "5260c9e5c0d65dd179942e6af27bd7900cc6a23bf2e0cd1a716da027d0e0efbc",
     "species.py": "7335ac0be5721c085cc5b7e03ea91db45b7431c0f06f8967dfa39b577294a825",
     "terrain.py": "2b0b9f67bbbb0c4a835f4704967f9ed98c8248b96647156003f591b56b5031b0"
   },
-  "version": "0.6.0-dev"
+  "version": "0.6.3"
 }

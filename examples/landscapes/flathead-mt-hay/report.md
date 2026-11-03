@@ -23,20 +23,20 @@ Nitrogen fixers in the row: buffaloberry
 
 | Candidate | Layout | Alley m | Native habitat | Row mix | Screen score | Worst-case score |
 |---|---|---|---|---|---|---|
-| X25 | windbreak | 120 | pollinator understory | food_value | -938 | 291 |
-| X27 | windbreak_winter | 120 | pollinator understory | food_value | -938 | 291 |
-| X05 | windbreak | 120 | none | food_value | -1,003 | 386 |
-| X08 | windbreak_winter | 120 | none | food_value | -1,003 | — |
-| X04 | windbreak | 102 | none | food_value | -1,246 | — |
-| X07 | windbreak_winter | 102 | none | food_value | -1,246 | — |
-| X02 | parallel_contour | 108 | none | food_value | -1,295 | — |
-| X09 | windbreak | 120 | none | nut_feed_permanent | -1,378 | — |
-| X14 | windbreak_winter | 120 | none | nut_feed_permanent | -1,378 | — |
-| X11 | windbreak | 120 | none | mixed_food_feed | -1,415 | — |
+| X25 | windbreak | 120 | pollinator understory | food_value | -703 | 992 |
+| X27 | windbreak_winter | 120 | pollinator understory | food_value | -703 | 992 |
+| X05 | windbreak | 120 | none | food_value | -790 | 1,035 |
+| X08 | windbreak_winter | 120 | none | food_value | -790 | — |
+| X04 | windbreak | 102 | none | food_value | -997 | — |
+| X07 | windbreak_winter | 102 | none | food_value | -997 | — |
+| X02 | parallel_contour | 108 | none | food_value | -1,060 | — |
+| X09 | windbreak | 120 | none | nut_feed_permanent | -1,175 | — |
+| X14 | windbreak_winter | 120 | none | nut_feed_permanent | -1,175 | — |
+| X11 | windbreak | 120 | none | mixed_food_feed | -1,211 | — |
 
 Score = NPV vs conventional (2026 USD) + carbon at $50/t on the reversal-adjusted, leakage-net removal (field total).
 
-Price of pollinator habitat (best habitat finalist vs best without, worst case): $890 over 40 years for 0.51 ha (pollinator understory). Pollination gains count only in the assumed-effects runs until measured.
+Price of pollinator habitat (best habitat finalist vs best without, worst case): $2,164 over 40 years for 0.51 ha (pollinator understory). Pollination gains count only in the assumed-effects runs until measured.
 
 ## Chosen design: X00
 
@@ -55,24 +55,33 @@ Price of pollinator habitat (best habitat finalist vs best without, worst case):
 - PASS S5_integrity: no landscape rule violations; species pass the regional gate
 - PASS S6_balances_close: water, carbon and nitrogen balances close in every run
 
-Worst-case net carbon 24.5 tCO2e, best 56.7; breakeven year (central) 27; minimum establishment survival 1.00. Upfront support that would bring breakeven to year 25 (central): $854 ($547 per ha of tree row), the size of a cost-share or pre-purchase agreement that closes the gap.
+Worst-case net carbon 52.2 tCO2e, best 90.1; breakeven year (central) 26; minimum establishment survival 1.00. Upfront support that would bring breakeven to year 25 (central): $458 ($293 per ha of tree row), the size of a cost-share or pre-purchase agreement that closes the gap.
 
 ## Outcomes at year 40 vs conventional (chosen design)
 
 | Draw | Effects | Net carbon tCO2e | Reversal-adj. tCO2e | With food/feed substitution | NPV vs A $ | Outflow change mm | July alley water mm (A) |
 |---|---|---|---|---|---|---|---|
-| dry | zero_effect | 39.7 | 24.5 | 44.4 | -43 | -95.7 | -0.0 (-0.0) |
-| dry | assumed_effects | 53.0 | 37.1 | 57.7 | 1,544 | -77.7 | 0.0 (-0.0) |
-| central | zero_effect | 52.5 | 33.9 | 59.1 | 6,432 | -301.6 | 0.0 (-0.0) |
-| central | assumed_effects | 68.9 | 49.5 | 75.5 | 8,301 | -246.8 | 0.0 (-0.0) |
-| wet | zero_effect | 60.5 | 39.7 | 68.4 | 11,263 | -382.5 | -0.0 (-0.0) |
-| wet | assumed_effects | 78.3 | 56.7 | 86.3 | 13,299 | -321.5 | 0.0 (-0.0) |
+| dry | zero_effect | 69.5 | 52.2 | 74.4 | 544 | -97.6 | -0.0 (-0.0) |
+| dry | assumed_effects | 82.8 | 64.9 | 87.7 | 2,130 | -80.3 | 0.0 (-0.0) |
+| central | zero_effect | 86.0 | 65.0 | 92.8 | 6,991 | -312.7 | -0.0 (-0.0) |
+| central | assumed_effects | 102.4 | 80.5 | 109.1 | 8,861 | -258.7 | 0.0 (-0.0) |
+| wet | zero_effect | 96.5 | 73.1 | 104.5 | 11,714 | -396.9 | -0.0 (-0.0) |
+| wet | assumed_effects | 114.3 | 90.1 | 122.4 | 13,750 | -336.6 | -0.0 (-0.0) |
 
 The substitution column credits tree food/feed against displaced crop output; it is reported, never used as the headline.
 
-Carbon gain vs A (central, zero effects): woody 0.25 tC per ha of tree row per year (0.03 per field ha); soil 0.01 and biochar 0.00 tC per field ha per year. Benchmarks: COMET-Planner windbreak ~0.7 (dry) to ~1.2 (moist) tC per planted ha per year; Cardinael et al. 2018 temperate hedgerow SOC ~0.45 tC/ha/yr. The model's row-zone SOC response is not yet calibrated.
+Carbon gain vs A (central, zero effects): woody 0.23 tC per ha of tree row per year (0.03 per field ha); soil 0.02 and biochar 0.00 tC per field ha per year. Benchmarks: COMET-Planner windbreak ~0.7 (dry) to ~1.2 (moist) tC per planted ha per year; Cardinael et al. 2018 temperate hedgerow SOC ~0.45 tC/ha/yr. The model's row-zone SOC response is not yet calibrated.
 
-Leakage-factor sensitivity (central, zero effects; the defensible range spans ~0.2-3 tCO2e/t grain): net carbon 70.0 / 52.5 / 6.0 tCO2e at 0.10 / 0.40 / 1.20 tCO2e per t.
+Leakage-factor sensitivity (central, zero effects; the defensible range spans ~0.2-3 tCO2e/t grain): net carbon 103.4 / 86.0 / 39.6 tCO2e at 0.10 / 0.40 / 1.20 tCO2e per t.
+
+Verra VMD0054 v1.1 leakage (leakage-only defaults IS 75% x NL 40%, new land assumed forest at 90 tC/ha, counted once): peak displaced output 1.7 t/yr at a regional yield of 0.96 t/ha/yr = 0.54 ha converted, 176.8 tCO2e (central, zero effects; the per-tonne factor charges 23.2). Reversal-adjusted net under VMD0054: -88.6 central, -112.4 worst case; S1 under VMD0054 fails. Cross-commodity netting of the new tree crops (v1.1) is allowed but not computed here.
+
+Indicative cost-share from published NRCS schedules (standard rates; actual contracts set by the NRCS planner):
+
+- NRCS EQIP FY2025 380 Windbreak/Shelterbelt, 2-row windbreak, trees, machine planted (5 m row taken as 2 plant rows): $0.77 per ft row x 10,236 = $7,882
+- NRCS EQIP FY2025 327 Conservation Cover, Pollinator Species: $687.21 per ac strip x 0 = $0
+
+Total $7,882 against $458 upfront support needed for year-25 breakeven (fully covered).
 
 ## Implementation
 

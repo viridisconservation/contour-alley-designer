@@ -68,18 +68,21 @@ The pipeline runs field → classify → screen → robust confirmation → succ
 
 Four real fields are included, each about 10–13 ha. They use USGS 3DEP lidar, NLCD 2021, USDA SSURGO, NOAA 1991–2020 normals and NOAA hourly wind, with locations anonymized to county. Rendered reports are in `examples/landscapes/`.
 
-| Field | Class | Chosen design | Worst-case net carbon, 40 yr* | Verdict |
-|---|---|---|---|---|
-| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the NW winter wind, 84 m alleys, 6% trees (chestnut, chokecherry, saskatoon) | −5 tCO₂e | conditional: carbon ≈ leakage charge |
-| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees | +24 tCO₂e | conditional: payback year 27 |
-| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +15 tCO₂e | confirmed (model) |
-| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees (chestnut, chokecherry, saskatoon), native pollinator understory | +9 tCO₂e | confirmed (model) |
+| Field | Class | Chosen design | Worst-case net carbon, 40 yr* | Under Verra VMD0054** | Verdict |
+|---|---|---|---|---|---|
+| Hall County, NE cropland | plain, subhumid | shelterbelt rows across the summer wind, 84 m alleys, 6% trees (chestnut, chokecherry, saskatoon), native pollinator understory | +26 tCO₂e | +6 | confirmed (model) |
+| Flathead County, MT hay | rolling, semi-arid, snow | contour silvopasture, 36 m alleys, 12% trees (chokecherry, saskatoon, persimmon) | +52 tCO₂e | −112 | conditional: payback year 26 |
+| Flathead County, MT grassland | hill, semi-arid, snow | native savanna hedges on contour, 4% cover | +30 tCO₂e | −24 | confirmed (model) |
+| Franklin County, VT cropland | rolling, humid | contour alleys, 20 m, 20% trees (chestnut, chokecherry, saskatoon), native pollinator understory | +137 tCO₂e | +93 | confirmed (model) |
 
-\*Reversal-adjusted and leakage-net vs conventional, over the worst of 3 climate draws × 2 effect modes. "Confirmed (model)" means every success criterion held in every simulated draw. It is not a field guarantee.
+\*Reversal-adjusted and leakage-net vs conventional, over the worst of 3 climate draws × 2 effect modes, with the headline per-tonne leakage charge. "Confirmed (model)" means every success criterion held in every simulated draw. It is not a field guarantee.
+\*\*Same worst case with leakage computed by Verra VMD0054 v1.1 defaults (one-time conversion of 75% × 40% of the displaced output at local yield, new land assumed forest at 90 tC/ha). Cross-commodity netting of the tree crops is not yet computed.
 
-Parameters are grounded in a literature review ([docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md](docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md)). Woody carbon lands at about 0.7 (Nebraska) to 1.0 (Vermont) tC per ha of tree row per year, matching USDA COMET-Planner windbreak rates. On cropland, the charge for displaced crop (leakage) cancels most of the gross gain. Nebraska's result swings from +71 to −121 tCO₂e across the defensible leakage range (0.2–2.4 tCO₂e per t grain), so leakage, not tree growth, decides the climate case there.
+Parameters are grounded in a literature review ([docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md](docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md)). Woody carbon lands at about 0.6 (Nebraska) to 1.0 (Vermont) tC per ha of tree row per year, matching USDA COMET-Planner windbreak rates. Since v0.6.3, rows also return leaf and fine-root litter and decompose slower than tilled ground, so row soil gains about 0.2–0.25 tC per ha of row per year (conservative against the ~0.45 of Cardinael et al. 2018).
 
-At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free: on the Nebraska field it cost about $460 over 40 years in the worst case. Separate strips cost crop area.
+The two leakage rules disagree in an instructive way. The per-tonne charge hits productive cropland hardest. VMD0054 converts lost output to hectares at the local yield, so on low-yield forage land a small loss maps to a large area of assumed forest clearing: both Montana fields turn negative under it, while both cropland fields stay positive. Each report gives both, plus an indicative NRCS EQIP payment from the published state schedule.
+
+At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free (about $100 over 40 years on the Nebraska field in the worst case), and the designer chose it on both cropland fields. Separate strips cost crop area.
 
 ## Use your own field
 
@@ -94,7 +97,7 @@ python3 -m contour.designer --site sites/my-field/site.json --output runs/my-fie
 
 `fetch_site.py` pulls USGS 3DEP terrain, NLCD 2021 land cover, USDA SSURGO soils and NOAA 1991–2020 normals and hourly wind. It anonymizes the field and writes a designer-ready `site.json`. The exact location goes only to `PRIVATE_location.json`, which is git-ignored. Given the Franklin County coordinates, it rebuilt the shipped Vermont fixture to within one cell, about 1% on soil carbon and 0.1% on PET.
 
-On Google Earth Engine, `earth_engine/export_field_dem.js` exports terrain, NLCD and the AlphaEarth satellite embedding. Its dataset IDs were checked against the catalog on 2026-11-02, but the script has not yet been executed. `tools/geotiff_to_field.py` converts its exports into a field for the designer.
+On Google Earth Engine, `earth_engine/export_field.py` (Python API, direct download) and `earth_engine/export_field_dem.js` (Code Editor) export terrain, NLCD and the AlphaEarth satellite embedding. Dataset IDs were checked against the catalog on 2026-11-02; an end-to-end run against the shipped fixtures is pending. `tools/geotiff_to_field.py` converts the exports into a field for the designer.
 
 ## Pilot results (Franklin County field, 40 years; simulated)
 

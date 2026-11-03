@@ -100,6 +100,7 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
         raise ValueError('snow requires monthly temperature (climate.monthly_tmean_c)')
     est_on = es['mortality_max_yr'] > 0
     sp_by = {sp['id']: sp for sp in pf}
+    lit_on = tr['leaf_litter_tC_ha_yr'] + tr['fine_root_litter_tC_ha_yr'] > 0
     ccs = P['coppice_crops']['species']                 # coppice crops in the row (LG13)
     po = P['pollination']
     hab = [bool(strip[i]) and P['strip']['pollinator'] for i in range(n)]
@@ -166,7 +167,7 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
         'lateral_residue_tC', 'lateral_residue_kgN', 'interflow_mm_cells', 'sub_outflow_mm_cells',
         'snowfall_mm_cells', 'snow_loss_mm_cells', 'melt_mm_cells', 'strip_npp_tC', 'fix_strip_kgN',
         'fix_matrix_kgN', 'manure_return_tC', 'replant_ha', 'establish_dead_tC', 'tree_food_t', 'tree_feed_t',
-        'tree_grain_eq_t', 'coppice_product_t')}
+        'tree_grain_eq_t', 'coppice_product_t', 'tree_litter_tC')}
     sp_t = {sp['id']: 0.0 for sp in pf}
     cop_t = {cs['id']: 0.0 for cs in ccs}
     est_surv = {}
@@ -312,6 +313,8 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
             moist = 0.5 + 0.5 * min(1.0, w / cap)
             # ---- soil and residue decomposition (stoichiometric N release) ----
             resp_s = S[i] * so['soc_decay_yr'] * moist * DT
+            if (row[i] or strip[i]) and so['perennial_decay_factor'] != 1.0:
+                resp_s *= so['perennial_decay_factor']   # untilled perennial cover decomposes SOC more slowly (LG18)
             nmin = min(O[i], resp_s * 1000 / so['soil_cn'])
             S[i] -= resp_s; O[i] -= nmin; M[i] += nmin
             dec = R[i] * (1 - math.exp(-rs['decay_yr'] * moist * DT))
@@ -410,6 +413,32 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
                         R[i] += ka + kb; RN[i] += kn
                         L['establish_dead_tC'] += (ka + kb) * ha
                         SV[i] *= (1 - fm)
+                if lit_on:
+                    # annual leaf and fine-root turnover (LG18): extra NPP returned as litter, scaled by canopy
+                    # development and stand density; litter N is taken up from mineral N (limited by supply)
+                    cf = min(1.0, (A[i] + Bb[i]) / tr['canopy_tC_ha']) * (SV[i] if est_on else 1.0)
+                    lc = (tr['leaf_litter_tC_ha_yr'] + tr['fine_root_litter_tC_ha_yr']) * cf * DT
+                    # litter N cycles through the tree: drawn from plant N first (resorbed and re-used), then soil
+                    want_n = lc * tr['litter_n_kg_per_tC']
+                    from_pn = min(PN[i] * 0.5, want_n)
+                    from_m = min(M[i], want_n - from_pn)
+                    ln_ = from_pn + from_m
+                    lc = ln_ / tr['litter_n_kg_per_tC'] if tr['litter_n_kg_per_tC'] > 0 else lc
+                    if lc > 0:
+                        PN[i] -= from_pn; M[i] -= from_m
+                        g_net += lc
+                        leaf_share = tr['leaf_litter_tC_ha_yr'] / (tr['leaf_litter_tC_ha_yr'] + tr['fine_root_litter_tC_ha_yr'])
+                        # root-derived C stabilizes more than shoot litter (Rasse et al. 2005: ~2.4x residence)
+                        rs_c = lc * (1 - leaf_share) * tr['root_litter_to_soc_frac']
+                        rs_n = ln_ * (1 - leaf_share) * tr['root_litter_to_soc_frac']
+                        S[i] += rs_c; O[i] += rs_n
+                        R[i] += lc - rs_c; RN[i] += ln_ - rs_n
+                        if alley_nb[i] and lt['litter_to_alley_frac'] > 0:
+                            mc = lc * leaf_share * lt['litter_to_alley_frac']
+                            mn = ln_ * leaf_share * lt['litter_to_alley_frac']
+                            R[i] -= mc; RN[i] -= mn; lat_c += mc; lat_n += mn
+                            transfers.append((i, mc, mn))
+                        L['tree_litter_tC'] += lc * ha
                 da, db = A[i] * tr['mortality_yr'] * DT, Bb[i] * tr['mortality_yr'] * DT
                 wood = A[i] + Bb[i]
                 dn = PN[i] * (da + db) / wood if wood > 0 else 0.0
@@ -668,7 +697,7 @@ def simulate(field, design, P, wx, horizons=(10, 25, 40), *, aux=None, record_mo
                 'establishment_dead_tC': L['establish_dead_tC'],
                 'tree_product_by_species_t': dict(sp_t), 'tree_food_t': L['tree_food_t'],
                 'tree_feed_t': L['tree_feed_t'], 'tree_grain_equivalent_t': L['tree_grain_eq_t'],
-                'coppice_product_t': L['coppice_product_t'], 'coppice_product_by_species_t': dict(cop_t),
+                'coppice_product_t': L['coppice_product_t'], 'tree_litter_tC': L['tree_litter_tC'], 'coppice_product_by_species_t': dict(cop_t),
                 'pollinator_habitat_ha': habitat_ha, 'field_share_within_forage_range': forage_share,
             })
             c_now = sum(totC(i) for i in cells) * ha

@@ -10,5 +10,25 @@
   "capacity_mm": 163.8
  },
  "machinery_m": 5.0,
- "species_file": "fixtures/landscapes/species-v2.json"
+ "species_file": "fixtures/landscapes/species-v2.json",
+ "cost_share_reference": [
+  {
+   "program": "NRCS EQIP",
+   "fiscal_year": 2023,
+   "practice": "380 Windbreak/Shelterbelt",
+   "component": "2-row windbreak, trees, machine planted (5 m row taken as 2 plant rows)",
+   "unit": "ft_row",
+   "rate_usd": 0.62,
+   "source": "https://www.nrcs.usda.gov/sites/default/files/2022-11/Vermont-EQIP-23-payment-rates.pdf"
+  },
+  {
+   "program": "NRCS EQIP",
+   "fiscal_year": 2023,
+   "practice": "327 Conservation Cover",
+   "component": "Pollinator Species",
+   "unit": "ac_strip",
+   "rate_usd": 536.39,
+   "source": "https://www.nrcs.usda.gov/sites/default/files/2022-11/Vermont-EQIP-23-payment-rates.pdf"
+  }
+ ]
 }
