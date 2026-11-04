@@ -38,7 +38,10 @@ def load_polygon(path):
 
 
 def images(ee, field, year):
-    dem = ee.ImageCollection(DEM).select('elevation').filterBounds(field).mosaic() \
+    # mosaic() has a default 1-degree EPSG:4326 projection; resampling that gives one value per field.
+    # Give the mosaic the 3DEP tiles' native projection first, then resample bilinearly.
+    tiles = ee.ImageCollection(DEM).select('elevation').filterBounds(field)
+    dem = tiles.mosaic().setDefaultProjection(tiles.first().projection()) \
         .resample('bilinear').toFloat().clip(field)
     nlcd = ee.ImageCollection(NLCD).filter(ee.Filter.eq('system:index', '2021')).first() \
         .select('landcover').toByte().clip(field)
