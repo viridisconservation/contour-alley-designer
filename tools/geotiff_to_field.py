@@ -16,6 +16,22 @@ from fetch_site import largest_patch   # noqa: E402
 CODES = {'cropland': 82, 'hay_pasture': 81, 'native_grassland': 71}
 
 
+def read_float_tiff(path):
+    """Read a single-band float GeoTIFF. Pillow's libtiff path returns big-endian ('MM') compressed
+    float tiles unswapped, which is what Earth Engine downloads produce; pick the byte order that
+    gives plausible elevations (-500..9000 m)."""
+    import numpy as np
+    from PIL import Image
+    a = np.array(Image.open(path), dtype=np.float32)
+    if Path(path).read_bytes()[:2] == b'MM':
+        def ok(x):
+            return float(np.mean(np.isfinite(x) & (x > -500) & (x < 9000)))
+        b = a.byteswap()
+        if ok(b) > ok(a):
+            a = b
+    return a.astype(float)
+
+
 def main(argv=None):
     import numpy as np
     from PIL import Image
@@ -26,7 +42,7 @@ def main(argv=None):
     ap.add_argument('--cell-m', type=float, default=5.0)
     ap.add_argument('--out', required=True)
     a = ap.parse_args(argv)
-    dem = np.array(Image.open(a.dem), dtype=float)
+    dem = read_float_tiff(a.dem)
     lc = np.array(Image.open(a.nlcd))
     if dem.shape != lc.shape:
         raise SystemExit(f'DEM {dem.shape} and NLCD {lc.shape} grids differ; export both at the same scale and crs')

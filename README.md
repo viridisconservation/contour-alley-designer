@@ -97,7 +97,7 @@ python3 -m contour.designer --site sites/my-field/site.json --output runs/my-fie
 
 `fetch_site.py` pulls USGS 3DEP terrain, NLCD 2021 land cover, USDA SSURGO soils and NOAA 1991–2020 normals and hourly wind. It anonymizes the field and writes a designer-ready `site.json`. The exact location goes only to `PRIVATE_location.json`, which is git-ignored. Given the Franklin County coordinates, it rebuilt the shipped Vermont fixture to within one cell, about 1% on soil carbon and 0.1% on PET.
 
-On Google Earth Engine, `earth_engine/export_field.py` (Python API, direct download) and `earth_engine/export_field_dem.js` (Code Editor) export terrain, NLCD and the AlphaEarth satellite embedding. Dataset IDs were checked against the catalog on 2026-11-02; an end-to-end run against the shipped fixtures is pending. `tools/geotiff_to_field.py` converts the exports into a field for the designer.
+On Google Earth Engine, `earth_engine/export_field.py` (Python API, direct download) and `earth_engine/export_field_dem.js` (Code Editor) export terrain, NLCD and the AlphaEarth satellite embedding. On 2026-11-03 the Python export rebuilt all four shipped fields on the same 5 m grid: field cells within 0.6%, the same hill/rolling/plain class, and relative-elevation correlation 0.986-0.999 against the USGS/MRLC web-service fixtures (mean grade 1-10% lower, from 10 m source smoothing). `tools/geotiff_to_field.py` converts the exports into a field for the designer.
 
 ## Pilot results (Franklin County field, 40 years; simulated)
 

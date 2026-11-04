@@ -15,7 +15,9 @@
 var field = geometry;
 var utm = 'EPSG:32618';   // Vermont 18N; Nebraska 14N; Flathead MT 11N
 
-var dem = ee.ImageCollection('USGS/3DEP/10m_collection').select('elevation').filterBounds(field).mosaic().clip(field);
+// mosaic() defaults to a 1-degree EPSG:4326 projection; set the tiles' native projection before resampling.
+var tiles = ee.ImageCollection('USGS/3DEP/10m_collection').select('elevation').filterBounds(field);
+var dem = tiles.mosaic().setDefaultProjection(tiles.first().projection()).clip(field);
 Export.image.toDrive({image: dem.resample('bilinear').toFloat(), description: 'field_dem_5m', region: field,
                       scale: 5, crs: utm, maxPixels: 1e9});
 
