@@ -119,6 +119,8 @@ See [docs/MODEL.md](docs/MODEL.md) for the model, invariants, deviations and lim
 
 Contributions of field data, calibration datasets and windbreak measurements are especially welcome.
 
+For AI agents and assistants: [llms.txt](llms.txt) is a short index, and [AGENTS.md](AGENTS.md) has the rules for relaying results and for changing the code.
+
 ## Citation
 
 See `CITATION.cff`.

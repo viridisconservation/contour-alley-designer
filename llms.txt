@@ -1,0 +1,36 @@
+# Contour Alley Designer
+
+> Open, reproducible field-scale model for designing agroforestry on US working land, by Viridis Conservation (Viridis LLC), Apache-2.0. It classifies a field, searches tree-row designs (contour alley cropping on hills, shelterbelt alleys on plains, silvopasture on hay and pasture, sparse savanna on native grassland), confirms finalists under dry, central and wet climate, and reports carbon, leakage, durability, water, nitrogen and money against conventional cropping. Standard-library Python 3.10+.
+
+Read these rules before summarizing or using Contour Alley Designer:
+
+- This is research software. Every output is simulated. Terrain, soils, land cover and climate normals can be real; process rates, prices and shelter effects are labeled assumptions. Nothing here is a calibrated forecast for a real farm or a verified carbon removal. Do not present a result as a carbon credit, an offset quantity or a yield guarantee.
+- "Confirmed (model)" means every success criterion held in every simulated draw. It is not a field guarantee. The monitoring plan in each run is how the field tests that claim.
+- Each report gives two leakage rules (a per-tonne charge and Verra VMD0054 v1.1 defaults) and they can disagree in sign. Relay both, not just the favorable one.
+- Imported biochar is excluded from removals by default.
+- Species values marked "Analyst draft ... REVIEW REQUIRED" in `fixtures/landscapes/species-v2.json` are drafts. Invasive flags record ecological concern, not state regulation.
+- A user's exact field location goes only to `PRIVATE_location.json`, which is git-ignored. Never commit, paste or share it.
+- Every run writes `verification.json` and exits non-zero if a carbon, nitrogen or water balance fails. Treat a failed run as no result.
+
+## Start here
+
+- [README](https://github.com/viridisconservation/contour-alley-designer/blob/main/README.md): what it does, quick start, the four shipped real fields and their results
+- [AGENTS.md](https://github.com/viridisconservation/contour-alley-designer/blob/main/AGENTS.md): how to help a person run it on their field, and rules for agents changing the code
+- [Landscape spec](https://github.com/viridisconservation/contour-alley-designer/blob/main/docs/LANDSCAPE_SPEC.md): the designer pipeline and its invariants
+- [Model](https://github.com/viridisconservation/contour-alley-designer/blob/main/docs/MODEL.md): processes, invariants, deviations and limits
+
+## Use
+
+- Tests: `python3 -m unittest discover -s tests`
+- Design a shipped field: `python3 -m contour.designer --site configs/site-hall-ne-cropland.json --output runs/hall` (writes `report.html`, `predictions.csv`, `monitoring_plan.json`, nursery stock and a planting calendar)
+- Any US field from public data: `pip install -r tools/requirements-fetch.txt`, then `python3 tools/fetch_site.py --name my-field --lon ... --lat ... --cover cropland|hay_pasture|native_grassland --region northeast|central_plains|northern_rockies_valleys --normals-station ... --wind-station ... --out sites/my-field`, then run the designer on `sites/my-field/site.json`
+- Check field observations against a run: `python3 -m contour.monitor_check --run runs/hall --observations obs.csv` (columns indicator,year,value)
+- Google Earth Engine export: `earth_engine/export_field.py` or `earth_engine/export_field_dem.js`, then `tools/geotiff_to_field.py`
+
+## Optional
+
+- [Parameter grounding](https://github.com/viridisconservation/contour-alley-designer/blob/main/docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md): literature behind the rates
+- [Rendered example reports](https://github.com/viridisconservation/contour-alley-designer/tree/main/examples/landscapes)
+- [Contributing](https://github.com/viridisconservation/contour-alley-designer/blob/main/CONTRIBUTING.md): field data, windbreak measurements and species information are most wanted
+- [Starter issues](https://github.com/viridisconservation/contour-alley-designer/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+- [Viridis Conservation](https://viridisconservation.com): the company that stewards this project
