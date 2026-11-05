@@ -21,7 +21,7 @@ from .landscape import (check_design, classify, load_species_v2, matrix_paramete
 from .monitoring import (implementation, predictions, sampling_plan, schedule, success, write_predictions_csv)
 from .optimize import DRAWS, run_search
 from .params import export, merge, validate, equilibrium_soc_decay
-from .report import svg_map, _fmt
+from .report import share_html, share_lines, svg_map, _fmt
 from .terrain import load_json
 
 SITE_KEYS = {'name', 'field', 'land_cover', 'region', 'climate_normals', 'wind', 'soil', 'machinery_m', 'row_m',
@@ -358,11 +358,11 @@ def write_report(out, site, cls, rule, suit, res, best, d, pf, fixers, verdict, 
     L.append('Predictions with envelopes (all draws and effect modes) are in `predictions.csv`; stratified sampling points '
              'and the schedule are in `monitoring_plan.json`. Field observations checked with '
              '`python3 -m contour.monitor_check` return on_track / watch / off_track per indicator and year.\n')
-    (out / 'report.md').write_text('\n'.join(L) + '\n')
-    (out / 'report.html').write_text(html_page(site['name'], L))
+    (out / 'report.md').write_text('\n'.join(L + [''] + share_lines(__version__)) + '\n')
+    (out / 'report.html').write_text(html_page(site['name'], L, footer=share_html(__version__)))
 
 
-def html_page(title, lines):
+def html_page(title, lines, footer=''):
     import html as _h
     from .report import _md_to_html
     svgs, md = [], []
@@ -380,7 +380,7 @@ def html_page(title, lines):
            'td,th{border:1px solid #c8ccc4;padding:3px 6px;text-align:left}.map{max-width:560px}'
            '@media (prefers-color-scheme: dark){body{background:#141a16;color:#e3e8e1}td,th{border-color:#3b463e}}')
     return (f'<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            f'<title>{_h.escape(title)}</title><style>{css}</style></head><body>{body}</body></html>')
+            f'<title>{_h.escape(title)}</title><style>{css}</style></head><body>{body}{footer}</body></html>')
 
 
 def main():
