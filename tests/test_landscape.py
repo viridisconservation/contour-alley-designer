@@ -463,6 +463,38 @@ class DesignerEndToEnd(unittest.TestCase):
             self.assertTrue(checks['S_all_balances_close'])
             for fn in ('report.html', 'predictions.csv', 'monitoring_plan.json', 'implementation.json', 'success.json'):
                 self.assertTrue((td / 'out' / fn).exists(), fn)
+            # Every report carries the share footer, in the Markdown and the HTML, and only once.
+            md = (td / 'out' / 'report.md').read_text()
+            page = (td / 'out' / 'report.html').read_text()
+            self.assertEqual(md.count('## Check this result or run your own field'), 1)
+            self.assertEqual(page.count('<footer class="share">'), 1)
+            self.assertIn('https://github.com/viridisconservation/contour-alley-designer', md)
+            self.assertLess(page.index('<footer class="share">'), page.index('</body>'))
+            # The footer is report text only; no model output file mentions it.
+            for fn in ('verification.json', 'success.json', 'best_design.json', 'predictions.csv'):
+                self.assertNotIn('run your own field', (td / 'out' / fn).read_text(), fn)
+
+
+class ShareFooter(unittest.TestCase):
+    def test_footer_links_only_to_the_project(self):
+        """The footer adds no tracking, scripts or outside links: only the source repo and the steward's site."""
+        import re
+        from contour.report import PROJECT_URL, SOURCE_URL, share_html, share_lines
+        page = share_html('0.0.0')
+        for tag in ('<script', '<img', '<iframe', '<link', 'style='):
+            self.assertNotIn(tag, page)
+        hrefs = re.findall(r'href="([^"]+)"', page)
+        self.assertTrue(hrefs)
+        for h in hrefs:
+            self.assertTrue(h == PROJECT_URL or h.startswith(SOURCE_URL), h)
+        urls = re.findall(r'https?://[^\s,]+', ' '.join(share_lines('0.0.0')))
+        self.assertTrue(urls)
+        for u in urls:
+            self.assertIn(u.rstrip('.'), (SOURCE_URL, PROJECT_URL))
+
+    def test_footer_escapes_version(self):
+        from contour.report import share_html
+        self.assertIn('&lt;b&gt;', share_html('<b>'))
 
 
 if __name__ == '__main__':

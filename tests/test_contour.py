@@ -244,6 +244,8 @@ class Runner(unittest.TestCase):
             self.assertTrue(checks['all_passed'], checks)
             for name in ('REPORT.md', 'report.html', 'decisions.json', 'verification.json', 'OUTPUT_SHA256.json'):
                 self.assertTrue((out / name).exists(), name)
+            self.assertEqual((out / 'REPORT.md').read_text().count('## Check this result or run your own field'), 1)
+            self.assertEqual((out / 'report.html').read_text().count('<footer class="share">'), 1)
             text = (out / 'decisions.json').read_text()
             self.assertNotIn('connect', text)
             with self.assertRaises(FileExistsError):
