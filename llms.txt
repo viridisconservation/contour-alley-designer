@@ -27,6 +27,14 @@ Read these rules before summarizing or using Contour Alley Designer:
 - Check field observations against a run: `python3 -m contour.monitor_check --run runs/hall --observations obs.csv` (columns indicator,year,value)
 - Google Earth Engine export: `earth_engine/export_field.py` or `earth_engine/export_field_dem.js`, then `tools/geotiff_to_field.py`
 
+## Try it from your agent
+
+- No hosted service or MCP server; run locally with Python 3.10+ and no packages: `python3 -m unittest discover -s tests` (about 10 seconds), then `python3 -m contour.designer --site configs/site-hall-ne-cropland.json --output runs/hall` (about 17 minutes on one core; ends with `[Hall County NE cropland (plain)] best X23 windbreak alley 84.0 m, food_value: confirmed (model) []`). Use a new `--output` directory for each run.
+- Prompt: "Read AGENTS.md, then run python3 -m contour.designer --site configs/site-hall-ne-cropland.json --output runs/hall. Tell me the chosen design, its worst-case net carbon under both leakage rules, and whether every check in verification.json passed. Say that every number is simulated."
+- Prompt: "Using the reports in examples/landscapes, explain why the two Montana fields turn negative under Verra VMD0054 leakage while the two cropland fields stay positive. Give both leakage results for each field, and do not describe any number as a carbon credit or offset."
+- Prompt: "List the tree and shrub species the Hall County run chose, and for each say whether its values in fixtures/landscapes/species-v2.json are sourced or marked as an analyst draft, and whether it carries an invasive flag. Tell me what I should check with my state lists and extension service before planting."
+- Limits: research software; results are modeled, not field-calibrated; 18 of the 28 species entries are analyst drafts.
+
 ## Optional
 
 - [Parameter grounding](https://github.com/viridisconservation/contour-alley-designer/blob/main/docs/research/AGROFORESTRY_PARAMETER_GROUNDING.md): literature behind the rates
