@@ -1,0 +1,30 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.viridisconservation/contour-alley-designer",
+  "title": "Contour Alley Designer",
+  "description": "Design agroforestry on real US fields: tree rows, carbon, leakage and a field monitoring plan.",
+  "repository": {
+    "url": "https://github.com/viridisconservation/contour-alley-designer",
+    "source": "github"
+  },
+  "websiteUrl": "https://viridisconservation.com",
+  "version": "0.6.3",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "contour-alley-designer",
+      "version": "0.6.3",
+      "runtimeHint": "uvx",
+      "transport": {"type": "stdio"},
+      "packageArguments": [],
+      "environmentVariables": [
+        {
+          "name": "CONTOUR_ALLEY_RUNS",
+          "description": "Folder for design runs (default ~/.contour-alley/runs)",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

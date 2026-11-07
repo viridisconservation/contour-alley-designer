@@ -1,0 +1,7 @@
+include LICENSE NOTICE README.md llms.txt AGENTS.md server.json
+include tools/bundle_mcp_data.py
+recursive-include configs *.json
+recursive-include fixtures *
+recursive-include examples/landscapes *
+prune contour/_bundled
+global-exclude report.html *.pyc __pycache__

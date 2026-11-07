@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -11,5 +11,16 @@ license = {text = "Apache-2.0"}
 requires-python = ">=3.10"
 authors = [{name = "Viridis LLC (Viridis Conservation)"}]
 
+[project.scripts]
+contour-alley-mcp = "contour.mcp_server:main"
+
+[project.urls]
+Homepage = "https://github.com/viridisconservation/contour-alley-designer"
+Documentation = "https://github.com/viridisconservation/contour-alley-designer/blob/main/AGENTS.md"
+
 [tool.setuptools]
 packages = ["contour"]
+
+[tool.setuptools.package-data]
+# Filled at build time by setup.py (tools/bundle_mcp_data.py); never committed.
+contour = ["_bundled/**/*"]

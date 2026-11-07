@@ -84,6 +84,33 @@ The two leakage rules disagree in an instructive way. The per-tonne charge hits 
 
 At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free (about $100 over 40 years on the Nebraska field in the worst case), and the designer chose it on both cropland fields. Separate strips cost crop area.
 
+## Use it from an AI agent (MCP)
+
+The package includes a local [Model Context Protocol](https://modelcontextprotocol.io) server, so Claude, Cursor or any MCP client can design and check fields directly. It uses the standard library only and runs on your machine.
+
+It is not on PyPI yet. Install it from GitHub, which bundles the four shipped fields:
+
+```sh
+pip install git+https://github.com/viridisconservation/contour-alley-designer.git
+contour-alley-mcp                       # stdio server; from a checkout: python3 -m contour.mcp_server
+```
+
+Client config (Claude Desktop, Cursor and others):
+
+```json
+{"mcpServers": {"contour-alley": {"command": "contour-alley-mcp"}}}
+```
+
+Tools:
+- `describe_project`, `list_sites`: what the model does and which real fields ship with it.
+- `get_example_result`: the finished result for a shipped field, at once.
+- `start_design`, `get_design_status`: run a full design in the background (several minutes) and poll it.
+- `check_observations`: compare field measurements with a run's predictions; writes nothing.
+
+Every answer carries the source and the rules for relaying results, reports both leakage rules, and treats a run that failed verification as no result. No tool takes coordinates. Runs go to `~/.contour-alley/runs` (set `CONTOUR_ALLEY_RUNS` to change it).
+
+<!-- mcp-name: io.github.viridisconservation/contour-alley-designer -->
+
 ## Use your own field
 
 Any US field, from public data, in two commands:
@@ -123,7 +150,7 @@ For AI agents and assistants: [llms.txt](llms.txt) is a short index, and [AGENTS
 
 ## Try it from your agent
 
-There is no hosted service; a coding agent runs the model locally. It needs Python 3.10+ and no packages:
+There is no hosted service; a coding agent runs the model locally (an MCP client can use the local server above instead). It needs Python 3.10+ and no packages:
 
 ```sh
 git clone https://github.com/viridisconservation/contour-alley-designer.git

@@ -6,3 +6,7 @@ results/
 PRIVATE_location.json
 sites/
 runs/
+contour/_bundled/
+build/
+*.egg-info/
+dist/
