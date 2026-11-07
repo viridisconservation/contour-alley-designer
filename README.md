@@ -121,6 +121,33 @@ Contributions of field data, calibration datasets and windbreak measurements are
 
 For AI agents and assistants: [llms.txt](llms.txt) is a short index, and [AGENTS.md](AGENTS.md) has the rules for relaying results and for changing the code.
 
+## Try it from your agent
+
+There is no hosted service; a coding agent runs the model locally. It needs Python 3.10+ and no packages:
+
+```sh
+git clone https://github.com/viridisconservation/contour-alley-designer.git
+cd contour-alley-designer
+python3 -m unittest discover -s tests
+python3 -m contour.designer --site configs/site-hall-ne-cropland.json --output runs/hall
+```
+
+The tests take about 10 seconds. The designer run on the bundled Hall County, Nebraska field took about 17 minutes on one core and ends with:
+
+```
+[Hall County NE cropland (plain)] best X23 windbreak alley 84.0 m, food_value: confirmed (model) []
+```
+
+It writes `runs/hall/report.md` and `report.html`, `verification.json` (every balance check), `predictions.csv`, `monitoring_plan.json`, `leakage_vmd0054.json` and the other files the report draws on. Use a new `--output` directory for each run. The other bundled fields are `configs/site-flathead-mt-hay.json`, `configs/site-flathead-mt-grassland.json` and `configs/site-franklin-vt-cropland.json`, and finished reports for all four are in `examples/landscapes/`.
+
+Prompts to paste into a coding agent (for example Claude Code) opened in this repository:
+
+1. `Read AGENTS.md, then run python3 -m contour.designer --site configs/site-hall-ne-cropland.json --output runs/hall. Tell me the chosen design, its worst-case net carbon under both leakage rules, and whether every check in verification.json passed. Say that every number is simulated.`
+2. `Using the reports in examples/landscapes, explain why the two Montana fields turn negative under Verra VMD0054 leakage while the two cropland fields stay positive. Give both leakage results for each field, and do not describe any number as a carbon credit or offset.`
+3. `List the tree and shrub species the Hall County run chose, and for each say whether its values in fixtures/landscapes/species-v2.json are sourced or marked as an analyst draft, and whether it carries an invasive flag. Tell me what I should check with my state lists and extension service before planting.`
+
+Limits to keep when relaying a result: this is research software. Results are modeled, not calibrated against field measurements. Terrain, soils, land cover and climate normals can be real, but process rates, prices and shelter effects are assumptions. Most species values are analyst drafts, and invasive flags record ecological concern, not state regulation. "Confirmed (model)" means every success criterion held in every simulated draw, not that the design will work in the field. If a run exits non-zero, treat it as no result.
+
 ## Citation
 
 See `CITATION.cff`.
