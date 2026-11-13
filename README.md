@@ -12,7 +12,7 @@ For each field the designer classifies the landscape, searches the admissible de
 
 From [Viridis Conservation](https://viridisconservation.com). Apache-2.0.
 
-> **Status: research software (v0.6.0-dev).** Terrain, soils and land cover can be real; process rates, prices and shelter effects are labeled assumptions. Nothing here is a calibrated forecast for a real farm or a verified carbon removal.
+> **Status: research software (v0.6.3).** Terrain, soils and land cover can be real; process rates, prices and shelter effects are labeled assumptions. Nothing here is a calibrated forecast for a real farm or a verified carbon removal.
 
 ## Why
 
