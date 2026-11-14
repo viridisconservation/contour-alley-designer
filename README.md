@@ -84,6 +84,26 @@ The two leakage rules disagree in an instructive way. The per-tonne charge hits 
 
 At the assumed commodity prices, coppice crops lost to fruit and nut rows on every field. A native pollinator understory in the rows was nearly free (about $100 over 40 years on the Nebraska field in the worst case), and the designer chose it on both cropland fields. Separate strips cost crop area.
 
+## Take a result to other tools (Land Package)
+
+Every design run that passes its checks also writes `land_package.json`: the result as a
+[Land Package](https://viridisconservation.com/ecosystem/land-package), the open file format the other Viridis tools
+read. For a run made before this was added:
+
+```bash
+python3 -m contour.land_package_export --run runs/hall
+```
+
+The package carries the field area, tree-row area, alley width, plant count, the upfront support for a year-25
+breakeven and, when the site lists a payment schedule, the indicative cost-share figure. Each is labelled as derived,
+modelled or estimated; nothing is labelled measured. It holds no coordinates and no map layers, because the designer
+works on a local grid and never holds the field's position. The run's limitations and verdict travel with it. A run
+that fails its checks is not exported.
+
+Check a file, or see what it holds, at https://viridisconservation.com/ecosystem/land-package/check (the file stays
+in your browser). The Viridis Ecological OS [decision workspace](https://viridisconservation.com/decision-workspace)
+accepts one as starting evidence. The four example runs in `examples/landscapes` each include their package.
+
 ## Use it from an AI agent (MCP)
 
 The package includes a local [Model Context Protocol](https://modelcontextprotocol.io) server, so Claude, Cursor or any MCP client can design and check fields directly. It uses the standard library only and runs on your machine.

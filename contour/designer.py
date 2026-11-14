@@ -221,6 +221,10 @@ def design(site_path, output, log=print):
                         'wind rose from modal hourly directions, a coarse proxy',
                         'no calibration against field measurements'],
     })
+    if not any(v is False for v in checks.values()):
+        # The same result as a Land Package, the open file other tools read (failed runs are not exported).
+        from .land_package_export import write as write_land_package
+        write_land_package(out, site['name'])
     dump(out / 'OUTPUT_SHA256.json', {str(p.relative_to(out)): hashlib.sha256(p.read_bytes()).hexdigest()
                                       for p in sorted(out.rglob('*')) if p.is_file()})
     log(f"[{site['name']}] best {best['name']} {best['mode']} alley {best['alley_m']} m, {best['portfolio']}: "
