@@ -463,6 +463,12 @@ class DesignerEndToEnd(unittest.TestCase):
             self.assertTrue(checks['S_all_balances_close'])
             for fn in ('report.html', 'predictions.csv', 'monitoring_plan.json', 'implementation.json', 'success.json'):
                 self.assertTrue((td / 'out' / fn).exists(), fn)
+            # A run that passes its checks also writes a valid Land Package, listed with the other outputs.
+            from contour import _land_package
+            package = json.loads((td / 'out' / 'land_package.json').read_text())
+            self.assertEqual(_land_package.validate(package)[0], [])
+            self.assertEqual(package['name'], 'test')
+            self.assertIn('land_package.json', json.loads((td / 'out' / 'OUTPUT_SHA256.json').read_text()))
             # Every report carries the share footer, in the Markdown and the HTML, and only once.
             md = (td / 'out' / 'report.md').read_text()
             page = (td / 'out' / 'report.html').read_text()

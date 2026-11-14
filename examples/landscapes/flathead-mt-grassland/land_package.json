@@ -1,0 +1,148 @@
+{
+  "claims": [
+    {
+      "id": "field-area",
+      "kind": "derived",
+      "method": "Cell count times cell area",
+      "sources": [
+        "field-elevation-grid"
+      ],
+      "statement": "Field area on the supplied elevation grid",
+      "unit": "m2",
+      "value": 123175.0
+    },
+    {
+      "id": "tree-row-area",
+      "kind": "modelled",
+      "sources": [
+        "contour-alley-designer"
+      ],
+      "statement": "Area planted to tree rows in the best design",
+      "unit": "m2",
+      "value": 4925.0
+    },
+    {
+      "id": "alley-width",
+      "kind": "modelled",
+      "sources": [
+        "contour-alley-designer"
+      ],
+      "statement": "Alley width between tree rows in the best design",
+      "unit": "m",
+      "value": 120.0
+    },
+    {
+      "id": "plants-total",
+      "kind": "modelled",
+      "sources": [
+        "contour-alley-designer"
+      ],
+      "statement": "Plants needed for the tree rows (central draw)",
+      "unit": "plants",
+      "value": 808
+    },
+    {
+      "id": "upfront-support-year25",
+      "kind": "modelled",
+      "sources": [
+        "contour-alley-designer"
+      ],
+      "statement": "Upfront support that would bring breakeven to year 25 (central draw)",
+      "unit": "USD",
+      "value": 0.0
+    },
+    {
+      "id": "cost-share-indicative",
+      "kind": "estimated",
+      "method": "Published rate times the design quantity",
+      "sources": [
+        "cost-share-schedule"
+      ],
+      "statement": "Indicative cost-share payment from published schedules; not an offer or an eligibility decision",
+      "unit": "USD",
+      "value": 1195.84
+    }
+  ],
+  "created": "2026-11-14",
+  "crs": "EPSG:4326",
+  "extensions": {
+    "contour": {
+      "bearing_deg": null,
+      "classification": {
+        "design_family": "savanna_restoration_contour",
+        "land_cover": "native_grassland",
+        "region": "northern_rockies_valleys",
+        "slope_class": "hill"
+      },
+      "design": {
+        "alley_m": 120.0,
+        "fixers": [
+          "buffaloberry"
+        ],
+        "habitat": "none",
+        "mode": "true_contour",
+        "name": "X02",
+        "strip_fraction": 0.0
+      },
+      "failing": [],
+      "limitations": [
+        "monthly bucket hydrology; no irrigation, groundwater or event hydraulics",
+        "illustrative shelter, competition and snow-trap effects (zero-effect runs are the control)",
+        "species yields, prices, bearing ages, hardiness and invasive statuses are REVIEW REQUIRED",
+        "hardiness from a monthly-normal proxy, not the USDA map",
+        "wind rose from modal hourly directions, a coarse proxy",
+        "no calibration against field measurements"
+      ],
+      "row_m": 5.0,
+      "verdict": "confirmed (model)"
+    }
+  },
+  "generator": {
+    "tool": "Contour Alley Designer",
+    "version": "0.6.3"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "content_sha256": "3ce0f735e8291c2ad504b5786b5611a6fa8f231c2841788c09868cf76c83b29f"
+  },
+  "land_package": "1.0",
+  "layers": {},
+  "name": "Flathead County MT grassland (hill)",
+  "not_retrieved": [],
+  "privacy": {
+    "consent": "holder",
+    "location": "generalized",
+    "personal_data": false
+  },
+  "receipt": {
+    "claim_class": "simulated",
+    "manifest_sha256": "0a62c68f1ff69c94a190a70501978f7be5ce1cea6bda395fcb987887869bd2c1",
+    "model": "contour.designer",
+    "version": "0.6.3"
+  },
+  "sources": {
+    "contour-alley-designer": {
+      "license": "Apache-2.0",
+      "notes": "Every figure is simulated. monthly bucket hydrology; no irrigation, groundwater or event hydraulics; illustrative shelter, competition and snow-trap effects (zero-effect runs are the control); species yields, prices, bearing ages, hardiness and invasive statuses are REVIEW REQUIRED; hardiness from a monthly-normal proxy, not the USDA map; wind rose from modal hourly directions, a coarse proxy; no calibration against field measurements.",
+      "title": "Contour Alley Designer 0.6.3",
+      "url": "https://github.com/viridisconservation/contour-alley-designer"
+    },
+    "cost-share-schedule": {
+      "notes": "Indicative only. The actual contract is set by the program planner.",
+      "title": "NRCS EQIP FY2025 published payment schedule",
+      "url": "https://www.nrcs.usda.gov/sites/default/files/2024-11/fy25-mt-eqip.pdf"
+    },
+    "field-elevation-grid": {
+      "notes": "Data kind: observational. A local grid with no geographic position.",
+      "title": "Field elevation grid supplied with the site"
+    }
+  },
+  "subject": {
+    "area_m2": 123175.0,
+    "kind": "field"
+  },
+  "units": {
+    "area": "m2",
+    "length": "m"
+  }
+}
