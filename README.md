@@ -129,6 +129,8 @@ Tools:
 
 Every answer carries the source and the rules for relaying results, reports both leakage rules, and treats a run that failed verification as no result. No tool takes coordinates. Runs go to `~/.contour-alley/runs` (set `CONTOUR_ALLEY_RUNS` to change it).
 
+Listed on Glama: [Contour Alley Designer MCP server](https://glama.ai/mcp/servers/viridisconservation/contour-alley-designer)
+
 <!-- mcp-name: io.github.viridisconservation/contour-alley-designer -->
 
 ## Use your own field
