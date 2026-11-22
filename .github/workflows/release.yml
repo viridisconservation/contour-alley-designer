@@ -1,0 +1,89 @@
+name: release
+# Push a tag vX.Y.Z on main to publish. No secrets are stored in this repo:
+#   - PyPI uses Trusted Publishing (OIDC). One-time setup on pypi.org -> project
+#     contour-alley-designer -> Publishing -> add GitHub publisher:
+#     owner viridisconservation, repo contour-alley-designer, workflow release.yml, environment pypi.
+#   - The MCP Registry uses GitHub OIDC for the io.github.viridisconservation/* namespace.
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tag must match every declared version
+        run: |
+          python - <<'EOF'
+          import json, os, re, sys
+          tag = os.environ["GITHUB_REF_NAME"].removeprefix("v")
+          found = {
+              "pyproject.toml": re.search(r'^version = "([^"]+)"', open("pyproject.toml").read(), re.M).group(1),
+              "contour/__init__.py": re.search(r"__version__ = '([^']+)'", open("contour/__init__.py").read()).group(1),
+              "server.json": json.load(open("server.json"))["version"],
+              "server.json packages[0]": json.load(open("server.json"))["packages"][0]["version"],
+          }
+          bad = {k: v for k, v in found.items() if v != tag}
+          if bad:
+              sys.exit(f"tag v{tag} does not match: {bad}")
+          print("versions agree:", tag)
+          EOF
+      - run: python -m pip install build twine
+      - run: python -m unittest discover -s tests -v
+      - run: python -m build
+      - run: python -m twine check dist/*
+      - name: Smoke-test the wheel outside the checkout
+        run: |
+          python -m venv /tmp/smoke
+          /tmp/smoke/bin/pip install dist/*.whl
+          cd /tmp
+          /tmp/smoke/bin/contour-alley-mcp --version
+          echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | /tmp/smoke/bin/contour-alley-mcp | grep -q '"check_observations"'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  pypi:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+
+  mcp-registry:
+    needs: pypi
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for the new version on PyPI
+        run: |
+          v="${GITHUB_REF_NAME#v}"
+          for i in $(seq 1 30); do
+            curl -sf "https://pypi.org/pypi/contour-alley-designer/$v/json" >/dev/null && exit 0
+            sleep 10
+          done
+          echo "PyPI never showed $v" >&2; exit 1
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Authenticate to MCP Registry
+        run: ./mcp-publisher login github-oidc
+      - name: Publish server to MCP Registry
+        run: ./mcp-publisher publish
