@@ -193,6 +193,61 @@ class PackagingTests(unittest.TestCase):
         self.assertTrue(callable(ms.main))
 
 
+    def test_citation_version_matches_package(self):
+        self.assertIn(f'version: {ms.VERSION}', (ROOT / 'CITATION.cff').read_text())
+
+    def test_license_is_spdx_string(self):
+        self.assertIn('license = "Apache-2.0"', (ROOT / 'pyproject.toml').read_text())
+
+
+class CliTests(unittest.TestCase):
+    """I3: --help/--version answer without reading stdin; unknown flags fail; no args serves."""
+
+    def _run(self, *args, stdin_data=None):
+        """Run the CLI. Without stdin_data, stdin stays an open pipe, so a CLI that read stdin would hang and time out."""
+        p = subprocess.Popen([sys.executable, '-m', 'contour.mcp_server', *args], cwd=ROOT,
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            if stdin_data is None:
+                p.wait(timeout=20)  # stdin deliberately left open
+                p.stdin.close()
+                out, err = p.stdout.read(), p.stderr.read()
+            else:
+                out, err = p.communicate(input=stdin_data, timeout=20)
+        finally:
+            if p.poll() is None:
+                p.kill()
+                p.wait()
+            for s in (p.stdin, p.stdout, p.stderr):
+                if not s.closed:
+                    s.close()
+        return p.returncode, out, err
+
+    def test_help_prints_usage_and_exits_zero(self):
+        for flag in ('--help', '-h'):
+            code, out, _ = self._run(flag)
+            self.assertEqual(code, 0)
+            self.assertIn('usage: contour-alley-mcp', out)
+            self.assertIn('check_observations', out)
+            self.assertIn('CONTOUR_ALLEY_RUNS', out)
+
+    def test_version_flag(self):
+        code, out, _ = self._run('--version')
+        self.assertEqual((code, out.strip()), (0, f'contour-alley-mcp {ms.VERSION}'))
+
+    def test_unknown_flag_exits_two(self):
+        code, out, err = self._run('--bogus')
+        self.assertEqual(code, 2)
+        self.assertEqual(out, '')
+        self.assertIn('unrecognized arguments', err)
+
+    def test_no_args_still_serves_stdio(self):
+        msg = json.dumps({'jsonrpc': '2.0', 'id': 1, 'method': 'tools/list'}) + '\n'
+        code, out, _ = self._run(stdin_data=msg)
+        self.assertEqual(code, 0)
+        self.assertEqual(len(json.loads(out.splitlines()[0])['result']['tools']), 6)
+
+
 class InteropTests(unittest.TestCase):
     """Talks to the real server process through the official MCP Python client when it is installed."""
 

@@ -281,9 +281,40 @@ def check_observations(observations, site=None, job_id=None):
     return _answer({'checked_against': str(run), 'results': _check(pred, rows)})
 
 
-def main():
-    server.serve()
+USAGE = f"""usage: contour-alley-mcp [--help | --version]
+
+Contour Alley Designer {VERSION}: a local MCP server over stdio (JSON-RPC, one message per line).
+Start it from an MCP client rather than by hand, for example:
+
+  {{"mcpServers": {{"contour-alley": {{"command": "contour-alley-mcp"}}}}}}
+
+Tools: describe_project, list_sites, get_example_result, start_design,
+       get_design_status, check_observations
+
+Environment:
+  CONTOUR_ALLEY_RUNS   folder for design runs (default ~/.contour-alley/runs)
+
+Every output is simulated research output, not a carbon credit or yield guarantee.
+Source: {REPO}
+"""
+
+
+def main(argv=None):
+    """Serve MCP over stdio; `--help` / `--version` answer and exit without reading stdin."""
+    args = sys.argv[1:] if argv is None else list(argv)
+    if not args:
+        server.serve()
+        return 0
+    if args[0] in ('-h', '--help') and len(args) == 1:
+        sys.stdout.write(USAGE)
+        return 0
+    if args[0] in ('-V', '--version') and len(args) == 1:
+        sys.stdout.write(f'contour-alley-mcp {VERSION}\n')
+        return 0
+    sys.stderr.write(f'contour-alley-mcp: unrecognized arguments: {" ".join(args)}\n')
+    sys.stderr.write(USAGE.splitlines()[0] + '\n')
+    return 2
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
