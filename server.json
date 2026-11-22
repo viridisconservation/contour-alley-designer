@@ -8,12 +8,12 @@
     "source": "github"
   },
   "websiteUrl": "https://viridisconservation.com",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "contour-alley-designer",
-      "version": "0.6.3",
+      "version": "0.6.4",
       "runtimeHint": "uvx",
       "transport": {"type": "stdio"},
       "packageArguments": [],

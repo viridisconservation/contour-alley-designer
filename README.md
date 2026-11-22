@@ -12,7 +12,7 @@ For each field the designer classifies the landscape, searches the admissible de
 
 From [Viridis Conservation](https://viridisconservation.com). Apache-2.0.
 
-> **Status: research software (v0.6.3).** Terrain, soils and land cover can be real; process rates, prices and shelter effects are labeled assumptions. Nothing here is a calibrated forecast for a real farm or a verified carbon removal.
+> **Status: research software (v0.6.4).** Terrain, soils and land cover can be real; process rates, prices and shelter effects are labeled assumptions. Nothing here is a calibrated forecast for a real farm or a verified carbon removal.
 
 ## Why
 
@@ -108,12 +108,15 @@ accepts one as starting evidence. The four example runs in `examples/landscapes`
 
 The package includes a local [Model Context Protocol](https://modelcontextprotocol.io) server, so Claude, Cursor or any MCP client can design and check fields directly. It uses the standard library only and runs on your machine.
 
-It is not on PyPI yet. Install it from GitHub, which bundles the four shipped fields:
+Install it from [PyPI](https://pypi.org/project/contour-alley-designer/); the package bundles the four shipped fields:
 
 ```sh
-pip install git+https://github.com/viridisconservation/contour-alley-designer.git
+pip install contour-alley-designer
 contour-alley-mcp                       # stdio server; from a checkout: python3 -m contour.mcp_server
+contour-alley-mcp --help                # usage, tools and environment
 ```
+
+Or run it without installing: `uvx --from contour-alley-designer contour-alley-mcp`.
 
 Client config (Claude Desktop, Cursor and others):
 
